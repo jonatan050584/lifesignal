@@ -24,8 +24,8 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <plugin name="cordova-plugin-facebook4" spec="https://github.com/jeduan/cordova-plugin-facebook4">
-        <variable name="APP_ID" value="100412800363577" />
-        <variable name="APP_NAME" value="Life Signal" />
+        <param name="APP_ID" value="100412800363577" />
+        <param name="APP_NAME" value="Life Signal" />
     </plugin>
-    
+
 </widget>
