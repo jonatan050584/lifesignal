@@ -1,0 +1,61 @@
+#home{
+	height: 100%;
+	width: 100%;
+}
+#home .table{
+	width: 100%;
+	height: calc(100% - 76px);
+	display: table;
+}
+#home .table .cell{
+	width: 100%;
+	display: table-cell;
+	vertical-align: middle;
+}
+#home .logo{
+	display: block;
+	margin: auto;
+	width: 230px;
+	height: auto;
+}
+#home .logo.short{
+	width: 120px;
+}
+#home .texto{
+	width: 220px;
+	margin: auto;
+	text-align: center;
+	color: #5b5b5b;
+	font-size: 13px;
+	margin-top: 55px;
+}
+#home .bt.comenzar{
+	bottom: 30px;
+	position: absolute;
+	left: calc(50% - 110px);
+	display: none;
+}
+#home .inicio{
+	display: none;
+}
+#home .login{
+	margin-top: 34px;
+}
+#home .bt.signin{
+	margin-top: 30px;
+}
+#home .bt.fb{
+	border-color: #3a5893;
+	background: #3a5893;
+	color: #fff;
+	margin-top: 10px;
+
+}
+#home .noregistro .txt{
+	text-align: center;
+	font-size: 13px;
+	color: #5b5b5b;
+	padding-bottom: 5px;
+	line-height: 20px;
+	margin-top: -25px;
+}

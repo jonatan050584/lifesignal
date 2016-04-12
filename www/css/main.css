@@ -1,0 +1,43 @@
+@import url('../webfont/opensans_regular_macroman/stylesheet.css');
+@import url('home.css');
+
+body{
+	margin: 0px;
+	padding: 0px;
+	background: #fff;
+	height: 100%;
+	overflow: hidden;
+	font-family: 'open_sansregular';
+}
+html{
+	height: 100%;
+}
+*:focus {
+    outline: none;
+}
+.clear{
+	clear: both;
+}
+.bt{
+	height: 44px;
+	width: 219px;
+	border:solid 1px #e11b4b;
+	line-height: 44px;
+	text-align: center;
+	color: #474748;
+	margin: auto;
+	font-size: 18px;
+	border-radius: 22px;
+}
+.input{
+	border:none;
+	border-bottom: solid 1px #858585;
+	width: 240px;
+	display: block;
+	margin: auto;
+	height: 34px;
+	line-height: 34px;
+	font-family: 'open_sansregular';
+	color: #5b5b5b;
+	text-align: center;
+}
