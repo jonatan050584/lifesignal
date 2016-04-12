@@ -16,7 +16,7 @@ if(production){
 }
 
 var apiurl = pathapi+"api.php";
-
+var home;
 var app = {
     
     initialize: function() {
@@ -33,6 +33,7 @@ var app = {
     onDeviceReady: function() {
         
         //login = new Login();
+        home = new Home();
         w = $(window).innerWidth();
     },
 };
