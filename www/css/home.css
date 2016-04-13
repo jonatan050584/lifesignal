@@ -17,6 +17,7 @@
 	margin: auto;
 	width: 230px;
 	height: auto;
+	
 }
 #home .logo.short{
 	width: 120px;
@@ -33,12 +34,12 @@
 	bottom: 30px;
 	position: absolute;
 	left: calc(50% - 110px);
-	display: none;
 }
 #home .inicio{
-	display: none;
+	
 }
 #home .login{
+	display: none;
 	margin-top: 34px;
 }
 #home .bt.signin{
@@ -49,7 +50,9 @@
 	background: #3a5893;
 	color: #fff;
 	margin-top: 10px;
-
+}
+#home .noregistro{
+	display: none;
 }
 #home .noregistro .txt{
 	text-align: center;

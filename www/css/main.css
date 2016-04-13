@@ -1,5 +1,6 @@
 @import url('../webfont/opensans_regular_macroman/stylesheet.css');
 @import url('home.css');
+@import url('grupos.css');
 
 body{
 	margin: 0px;
@@ -40,4 +41,20 @@ html{
 	font-family: 'open_sansregular';
 	color: #5b5b5b;
 	text-align: center;
+}
+#nav{
+	position: fixed;
+	background: #2c2b2b;
+	width: 100%;
+	z-index: 2;
+	height: 44px;
+	display: none;
+}
+#nav .titulo{
+	display: table;
+	margin: auto;
+	line-height: 44px;
+	color: #fff;
+	font-size: 17px;
+	font-family: 'open_sansregular';
 }

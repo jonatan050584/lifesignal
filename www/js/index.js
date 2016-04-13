@@ -17,6 +17,7 @@ if(production){
 
 var apiurl = pathapi+"api.php";
 var home;
+var usuario;
 var app = {
     
     initialize: function() {
@@ -90,6 +91,11 @@ var Espera = function(){
         $("#espera").hide();
         $("#espera .msg").html("");
     }
+}
+
+
+var Usuario = function(){
+
 }
 
 /*var Alerta = function(msg,callback,title,button){
