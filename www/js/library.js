@@ -8,9 +8,7 @@ var Library = function(){
 		}, 'text');
 	}
 
-	this.set('ItemDescuento','library/ItemDescuento.html');
-	this.set('ItemBeneficio','library/ItemBeneficio.html');
-	this.set('ItemLeyenda','library/ItemLeyenda.html');
+	this.set('ItemGrupo','library/ItemGrupo.html');
 
 }
 var lib = new Library();

@@ -16,7 +16,9 @@
 #grupos .perfil .pic{
 	width: 74px;
 	height: 74px;
-	background: #fff;
+	background-color: #fff;
+	background-size: cover;
+	background-position: center center;
 	border-radius: 37px;
 	margin-left: 15px;
 	float: left;
@@ -34,4 +36,22 @@
 	padding-left: 10px;
 	color: #fff;
 	font-size: 17px;
+}
+#grupos .lista .item{
+	border-bottom: solid 2px #e01b4b;
+	padding: 20px 35px;
+	background: url('../img/flecha1.png') no-repeat;
+	background-position: calc(100% - 16px) center;
+	background-size: 14px auto;
+}
+#grupos .lista .item .nom{
+	font-family: 'open_sansbold';
+	font-size: 20px;
+	color: #2c2b2b;
+
+}
+#grupos .lista .item .cont{
+	font-family: 'open_sanslight';
+	color: #2c2b2b;
+	font-size: 12px;
 }

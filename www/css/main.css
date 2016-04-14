@@ -1,4 +1,6 @@
 @import url('../webfont/opensans_regular_macroman/stylesheet.css');
+@import url('../webfont/opensans_bold_macroman/stylesheet.css');
+@import url('../webfont/opensans_light_macroman/stylesheet.css');
 @import url('home.css');
 @import url('grupos.css');
 
@@ -7,7 +9,6 @@ body{
 	padding: 0px;
 	background: #fff;
 	height: 100%;
-	overflow: hidden;
 	font-family: 'open_sansregular';
 }
 html{
@@ -42,7 +43,7 @@ html{
 	color: #5b5b5b;
 	text-align: center;
 }
-#nav{
+#header{
 	position: fixed;
 	background: #2c2b2b;
 	width: 100%;
@@ -50,7 +51,7 @@ html{
 	height: 44px;
 	display: none;
 }
-#nav .titulo{
+#header .titulo{
 	display: table;
 	margin: auto;
 	line-height: 44px;
