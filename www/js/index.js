@@ -1,4 +1,4 @@
-var production = true;
+var production = false;
 var pathapi;
 var login;
 var usuario;

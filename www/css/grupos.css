@@ -8,7 +8,7 @@
 	background: -webkit-linear-gradient(top,  #2e3192 0%,#e11b4c 100%); /* Chrome10-25,Safari5.1-6 */
 	background: linear-gradient(to bottom,  #2e3192 0%,#e11b4c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e3192', endColorstr='#e11b4c',GradientType=0 ); /* IE6-9 */
-	height: 110px;
+	height: 120px;
 	padding-top: 44px;
 	width: 100%;
 	display: table;
@@ -54,4 +54,81 @@
 	font-family: 'open_sanslight';
 	color: #2c2b2b;
 	font-size: 12px;
+}
+#grupos .barra{
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	height: 65px;
+	background:#ededed;
+	z-index: 2;
+}
+#grupos .barra .btn.crear{
+	width: 54px;
+	height: 46px;
+	border-radius: 27px;
+	background: #ededed;
+	position: absolute;
+	padding-top: 8px;
+	margin-top: -7px;
+	left: calc(50% - 27px);
+
+}
+#grupos .barra .btn.crear .circulo{
+	width: 34px;
+	height: 34px;
+	border: solid 2px #c21f58;
+	border-radius: 21px;
+	line-height: 34px;
+	font-size: 30px;
+	color: #7e2773;
+	text-align: center;
+	margin: auto;
+}
+#grupos .barra .txt{
+	width: 100%;
+	position: absolute;
+	bottom: 8px;
+	text-align: center;
+	font-size: 12px;
+	color: #2c2b2b;
+}
+#grupos .creacion{
+	background-color:rgba(0,0,0,0.6);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 3;
+	display: none;
+}
+#grupos .creacion .ventana{
+	background: #fff;
+    width: 310px;
+    height: 244px;
+    border-radius: 30px;
+    position: absolute;
+    top: calc(50% - 122px);
+    left: calc(50% - 155px);
+}
+#grupos .creacion .ventana .margen{
+	padding: 50px;
+}
+#grupos .creacion .ventana .titulo{
+	font-family: 'open_sansbold';
+	font-size: 20px;
+	margin-bottom: 14px;
+}
+#grupos .creacion .ventana .input{
+	margin-bottom: 20px;
+}
+#grupos .creacion .ventana .cerrar{
+	position: absolute;
+    
+    right: 20px;
+    top: 10px;
+    font-size: 34px;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    color: #e11b4b;
 }
