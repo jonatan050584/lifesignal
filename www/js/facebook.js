@@ -19,7 +19,7 @@ var Facebook = function(){
 			info.pic = null;
 
 			facebookConnectPlugin.api('/me/picture?width=200&height=200',null,function(res){  	
-
+				console.log(res);
 				if(!res.data.is_silhouette){
 					info.pic = res.data.url;
 				}
