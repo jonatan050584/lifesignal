@@ -77,38 +77,39 @@ var Ubicacion = function(){
 		console.log(this.contactos);
 	}
 	this.moverPosicion = function(data){
-		console.log(data);
-		//console.log(this.contactos);
-		if(this.contactos!=null){
-			$.each(this.contactos,function(key,val){
-				if(val.id==data.id){
-					//if(markers[parseInt(val.id)])
-					if(ubicacion.markers[parseInt(val.id)]==undefined){
-						//crear marker
-						console.log("crear marker");
-						var icono = {
-					    	url:'http://picnic.pe/clientes/lifesignal/api/mark.png',
-					    	scaledSize: new google.maps.Size(54, 68)
-					    }
+		if(existemapa){
+			//console.log(this.contactos);
+			if(this.contactos!=null){
+				$.each(this.contactos,function(key,val){
+					if(val.id==data.id){
+						//if(markers[parseInt(val.id)])
+						if(ubicacion.markers[parseInt(val.id)]==undefined){
+							//crear marker
+							console.log("crear marker");
+							var icono = {
+						    	url:'http://picnic.pe/clientes/lifesignal/api/mark.png',
+						    	scaledSize: new google.maps.Size(54, 68)
+						    }
 
-					    var marker = new google.maps.Marker({
-					      clickable:false,
-					     	
-					      icon: icono,
-					      shadow:null,
-					      zIndex:999,
-					      map:mapa,
-					      position:{lat:data.lat,lng:data.lon}
-					    });
-					    ubicacion.markers[parseInt(val.id)] = marker;
-					}else{
-						var m = ubicacion.markers[parseInt(val.id)];
+						    var marker = new google.maps.Marker({
+						      clickable:false,
+						     	
+						      icon: icono,
+						      shadow:null,
+						      zIndex:999,
+						      map:mapa,
+						      position:{lat:data.lat,lng:data.lon}
+						    });
+						    ubicacion.markers[parseInt(val.id)] = marker;
+						}else{
+							var m = ubicacion.markers[parseInt(val.id)];
 
-						var latlng = new google.maps.LatLng(data.lat,data.lon)
-						m.setPosition(latlng)
+							var latlng = new google.maps.LatLng(data.lat,data.lon)
+							m.setPosition(latlng)
+						}
 					}
-				}
-			})
+				})
+			}
 		}
 	}
 	
