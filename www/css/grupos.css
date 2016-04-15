@@ -117,13 +117,17 @@
 	font-family: 'open_sansbold';
 	font-size: 20px;
 	margin-bottom: 14px;
+	text-align: center;
 }
 #grupos .creacion .ventana .input{
 	margin-bottom: 20px;
+	width: 100%;
+}
+#grupos .creacion .ventana .bt.creargrupo{
+	width: 100%;
 }
 #grupos .creacion .ventana .cerrar{
 	position: absolute;
-    
     right: 20px;
     top: 10px;
     font-size: 34px;

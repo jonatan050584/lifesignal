@@ -3,6 +3,8 @@
 @import url('../webfont/opensans_light_macroman/stylesheet.css');
 @import url('home.css');
 @import url('grupos.css');
+@import url('internagrupo.css');
+@import url('ubicacion.css');
 
 body{
 	margin: 0px;

@@ -4,9 +4,10 @@ var login;
 var usuario;
 var seccion = "";
 var facebook;
-
+var ubicacion;
 var grupos;
 var header;
+var internagrupo;
 
 
 var w; //ancho de pantalla
@@ -173,6 +174,9 @@ var Usuario = function(){
     this.iniciarSesion = function(){
         window.localStorage.setItem("id",this.id);
         grupos = new Grupos();
+        internagrupo = new Internagrupo();
+        ubicacion = new Ubicacion();
+
         $("#home").hide();
         $("#header").show();
 
@@ -223,6 +227,14 @@ function getContent(obj,addEntry){
 
         case "grupos":
             grupos.mostrar();
+            break;
+        case "internagrupo":
+            internagrupo.mostrar();
+            internagrupo.listarcontactos(obj.grupo);
+            break;
+        case "ubicacion":
+            ubicacion.mostrar();
+            ubicacion.iniciarMapa();
             break;
 
         /*case "descuentos":

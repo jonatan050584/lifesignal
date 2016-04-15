@@ -9,6 +9,7 @@ var Library = function(){
 	}
 
 	this.set('ItemGrupo','library/ItemGrupo.html');
+	this.set('ItemContacto','library/ItemContacto.html');
 
 }
 var lib = new Library();

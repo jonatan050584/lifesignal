@@ -62,5 +62,9 @@ var ItemGrupo = function(d){
 
 	this.html.find('.cant').html(cant);
 
+	new Boton(this.html,function(){
+		getContent({page:"internagrupo",grupo:d.id},true);
+	});
+
 
 }
