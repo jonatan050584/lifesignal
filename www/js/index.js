@@ -9,6 +9,8 @@ var grupos;
 var header;
 var internagrupo;
 
+var socket;
+
 
 var w; //ancho de pantalla
 
@@ -42,6 +44,8 @@ var app = {
 
     onDeviceReady: function() {
         
+
+
         header = new Header();
 
         if(!production){
@@ -71,6 +75,10 @@ var app = {
                         usuario.email = res.info.email;
                         usuario.fbid = res.info.fbid;
                         usuario.pic = res.info.pic;
+
+
+
+
 
                         if(res.solofacebook == true){
                             facebook.getStatus(function(conectado){
@@ -186,6 +194,34 @@ var Usuario = function(){
 
 
         getContent({page:"grupos"},true);
+
+
+
+        socket = io.connect('http://picnic.pe:8881');
+
+        socket.on("connect", function() {
+            //alert("conectado");
+            console.log("usuario conectado al servidor");
+            
+
+            var opciones = {
+                enableHighAccuracy:true,
+
+            };
+            var watchId = navigator.geolocation.watchPosition(function(position){
+                
+
+                socket.emit('enviarposicion',{
+                    id:usuario.id,
+                    lat:position.coords.latitude,
+                    lon:position.coords.longitude
+                })
+            },this.onError,opciones);
+        });
+
+        socket.on("posicion",function(data){
+            console.log(data);
+        })
     }
 
     
