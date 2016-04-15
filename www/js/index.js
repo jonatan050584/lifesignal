@@ -18,8 +18,8 @@ var w; //ancho de pantalla
 
 if(production){
     //pathapi = "http://picnic.pe/clientes/bancofalabella/RESTAPI/";
-    pathapi = 'http://192.168.0.10/lifesignal/Life-Signal-Api/';
-    //pathapi = "http://192.168.0.12/bancofalabella/RESTAPI/";
+    //pathapi = 'http://192.168.0.10/lifesignal/Life-Signal-Api/';
+    pathapi = "http://picnic.pe/clientes/lifesignal/api/";
 }else{
     //pathapi = 'http://52.34.151.159/RESTAPI/';
     pathapi = "http://localhost/lifesignal/Life-Signal-Api/";

@@ -87,7 +87,7 @@ var Ubicacion = function(){
 						//crear marker
 						console.log("crear marker");
 						var icono = {
-					    	url:'http://192.168.0.10/lifesignal/lifesignal/www/img/mark.png',
+					    	url:'http://picnic.pe/clientes/lifesignal/api/mark.png',
 					    	scaledSize: new google.maps.Size(54, 68)
 					    }
 
