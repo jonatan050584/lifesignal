@@ -9,6 +9,8 @@ var grupos;
 var header;
 var internagrupo;
 
+
+
 var socket;
 
 
@@ -184,6 +186,7 @@ var Usuario = function(){
         grupos = new Grupos();
         internagrupo = new Internagrupo();
         ubicacion = new Ubicacion();
+        
 
         $("#home").hide();
         $("#header").show();
@@ -216,11 +219,14 @@ var Usuario = function(){
                     lat:position.coords.latitude,
                     lon:position.coords.longitude
                 })
-            },this.onError,opciones);
+            },function(e){
+
+            },opciones);
         });
 
         socket.on("posicion",function(data){
-            console.log(data);
+            //console.log(data);
+            ubicacion.moverPosicion(data);
         })
     }
 
@@ -269,6 +275,7 @@ function getContent(obj,addEntry){
             internagrupo.listarcontactos(obj.grupo);
             break;
         case "ubicacion":
+
             ubicacion.mostrar();
             ubicacion.iniciarMapa();
             break;

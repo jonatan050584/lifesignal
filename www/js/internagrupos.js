@@ -1,21 +1,26 @@
 var Internagrupo = function(){
 	this.dom = $("#internagrupo");
 	this.titulo = "Contactos";
-
+	
 	new Boton($("#internagrupo .btn.ubicacion"),function(){
+		
 		getContent({page:"ubicacion"},true);
+		
+	
 	});
 
 	this.listarcontactos = function(id){
+		
 		$("#internagrupo .lista").empty();
 
 		request("grupo/listarmiembros",{
 			grupo:id
 		},function(res){
+			ubicacion.contactos = res;
 			$.each(res,function(key,val){
 				var it = new ItemContacto(val);
 				$("#internagrupo .lista").append(it.html);
-			})
+			});
 		})
 	}
 }
