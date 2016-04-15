@@ -1,4 +1,4 @@
-var production = false;
+var production = true;
 var pathapi;
 var login;
 var usuario;
@@ -14,11 +14,11 @@ var w; //ancho de pantalla
 
 if(production){
     //pathapi = "http://picnic.pe/clientes/bancofalabella/RESTAPI/";
-    pathapi = 'http://192.168.0.10/lifesignal/api/';
+    pathapi = 'http://192.168.0.10/lifesignal/Life-Signal-Api/';
     //pathapi = "http://192.168.0.12/bancofalabella/RESTAPI/";
 }else{
     //pathapi = 'http://52.34.151.159/RESTAPI/';
-    pathapi = "http://localhost/lifesignal/api/";
+    pathapi = "http://localhost/lifesignal/Life-Signal-Api/";
 }
 
 var home;
