@@ -21,9 +21,9 @@ var Internagrupo = function(){
 		var options      = new ContactFindOptions();
 		options.filter   = "";
 		options.multiple = true;
-		//options.desiredFields = [navigator.contacts.fieldType.id];
-		//var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
-		navigator.contacts.find(['displayName', 'name','phoneNumbers'], function(res){
+		options.desiredFields = [navigator.contacts.fieldType.id];
+		var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name,navigator.contacts.phoneNumbers];
+		navigator.contacts.find(fields, function(res){
 			console.log(res);
 			alert('Found ' + res.length + ' contacts.');
 		}, function(e){
