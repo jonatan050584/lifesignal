@@ -9,11 +9,27 @@ var Internagrupo = function(){
 	
 	});
 	new Boton($("#internagrupo .btn.crear"),function(){
-		navigator.contacts.pickContact(function(contact){
+		/*navigator.contacts.pickContact(function(contact){
 	        alert(JSON.stringify(contact));
 	    },function(err){
 	        alert('Error: ' + err);
-	    });
+	    });*/
+
+		
+
+		// find all contacts with 'Bob' in any name field
+		var options      = new ContactFindOptions();
+		options.filter   = "";
+		options.multiple = true;
+		//options.desiredFields = [navigator.contacts.fieldType.id];
+		//var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
+		navigator.contacts.find(['displayName', 'name','phoneNumbers'], function(res){
+			console.log(res);
+			alert('Found ' + res.length + ' contacts.');
+		}, function(e){
+			console.log(error);
+			alert('Error');
+		}, options);
 
 	})
 	this.listarcontactos = function(id){
