@@ -9,14 +9,12 @@ var Internagrupo = function(){
 	
 	});
 	new Boton($("#internagrupo .btn.crear"),function(){
-		// Show Contact Picker
-		var successCallback = function(result){
-		    setTimeout(function(){alert(result.name + " " + result.phoneNumber);},0);
-		};
-		var failedCallback = function(result){
-		    setTimeout(function(){alert(result);},0);
-		}
-		window.plugins.contactNumberPicker.pick(successCallback,failedCallback);
+		navigator.contacts.pickContact(function(contact){
+	        alert(JSON.stringify(contact));
+	    },function(err){
+	        alert('Error: ' + err);
+	    });
+
 	})
 	this.listarcontactos = function(id){
 		
