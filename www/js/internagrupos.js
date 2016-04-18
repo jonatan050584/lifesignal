@@ -9,13 +9,14 @@ var Internagrupo = function(){
 	
 	});
 	new Boton($("#internagrupo .btn.crear"),function(){
-		window.plugins.ContactPicker.chooseContact(function(contactInfo) {
-		//to get all phones numbers
-		    for (var i = 0; i < contactInfo.phones.length; i++) {
-		         console.log(contactInfo.phones[i]);
-		    };
-		    console.log(contactInfo.displayName + " " + contactInfo.selectedPhone + " " + contactInfo.phones[0] + " " + contactInfo.email);
-		});
+		// Show Contact Picker
+		var successCallback = function(result){
+		    setTimeout(function(){alert(result.name + " " + result.phoneNumber);},0);
+		};
+		var failedCallback = function(result){
+		    setTimeout(function(){alert(result);},0);
+		}
+		window.plugins.contactNumberPicker.pick(successCallback,failedCallback);
 	})
 	this.listarcontactos = function(id){
 		
