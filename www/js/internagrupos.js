@@ -8,7 +8,15 @@ var Internagrupo = function(){
 		
 	
 	});
-
+	new Boton($("#internagrupo .btn.crear"),function(){
+		window.plugins.ContactPicker.chooseContact(function(contactInfo) {
+		//to get all phones numbers
+		    for (var i = 0; i < contactInfo.phones.length; i++) {
+		         console.log(contactInfo.phones[i]);
+		    };
+		    console.log(contactInfo.displayName + " " + contactInfo.selectedPhone + " " + contactInfo.phones[0] + " " + contactInfo.email);
+		});
+	})
 	this.listarcontactos = function(id){
 		
 		$("#internagrupo .lista").empty();

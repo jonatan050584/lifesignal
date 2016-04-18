@@ -22,7 +22,7 @@ if(production){
     pathapi = "http://picnic.pe/clientes/lifesignal/api/";
 }else{
     //pathapi = 'http://52.34.151.159/RESTAPI/';
-    pathapi = "http://localhost/lifesignal/Life-Signal-Api/";
+    pathapi = "http://localhost/lifesignal/api/";
 }
 
 var home;
