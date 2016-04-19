@@ -15,11 +15,10 @@ var Contactos = function(){
 			//options.desiredFields = [navigator.contacts.fieldType.id];
 			//var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
 			navigator.contacts.find(['displayName', 'name','phoneNumbers'], function(res){
-				console.log(res.length);
-				console.log(res);
+				
+				
 				//alert('Found ' + res.length + ' contacts.');
 
-				console.log(JSON.stringify(res));
 				alert(JSON.stringify(res));
 
 				$.each(res,function(key,val){
@@ -49,7 +48,7 @@ var Contactos = function(){
 					console.log(res);
 					
 					$.each(res,function(key,val){
-						if(val.phoneNumbers!=null && val.displayName!=null || val.name.formatted!=""){
+						if(val.phoneNumbers!=null && (val.displayName!=null || val.name.formatted!="")){
 							var t = val.phoneNumbers[0].value;
 							$.each(existen,function(k,v){
 								if(v.telefono==t){
@@ -82,7 +81,7 @@ var ItemContacto = function(d,id){
 	var nom = d.displayName;
 	if(nom==null) nom = d.name.formatted;
 
-	this.html.find('.nom').html(nom);
+	this.html.find('.nom').html(d.displayName);
 	this.html.find('.tel').html(d.phoneNumbers[0].value);
 
 	new Boton(this.html,function(){
