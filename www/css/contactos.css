@@ -7,9 +7,9 @@
 #contactos .lista .item{
 	border-bottom: solid 2px #e01b4b;
 	padding: 20px 35px;
-	background: url('../img/flecha1.png') no-repeat;
+	/*background: url('../img/flecha1.png') no-repeat;
 	background-position: calc(100% - 16px) center;
-	background-size: 14px auto;
+	background-size: 14px auto;*/
 }
 #contactos .lista .item .nom{
 	font-family: 'open_sansbold';
