@@ -1,6 +1,9 @@
 #contactos{
 	display: none;
 }
+#contactos .lista{
+	padding-top: 50px;
+}
 #contactos .lista .item{
 	border-bottom: solid 2px #e01b4b;
 	padding: 20px 35px;

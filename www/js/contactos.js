@@ -32,7 +32,7 @@ Contactos.prototype = new Seccion();
 
 
 var ItemContacto = function(d){
-	this.html = $(lib.ItemGrupo);
+	this.html = $(lib.ItemContacto);
 	this.html.find('.nom').html(d.displayName);
 	this.html.find('.tel').html(d.phoneNumbers[0].value);
 }
