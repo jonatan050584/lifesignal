@@ -15,12 +15,15 @@ var Contactos = function(){
 			//options.desiredFields = [navigator.contacts.fieldType.id];
 			//var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
 			navigator.contacts.find(['displayName', 'name','phoneNumbers'], function(res){
-				
+				console.log(res.length);
 				console.log(res);
 				//alert('Found ' + res.length + ' contacts.');
 
+				console.log(JSON.stringify(res));
+				alert(JSON.stringify(res));
+
 				$.each(res,function(key,val){
-					if(val.phoneNumbers!=null && (val.displayName!=null || val.name.formatted!="")){
+					if(val.phoneNumbers!=null && (val.displayName!=null || val.name.formatted!=""){
 
 						var tel = val.phoneNumbers[0].value;
 
