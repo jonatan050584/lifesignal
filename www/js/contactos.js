@@ -37,7 +37,7 @@ var Contactos = function(){
 				console.log(validos);
 
 				request("usuario/validarexisten",{
-					lista:validos.join(",");
+					lista : validos.join(",")
 				},function(existen){
 					console.log("existen");
 					console.log(existen);
