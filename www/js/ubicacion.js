@@ -86,9 +86,12 @@ var Ubicacion = function(){
 						if(ubicacion.markers[parseInt(val.id)]==undefined){
 							//crear marker
 							console.log("crear marker");
+
+							var img = escape(val.pic);
+
 							var icono = {
-						    	url:'http://picnic.pe/clientes/lifesignal/api/mark.png',
-						    	scaledSize: new google.maps.Size(54, 68)
+						    	url:'http://picnic.pe/clientes/lifesignal/api/imagen.php?path='+img,
+						    	scaledSize: new google.maps.Size(54, 54)
 						    }
 
 						    var marker = new google.maps.Marker({
