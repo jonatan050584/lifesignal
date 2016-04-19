@@ -19,10 +19,11 @@ var Internagrupo = function(){
 
 		// find all contacts with 'Bob' in any name field
 		var options      = new ContactFindOptions();
+		options.filter   = "";
 		options.multiple = true;
-		options.desiredFields = [navigator.contacts.fieldType.displayName, navigator.contacts.phoneNumbers];
-		//var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name,navigator.contacts.phoneNumbers];
-		navigator.contacts.find(['displayName', 'phoneNumbers'], function(res){
+		//options.desiredFields = [navigator.contacts.fieldType.id];
+		//var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
+		navigator.contacts.find(['displayName', 'name','phoneNumbers'], function(res){
 			console.log(res);
 			alert('Found ' + res.length + ' contacts.');
 		}, function(e){
