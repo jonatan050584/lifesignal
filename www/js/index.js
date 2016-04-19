@@ -8,7 +8,7 @@ var ubicacion;
 var grupos;
 var header;
 var internagrupo;
-
+var contactos;
 
 
 var socket;
@@ -182,10 +182,13 @@ var Espera = function(){
 var Usuario = function(){
 
     this.iniciarSesion = function(){
+        
         window.localStorage.setItem("id",this.id);
+        
         grupos = new Grupos();
         internagrupo = new Internagrupo();
         ubicacion = new Ubicacion();
+        contactos = new Contactos();
         
 
         $("#home").hide();
@@ -267,9 +270,6 @@ function getContent(obj,addEntry){
        
     switch(seccion){
 
-        case "grupos":
-            grupos.mostrar();
-            break;
         case "internagrupo":
             internagrupo.mostrar();
             internagrupo.listarcontactos(obj.grupo);
@@ -279,29 +279,14 @@ function getContent(obj,addEntry){
             ubicacion.mostrar();
             ubicacion.iniciarMapa();
             break;
+        case "contactos":
+            contactos.listar();
+            contactos.mostrar();
+            break;
+        default:
+            window[seccion].mostrar();
 
-        /*case "descuentos":
-
-            descuentos.mostrar(obj.cat,obj.neg);
-            break;
-        case "beneficios":
-            beneficios.mostrar();
-            break;
-        case "encuentranos":
-            encuentranos.mostrar();
-            break;
-        case "detalle":
-            detalle.mostrar(obj.id);
-            break;
-        case "gmaps":
-            gmaps.mostrar(obj.cat,obj.neg);
-            break;
-        case "ubicacion":
-            ubicacion.mostrar(obj.negocio);
-            break;
-        case "canales":
-            canales.mostrar();
-            break;*/
+       
     }
 
     //if(menu.abierto) menu.cerrar();
