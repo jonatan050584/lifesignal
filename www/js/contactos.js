@@ -20,7 +20,7 @@ var Contactos = function(){
 				//alert('Found ' + res.length + ' contacts.');
 
 				$.each(res,function(key,val){
-					if(val.phoneNumbers!=null && (val.displayName!=null || val.name.formatted!=""){
+					if(val.phoneNumbers!=null && (val.displayName!=null || val.name.formatted!="")){
 
 						var tel = val.phoneNumbers[0].value;
 
