@@ -15,13 +15,12 @@ var Contactos = function(){
 			//options.desiredFields = [navigator.contacts.fieldType.id];
 			//var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
 			navigator.contacts.find(['displayName', 'name','phoneNumbers'], function(res){
+				
 				console.log(res);
 				//alert('Found ' + res.length + ' contacts.');
 
-				alert(JSON.stringify(res));
-
 				$.each(res,function(key,val){
-					if(val.phoneNumbers!=null && val.displayName!=null){
+					if(val.phoneNumbers!=null && (val.displayName!=null || val.name.formatted!=""){
 
 						var tel = val.phoneNumbers[0].value;
 
@@ -47,7 +46,7 @@ var Contactos = function(){
 					console.log(res);
 					
 					$.each(res,function(key,val){
-						if(val.phoneNumbers!=null && val.displayName!=null){
+						if(val.phoneNumbers!=null && val.displayName!=null || val.name.formatted!=""){
 							var t = val.phoneNumbers[0].value;
 							$.each(existen,function(k,v){
 								if(v.telefono==t){
@@ -77,7 +76,10 @@ Contactos.prototype = new Seccion();
 
 var ItemContacto = function(d,id){
 	this.html = $(lib.ItemContacto);
-	this.html.find('.nom').html(d.displayName);
+	var nom = d.displayName;
+	if(nom==null) nom = d.name.formatted;
+
+	this.html.find('.nom').html(nom);
 	this.html.find('.tel').html(d.phoneNumbers[0].value);
 
 	new Boton(this.html,function(){
