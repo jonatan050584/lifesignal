@@ -15,7 +15,7 @@ var Contactos = function(){
 			//options.desiredFields = [navigator.contacts.fieldType.id];
 			//var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
 			navigator.contacts.find(['displayName', 'name','phoneNumbers'], function(res){
-				//console.log(res);
+				console.log(res);
 				//alert('Found ' + res.length + ' contacts.');
 
 
@@ -24,6 +24,7 @@ var Contactos = function(){
 					if(val.phoneNumbers!=null && val.displayName!=null){
 
 						var tel = val.phoneNumbers[0].value;
+
 						tel = tel.replace("+51","");
 						var arrtel = tel.split(" ");
 						tel = arrtel.join("");
@@ -43,15 +44,18 @@ var Contactos = function(){
 					console.log(existen);
 
 					$("#contactos .lista").empty();
-
+					console.log(res);
+					
 					$.each(res,function(key,val){
-						var t = val.phoneNumbers[0].value;
-						$.each(existen,function(k,v){
-							if(v.telefono==t){
-								var it = new ItemContacto(val);
-								$("#contactos .lista").append(it.html);
-							}
-						})
+						if(val.phoneNumbers!=null && val.displayName!=null){
+							var t = val.phoneNumbers[0].value;
+							$.each(existen,function(k,v){
+								if(v.telefono==t){
+									var it = new ItemContacto(val);
+									$("#contactos .lista").append(it.html);
+								}
+							})
+						}
 
 					})
 
