@@ -27,7 +27,7 @@ if(production){
 
 var home;
 var usuario;
-var initTime=0;
+var initTime=1000;
 
 //window.localStorage.setItem("id",111);
 
@@ -46,7 +46,7 @@ var app = {
 
     onDeviceReady: function() {
         
-
+        console.log("device ready");
 
         header = new Header();
 
@@ -59,11 +59,12 @@ var app = {
 
         setTimeout(function(){
             facebook =  new Facebook();
+            console.log("local storage: "+window.localStorage.getItem("id"));
             if(window.localStorage.getItem("id")==null){
                 console.log("no sesion");
                 $("#home").show();
             }else{
-                
+                console.log("sesion activa");
                 request("usuario/validar",{
                     id:window.localStorage.getItem("id")
                 },function(res){
@@ -101,6 +102,8 @@ var app = {
 
                             });
                         }else{
+                            console.log("tiene usuario y clave");
+
                             usuario.iniciarSesion();
                             //console.log("GRUPOS");
                         }
@@ -182,7 +185,7 @@ var Espera = function(){
 var Usuario = function(){
 
     this.iniciarSesion = function(){
-        
+        console.log("iniciar sesion:"+this.id);
         window.localStorage.setItem("id",this.id);
         
         grupos = new Grupos();
