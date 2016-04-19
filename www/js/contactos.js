@@ -2,7 +2,7 @@ var Contactos = function(){
 	this.dom = $("#contactos");
 	this.titulo = "Agregar Contacto";
 	this.flag=false;
-	this.validos = new Array();
+	var validos = new Array();
 
 	this.listar = function(){
 		$("#contactos .lista").html("Listando contactos...");
