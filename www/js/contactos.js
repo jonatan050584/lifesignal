@@ -51,7 +51,7 @@ var Contactos = function(){
 							var t = val.phoneNumbers[0].value;
 							$.each(existen,function(k,v){
 								if(v.telefono==t){
-									var it = new ItemContacto(val);
+									var it = new ItemContacto(val,v.id);
 									$("#contactos .lista").append(it.html);
 								}
 							})
@@ -75,8 +75,20 @@ var Contactos = function(){
 Contactos.prototype = new Seccion();
 
 
-var ItemContacto = function(d){
+var ItemContacto = function(d,id){
 	this.html = $(lib.ItemContacto);
 	this.html.find('.nom').html(d.displayName);
 	this.html.find('.tel').html(d.phoneNumbers[0].value);
+
+	new Boton(this.html,function(){
+
+		request("grupo/agregarmiembro",{
+			grupo:internagrupo.id,
+			contacto:id
+		},function(res){
+			getContent({page:"internagrupo",grupo:internagrupo.id},true);
+		})
+
+		
+	})
 }

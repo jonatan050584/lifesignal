@@ -1,6 +1,7 @@
 var Internagrupo = function(){
 	this.dom = $("#internagrupo");
 	this.titulo = "Contactos";
+	this.id = null;
 	
 	new Boton($("#internagrupo .btn.ubicacion"),function(){
 		getContent({page:"ubicacion"},true);
@@ -9,7 +10,8 @@ var Internagrupo = function(){
 		getContent({page:"contactos"},true);
 	});
 	this.listarcontactos = function(id){
-		
+		this.id = id;
+
 		$("#internagrupo .lista").empty();
 
 		request("grupo/listarmiembros",{
