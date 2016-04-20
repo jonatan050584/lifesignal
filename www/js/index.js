@@ -249,8 +249,8 @@ var Usuario = function(){
                 IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
                 */
 
-                socket.emit('enviarposicion',{
-                    id:usuario.id,
+                socket.emit('mensaje',{
+                    msg:'holaaaa',
                     lat:location.latitude,
                     lon:location.longitude
                 });
@@ -278,6 +278,9 @@ var Usuario = function(){
         socket.on("posicion",function(data){
             //console.log(data);
             ubicacion.moverPosicion(data);
+        });
+        socket.on("mensaje",function(data){
+            console.log(data);
         })
     }
 
