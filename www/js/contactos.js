@@ -122,7 +122,11 @@ Contactos.prototype = new Seccion();
 var ItemContacto = function(d){
 	this.html = $(lib.ItemContacto);
 	
-	this.html.find('.nom').html(d.nombre+" (APP)");
+	if(d.id!=null){
+		this.html.addClass("app");
+	}
+
+	this.html.find('.nom').html(d.nombre);
 	this.html.find('.tel').html(d.telefono);
 
 	new Boton(this.html,function(){

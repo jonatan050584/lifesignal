@@ -22,7 +22,8 @@ if(production){
     pathapi = "http://picnic.pe/clientes/lifesignal/api/";
 }else{
     //pathapi = 'http://52.34.151.159/RESTAPI/';
-    pathapi = "http://localhost/lifesignal/api/";
+    //pathapi = "http://localhost/lifesignal/api/";
+    pathapi = 'http://localhost/lifesignal/Life-Signal-Api/';
 }
 
 var home;
@@ -431,10 +432,3 @@ function getContent(obj,addEntry){
 
 
 */
-
-
-
-var cadena = "perico de los palotes fue un héroe mitológico de la era de las leporcias";
-cadena = cadena.replace(/ /g,"");
-
-alert(cadena);
