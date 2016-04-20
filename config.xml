@@ -14,7 +14,7 @@
 
     <plugin name="org.apache.cordova.geolocation" />
     <plugin name="org.apache.cordova.globalization" />
-
+    <plugin name="org.transistorsoft.cordova.background-geolocation" />
     <plugin name="nl.x-services.plugins.socialsharing" />
 
     <access origin="*" />

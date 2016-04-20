@@ -16,6 +16,25 @@ var socket;
 
 var w; //ancho de pantalla
 
+var bgGeo = navigator.plugins.backgroundGeoLocation;
+ 
+var callbackFn = function(location){
+    runtap.util.gps.onBackgroundSuccess(location);
+};
+ 
+var failureFn = function(error){
+    alert('Geolocation Error');
+};
+ 
+bgGeo.configure(callbackFn, failureFn, {
+    desiredAccuracy: 10,
+    stationaryRadius: 10,
+    distanceFilter: 30,
+    debug: true
+});
+
+
+
 if(production){
     //pathapi = "http://picnic.pe/clientes/bancofalabella/RESTAPI/";
     //pathapi = 'http://192.168.0.10/lifesignal/Life-Signal-Api/';
@@ -213,22 +232,47 @@ var Usuario = function(){
             //alert("conectado");
             console.log("usuario conectado al servidor");
             
+            
 
             var opciones = {
+                maximumAge: 3000,
                 enableHighAccuracy:true,
 
             };
-            var watchId = navigator.geolocation.watchPosition(function(position){
+            navigator.geolocation.watchPosition(function(position){
                 
 
                 socket.emit('enviarposicion',{
                     id:usuario.id,
                     lat:position.coords.latitude,
                     lon:position.coords.longitude
-                })
-            },function(e){
+                });
 
+            },function(e){
+                console.log('error watchposition: '+e);
             },opciones);
+
+
+            var bgGeo = navigator.plugins.backgroundGeoLocation;
+            var callbackFn = function(location){
+                console.log("bglocation");
+                console.log(location);
+                socket.emit('enviarposicion',{
+                    id:usuario.id,
+                    lat:location.latitude,
+                    lon:location.longitude
+                });
+            };
+            var failureFn = function(error){
+                alert('BG Geolocation Error');
+            };
+            bgGeo.configure(callbackFn, failureFn, {
+                desiredAccuracy: 10,
+                stationaryRadius: 10,
+                distanceFilter: 30,
+                debug: true
+            });
+            bgGeo.start();
         });
 
         socket.on("posicion",function(data){
