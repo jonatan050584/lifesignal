@@ -2,12 +2,15 @@ var Contactos = function(){
 	this.dom = $("#contactos");
 	this.titulo = "Agregar Contacto";
 	this.flag=false;
+
+	this.lista = new Array();
+
 	var validos = new Array();
 
 	this.listar = function(){
 		$("#contactos .lista").html("Listando contactos...");
 		if(!this.flag){
-			//this.flag=true;
+			this.flag=true;
 
 			var options      = new ContactFindOptions();
 			options.filter   = "";
@@ -24,15 +27,27 @@ var Contactos = function(){
 				$.each(res,function(key,val){
 					if(val.phoneNumbers!=null && (val.displayName!=null || val.name.formatted!="")){
 
-						var tel = val.phoneNumbers[0].value;
+						$.each(val.phoneNumbers,function(k,v){
+							var tel = v.value;
+							tel = tel.replace("+51","");
+							tel = tel.replace(/ /g,"");
+							v.value = tel;
 
-						tel = tel.replace("+51","");
-						var arrtel = tel.split(" ");
-						tel = arrtel.join("");
+							if(tel.length==9){
 
-						val.phoneNumbers[0].value = tel;
+								var nom = val.displayName;
+								if(nom==null) nom = val.name.formatted;
 
-						validos.push(tel);
+								contactos.lista.push({
+									nombre: nom,
+									telefono:tel,
+									tipo:v.type
+								});
+								validos.push(tel);
+							}
+
+						})
+
 					}
 				});
 				console.log("validos");
@@ -47,16 +62,18 @@ var Contactos = function(){
 					$("#contactos .lista").empty();
 					console.log(res);
 					
-					$.each(res,function(key,val){
-						if(val.phoneNumbers!=null && (val.displayName!=null || val.name.formatted!="")){
-							var t = val.phoneNumbers[0].value;
-							$.each(existen,function(k,v){
-								if(v.telefono==t){
-									var it = new ItemContacto(val,v.id);
-									$("#contactos .lista").append(it.html);
-								}
-							})
-						}
+					$.each(contactos.lista,function(key,val){
+						
+						var i = contactos.buscar(val.telefono,existen);
+						if(i!=-1){
+							
+							val.id = existen[i].id;
+							
+							var it = new ItemContacto(val);
+							$("#contactos .lista").append(it.html);
+							
+						});
+						
 
 					})
 
@@ -70,28 +87,31 @@ var Contactos = function(){
 		}
 	}
 
+	this.buscar = function(num,arr){
+		var res = -1;
+		$.each(arr,function(key,val){
+			if(val.telefono==num){
+				res=key;
+			}
+		})
+		return res;
+	}
+
 
 
 }
 Contactos.prototype = new Seccion();
 
 
-var ItemContacto = function(d,id){
+var ItemContacto = function(d){
 	this.html = $(lib.ItemContacto);
-	var nom = d.displayName;
-	if(nom==null) nom = d.name.formatted;
-
-	this.html.find('.nom').html(nom);
-	this.html.find('.tel').html(d.phoneNumbers[0].value);
+	
+	this.html.find('.nom').html(d.nombre);
+	this.html.find('.tel').html(d.telefono);
 
 	new Boton(this.html,function(){
 
-		request("grupo/agregarmiembro",{
-			grupo:internagrupo.id,
-			contacto:id
-		},function(res){
-			getContent({page:"internagrupo",grupo:internagrupo.id},true);
-		})
+		alert(d.id);
 
 		
 	})

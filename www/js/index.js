@@ -431,3 +431,10 @@ function getContent(obj,addEntry){
 
 
 */
+
+
+
+var cadena = "perico de los palotes fue un héroe mitológico de la era de las leporcias";
+cadena = cadena.replace(/ /g,"");
+
+alert(cadena);
