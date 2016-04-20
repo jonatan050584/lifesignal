@@ -8,10 +8,10 @@ var Contactos = function(){
 	var validos = new Array();
 
 	this.listar = function(){
-		$("#contactos .lista").html("Listando contactos...");
+		
 		if(!this.flag){
 			this.flag=true;
-
+			$("#contactos .lista").html("Listando contactos...");
 			var options      = new ContactFindOptions();
 			options.filter   = "";
 			options.multiple = true;
@@ -33,7 +33,7 @@ var Contactos = function(){
 							tel = tel.replace(/ /g,"");
 							v.value = tel;
 
-							if(tel.length==9){
+							if(tel.length==9 && tel.substr(0,1)!="0" && validos.indexOf(tel)==-1){
 
 								var nom = val.displayName;
 								if(nom==null) nom = val.name.formatted;
