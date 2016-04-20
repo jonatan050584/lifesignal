@@ -43,10 +43,17 @@ var app = {
     },
 
     bindEvents: function() {
-        if(production) document.addEventListener('deviceready', this.onDeviceReady, false);
-        else $(document).ready(this.onDeviceReady);
+        if(production){
+            document.addEventListener('deviceready', this.onDeviceReady, false);
+            document.addEventListener("resume", thi.onDeviceResume);
+        }{
+            else $(document).ready(this.onDeviceReady);
+        }
     },
     
+    onDeviceResume: function(){
+        alert(1);
+    }
 
     onDeviceReady: function() {
         
@@ -231,6 +238,8 @@ var Usuario = function(){
                     lat:position.coords.latitude,
                     lon:position.coords.longitude
                 });
+
+
 
             },function(e){
                 console.log('error watchposition: '+e);
