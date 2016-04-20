@@ -45,7 +45,7 @@ var app = {
     bindEvents: function() {
         if(production){
             document.addEventListener('deviceready', this.onDeviceReady, false);
-            document.addEventListener("resume", thi.onDeviceResume);
+            document.addEventListener("resume", this.onDeviceResume);
         }else{
             $(document).ready(this.onDeviceReady);
         }
