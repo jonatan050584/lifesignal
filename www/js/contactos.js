@@ -72,7 +72,7 @@ var Contactos = function(){
 							var it = new ItemContacto(val);
 							$("#contactos .lista").append(it.html);
 							
-						});
+						};
 						
 
 					})
