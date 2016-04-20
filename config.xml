@@ -14,7 +14,9 @@
 
     <plugin name="org.apache.cordova.geolocation" />
     <plugin name="org.apache.cordova.globalization" />
-    <plugin name="org.transistorsoft.cordova.background-geolocation" source="https://github.com/christocracy/cordova-plugin-background-geolocation.git" />
+   
+    <plugin name="cordova-plugin-mauron85-background-geolocation" source="npm"/>
+
     <plugin name="nl.x-services.plugins.socialsharing" />
 
     <access origin="*" />

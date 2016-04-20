@@ -16,22 +16,6 @@ var socket;
 
 var w; //ancho de pantalla
 
-var bgGeo = navigator.plugins.backgroundGeoLocation;
- 
-var callbackFn = function(location){
-    runtap.util.gps.onBackgroundSuccess(location);
-};
- 
-var failureFn = function(error){
-    alert('Geolocation Error');
-};
- 
-bgGeo.configure(callbackFn, failureFn, {
-    desiredAccuracy: 10,
-    stationaryRadius: 10,
-    distanceFilter: 30,
-    debug: true
-});
 
 
 
@@ -253,26 +237,42 @@ var Usuario = function(){
             },opciones);
 
 
-            var bgGeo = navigator.plugins.backgroundGeoLocation;
-            var callbackFn = function(location){
-                console.log("bglocation");
-                console.log(location);
+            var callbackFn = function(location) {
+                console.log('[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
+
+                // Do your HTTP request here to POST location to your server.
+                // jQuery.post(url, JSON.stringify(location));
+
+                /*
+                IMPORTANT:  You must execute the finish method here to inform the native plugin that you're finished,
+                and the background-task may be completed.  You must do this regardless if your HTTP request is successful or not.
+                IF YOU DON'T, ios will CRASH YOUR APP for spending too much time in the background.
+                */
+
                 socket.emit('enviarposicion',{
                     id:usuario.id,
                     lat:location.latitude,
                     lon:location.longitude
                 });
+                backgroundGeoLocation.finish();
+
             };
-            var failureFn = function(error){
-                alert('BG Geolocation Error');
+
+            var failureFn = function(error) {
+                console.log('BackgroundGeoLocation error');
             };
-            bgGeo.configure(callbackFn, failureFn, {
+
+            // BackgroundGeoLocation is highly configurable. See platform specific configuration options
+            backgroundGeoLocation.configure(callbackFn, failureFn, {
                 desiredAccuracy: 10,
-                stationaryRadius: 10,
+                stationaryRadius: 20,
                 distanceFilter: 30,
-                debug: true
+                debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
+                stopOnTerminate: false, // <-- enable this to clear background location settings when the app terminates
             });
-            bgGeo.start();
+
+            // Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
+            backgroundGeoLocation.start();
         });
 
         socket.on("posicion",function(data){
