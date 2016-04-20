@@ -53,7 +53,7 @@ var app = {
     
     onDeviceResume: function(){
         alert(1);
-    }
+    },
 
     onDeviceReady: function() {
         
