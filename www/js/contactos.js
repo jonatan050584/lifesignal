@@ -39,6 +39,7 @@ var Contactos = function(){
 								if(nom==null) nom = val.name.formatted;
 
 								contactos.lista.push({
+									id:null,
 									nombre: nom,
 									telefono:tel,
 									tipo:v.type
@@ -68,14 +69,29 @@ var Contactos = function(){
 						if(i!=-1){
 							
 							val.id = existen[i].id;
-							
 							var it = new ItemContacto(val);
 							$("#contactos .lista").append(it.html);
-							
 						};
+
+						
 						
 
-					})
+					});
+
+					$.each(contactos.lista,function(key,val){
+						
+						var i = contactos.buscar(val.telefono,existen);
+						if(i==-1){
+							
+							val.id = existen[i].id;
+							var it = new ItemContacto(val);
+							$("#contactos .lista").append(it.html);
+						};
+
+						
+						
+
+					});
 
 				})
 
@@ -106,7 +122,7 @@ Contactos.prototype = new Seccion();
 var ItemContacto = function(d){
 	this.html = $(lib.ItemContacto);
 	
-	this.html.find('.nom').html(d.nombre);
+	this.html.find('.nom').html(d.nombre+" (APP)");
 	this.html.find('.tel').html(d.telefono);
 
 	new Boton(this.html,function(){
