@@ -31,7 +31,7 @@ var Contactos = function(){
 							var tel = v.value;
 							tel = tel.replace("+51","");
 							tel = tel.replace(/ /g,"");
-							v.value = tel;
+							
 
 							if(tel.length==9 && tel.substr(0,1)!="0" && validos.indexOf(tel)==-1){
 
@@ -42,6 +42,7 @@ var Contactos = function(){
 									id:null,
 									nombre: nom,
 									telefono:tel,
+									original:v.value,
 									tipo:v.type
 								});
 								validos.push(tel);
@@ -130,8 +131,12 @@ var ItemContacto = function(d){
 
 	new Boton(this.html,function(){
 
-		alert(d.id);
-
+		
+		if(d.id!=null){
+			alert(d.id);
+		}else{
+			window.plugins.socialsharing.shareViaSMS('Prueba LifeSignal para tu smartphone. Visita http://picnic.pe/lifesignal/ para descargarlo',d.original,function(msg){console.log('ok: ' + msg);},function(msg) {alert('error: ' + msg);});
+		}
 		
 	})
 }
