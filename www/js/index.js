@@ -46,8 +46,8 @@ var app = {
         if(production){
             document.addEventListener('deviceready', this.onDeviceReady, false);
             document.addEventListener("resume", thi.onDeviceResume);
-        }{
-            else $(document).ready(this.onDeviceReady);
+        }else{
+            $(document).ready(this.onDeviceReady);
         }
     },
     
