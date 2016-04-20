@@ -83,7 +83,6 @@ var Contactos = function(){
 						var i = contactos.buscar(val.telefono,existen);
 						if(i==-1){
 							
-							val.id = existen[i].id;
 							var it = new ItemContacto(val);
 							$("#contactos .lista").append(it.html);
 						};
