@@ -26,3 +26,54 @@
 #contactos .lista .item.app{
 	background-color: #fff;
 }
+
+
+
+
+#contactos .invitacion{
+	background-color:rgba(0,0,0,0.6);
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 3;
+	display: none;
+}
+#contactos .invitacion .ventana{
+	background: #fff;
+    width: 310px;
+    height: 244px;
+    border-radius: 30px;
+    position: absolute;
+    top: calc(50% - 122px);
+    left: calc(50% - 155px);
+}
+#contactos .invitacion .ventana .margen{
+	padding: 50px;
+}
+#contactos .invitacion .ventana .nombres{
+	font-family: 'open_sansbold';
+	font-size: 20px;
+	margin-bottom: 14px;
+	text-align: center;
+}
+#contactos .invitacion .ventana .telefono{
+	font-family: 'open_sansregular';
+	font-size: 20px;
+	line-height: 30px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+#contactos .invitacion .ventana .bt.enviar{
+	width: 100%;
+}
+#contactos .invitacion .ventana .cerrar{
+	position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 34px;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    color: #e11b4b;
+}

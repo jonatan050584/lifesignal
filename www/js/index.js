@@ -9,7 +9,7 @@ var grupos;
 var header;
 var internagrupo;
 var contactos;
-
+var invitaciones;
 
 var socket;
 
@@ -25,8 +25,8 @@ if(production){
     pathapi = "http://picnic.pe/clientes/lifesignal/api/";
 }else{
     //pathapi = 'http://52.34.151.159/RESTAPI/';
-    //pathapi = "http://localhost/lifesignal/api/";
-    pathapi = 'http://localhost/lifesignal/Life-Signal-Api/';
+    pathapi = "http://localhost/lifesignal/api/";
+   //pathapi = 'http://localhost/lifesignal/Life-Signal-Api/';
 }
 
 var home;
@@ -306,17 +306,34 @@ var Usuario = function(){
                 getContent({page:"grupos"},false);
             }
         });
+
+        socket.on("enviarinvitacion",function(invitado){
+            if(usuario.id == invitado){
+                header.cargarInvitaciones();
+            }
+        });
+
+        socket.on('aceptarinvitacion',function(data){
+            if(data.usuario==usuario.id){
+                grupos.listar();    
+            }
+            if(seccion=="internagrupo" && internagrupo.id == data.grupo){
+                internagrupo.listarcontactos(data.grupo);
+            }
+        })
+
         grupos = new Grupos();
         internagrupo = new Internagrupo();
         ubicacion = new Ubicacion();
         contactos = new Contactos();
+        invitaciones = new Invitaciones();
          $("#home").hide();
         $("#header").show();
 
         grupos.cargarMiPerfil();
         grupos.listar();
 
-
+        header.cargarInvitaciones();
 
         getContent({page:"grupos"},true);
 
@@ -376,6 +393,10 @@ function getContent(obj,addEntry){
         case "contactos":
             contactos.listar();
             contactos.mostrar();
+            break;
+        case "invitaciones":
+            invitaciones.listar();
+            invitaciones.mostrar();
             break;
         default:
             window[seccion].mostrar();

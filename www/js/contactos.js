@@ -1,28 +1,40 @@
 var Contactos = function(){
 	this.dom = $("#contactos");
-	this.titulo = "Agregar Contacto";
+	this.titulo = "Add Contact";
 	this.flag=false;
 
 	this.lista = new Array();
 
 	var validos = new Array();
 
+
+
+	new Boton($("#contactos .invitacion .cerrar"),function(){
+		$("#contactos .invitacion").hide();
+	});
+
+
 	this.listar = function(){
-		
+		console.log(internagrupo.miembros);
 		if(!this.flag){
 			this.flag=true;
 			$("#contactos .lista").html("Listando contactos...");
+			
 			var options      = new ContactFindOptions();
 			options.filter   = "";
 			options.multiple = true;
 			//options.desiredFields = [navigator.contacts.fieldType.id];
 			//var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
 			navigator.contacts.find(['displayName', 'name','phoneNumbers'], function(res){
-				
+			
+			/*$.ajax({
+				url:'contactos.json',
+				dataType:'json'
+			}).done(function(res){	*/
 				
 				//alert('Found ' + res.length + ' contacts.');
 
-				console.log(JSON.stringify(res));
+				//console.log(JSON.stringify(res));
 
 				$.each(res,function(key,val){
 					if(val.phoneNumbers!=null && (val.displayName!=null || val.name.formatted!="")){
@@ -52,8 +64,8 @@ var Contactos = function(){
 
 					}
 				});
-				console.log("validos");
-				console.log(validos);
+				//console.log("validos");
+				//console.log(validos);
 
 				request("usuario/validarexisten",{
 					lista : validos.join(",")
@@ -70,6 +82,7 @@ var Contactos = function(){
 						if(i!=-1){
 							
 							val.id = existen[i].id;
+							val.pic = existen[i].id;
 							var it = new ItemContacto(val);
 							$("#contactos .lista").append(it.html);
 						};
@@ -100,6 +113,7 @@ var Contactos = function(){
 				console.log(error);
 				//alert('Error');
 			}, options);
+			//});
 		}
 	}
 
@@ -132,8 +146,43 @@ var ItemContacto = function(d){
 	new Boton(this.html,function(){
 
 		
+		
+
 		if(d.id!=null){
-			alert(d.id);
+			$("#contactos .invitacion .nombres").html(d.nombre);
+			$("#contactos .invitacion .telefono").html(d.telefono);
+
+			$("#contactos .invitacion").css('display',"block");
+	        $("#contactos .invitacion").transition({opacity:0},0);
+	        $("#contactos .invitacion").transition({opacity:1});
+
+	        $("#contactos .invitacion .ventana .bt.enviar").unbind();
+	        
+	        new Boton($("#contactos .invitacion .ventana .bt.enviar"),function(){
+	        	var yaesta = false;
+	        	$.each(internagrupo.miembros,function(k,v){
+	        		if(v.id == d.id){
+	        			yaesta=true;
+	        		}
+	        	})
+
+	        	if(!yaesta){
+		        	request("grupo/invitar",{
+		        		usuario:usuario.id,
+		        		invitado:d.id,
+		        		grupo:internagrupo.id
+		        	},function(res){
+		        		console.log(res);
+		        		socket.emit("invitar",d.id);
+		        	});
+	        	}else{
+	        		alert("¡El contacto ya pertenece a este grupo! Selecciona otro");
+	        	}
+
+
+	        	$("#contactos .invitacion").hide();
+
+	        });
 		}else{
 			window.plugins.socialsharing.shareViaSMS('Prueba LifeSignal para tu smartphone. Visita http://picnic.pe/lifesignal/ para descargarlo',d.original,function(msg){console.log('ok: ' + msg);},function(msg) {alert('error: ' + msg);});
 		}

@@ -1,0 +1,25 @@
+#invitaciones{
+	display: none;
+}
+#invitaciones .lista{
+	padding-top: 50px;
+}
+#invitaciones .lista .item{
+	border-bottom: solid 2px #e01b4b;
+	padding: 20px 35px;
+	background-color: #eee;
+	/*background: url('../img/flecha1.png') no-repeat;
+	background-position: calc(100% - 16px) center;
+	background-size: 14px auto;*/
+}
+#invitaciones .lista .item .nom{
+	font-family: 'open_sansbold';
+	font-size: 20px;
+	color: #2c2b2b;
+
+}
+#invitaciones .lista .item .tel{
+	font-family: 'open_sanslight';
+	color: #2c2b2b;
+	font-size: 12px;
+}

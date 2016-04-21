@@ -4,10 +4,16 @@
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="jonatan@picnic.pe" href="http://picnic.pe">
+        Agencia Picnic
     </author>
     <content src="index.html" />
+
+    <preference name="orientation" value="portrait" />
+    <preference name="target-device" value="handset" />
+    <preference name="fullscreen" value="false" />
+    <preference name="ios-statusbarstyle" value="black-opaque" />
+
     <plugin name="cordova-plugin-whitelist" spec="1" />
 
     <plugin name="org.apache.cordova.contacts" spec="0.2.16" source="pgb" />
@@ -18,6 +24,37 @@
     <plugin name="cordova-plugin-mauron85-background-geolocation" source="npm"/>
 
     <plugin name="nl.x-services.plugins.socialsharing" />
+
+    <icon src="icon.png" />
+    <icon gap:platform="android" gap:qualifier="ldpi" src="res/icon/android/mipmap-ldpi/ic_launcher.png" />
+    <icon gap:platform="android" gap:qualifier="mdpi" src="res/icon/android/mipmap-mdpi/ic_launcher.png" />
+    <icon gap:platform="android" gap:qualifier="hdpi" src="res/icon/android/mipmap-hdpi/ic_launcher.png" />
+    <icon gap:platform="android" gap:qualifier="xhdpi" src="res/icon/android/mipmap-xhdpi/ic_launcher.png" />
+    <icon gap:platform="android" gap:qualifier="xxhdpi" src="res/icon/android/mipmap-xxhdpi/ic_launcher.png" />
+    <icon gap:platform="android" gap:qualifier="xxxhdpi" src="res/icon/android/mipmap-xxxhdpi/ic_launcher.png" />
+
+    <!-- iPhone 6 / 6+ -->
+    <icon src="res/icon/ios/Icon-60@3x.png" platform="ios" width="180" height="180" />
+
+    <!-- iPhone / iPod Touch  -->
+    <icon src="res/icon/ios/Icon-60.png" platform="ios" width="60" height="60" />
+    <icon src="res/icon/ios/Icon-60@2x.png" platform="ios" width="120" height="120" />
+
+    
+    <!-- Settings Icon -->
+    <icon src="res/icon/ios/Icon-small.png" platform="ios" width="29" height="29" />
+    <icon src="res/icon/ios/Icon-small@2x.png" platform="ios" width="58" height="58" />
+
+    <!-- Spotlight Icon -->
+    <icon src="res/icon/ios/Icon-40.png" platform="ios" width="40" height="40" />
+    <icon src="res/icon/ios/Icon-40@2x.png" platform="ios" width="80" height="80" />
+    
+    <icon src="res/icon/ios/Icon.png" platform="ios" width="57" height="57" />
+    <icon src="res/icon/ios/Icon@2x.png" platform="ios" width="114" height="114" />
+
+    <icon src="res/icon/ios/Icon-72.png" platform="ios" width="72" height="72" />
+    <icon src="res/icon/ios/Icon-72@2x.png" platform="ios" width="144" height="144" />
+
 
     <access origin="*" />
     <allow-intent href="http://*/*" />

@@ -36,6 +36,7 @@ var Grupos = function(){
 	}
 
 	this.listar = function(){
+		$("#grupos .lista").empty();
 	    request("/grupo/listar",{
             us:usuario.id
         },function(response){
