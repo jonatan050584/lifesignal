@@ -62,3 +62,14 @@ html{
 	font-size: 17px;
 	font-family: 'open_sansregular';
 }
+#header .logout{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: 0px;
+	background: url("../img/logout.png");
+	background-size: 35px 35px;
+	background-repeat: no-repeat;
+	background-position: center center;
+
+}

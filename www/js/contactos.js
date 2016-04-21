@@ -22,7 +22,7 @@ var Contactos = function(){
 				
 				//alert('Found ' + res.length + ' contacts.');
 
-				//alert(JSON.stringify(res));
+				console.log(JSON.stringify(res));
 
 				$.each(res,function(key,val){
 					if(val.phoneNumbers!=null && (val.displayName!=null || val.name.formatted!="")){

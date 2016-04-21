@@ -33,7 +33,7 @@ var home;
 var usuario;
 var initTime=1000;
 
-//window.localStorage.setItem("id",111);
+
 
 var app = {
     
@@ -83,7 +83,7 @@ var app = {
             desiredAccuracy: 10,
             stationaryRadius: 20,
             distanceFilter: 30,
-            debug: true, // <-- enable this hear sounds for background-geolocation life-cycle.
+            debug: false, // <-- enable this hear sounds for background-geolocation life-cycle.
             stopOnTerminate: false, // <-- enable this to clear background location settings when the app terminates
         });
 
@@ -321,7 +321,10 @@ var Usuario = function(){
         getContent({page:"grupos"},true);
 
     }
-
+    this.cerrarSesion = function(){
+        window.localStorage.removeItem("id");
+        location.reload();
+    }
     
 }
 
