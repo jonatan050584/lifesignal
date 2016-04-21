@@ -232,7 +232,7 @@ var Espera = function(){
 
 var Usuario = function(){
 
-    this.iniciarSesion = function(){
+    this.iniciarSesion = function(tipo){
         console.log("iniciar sesion:"+this.id);
         window.localStorage.setItem("id",this.id);
         
@@ -320,14 +320,28 @@ var Usuario = function(){
             if(seccion=="internagrupo" && internagrupo.id == data.grupo){
                 internagrupo.listarcontactos(data.grupo);
             }
-        })
+        });
 
+
+
+        if(tipo=="nuevo"){
+            socket.emit("mensaje",{
+                accion:"nuevousuario"
+            })
+        }
         grupos = new Grupos();
         internagrupo = new Internagrupo();
         ubicacion = new Ubicacion();
         contactos = new Contactos();
         invitaciones = new Invitaciones();
-         $("#home").hide();
+
+        socket.on("mensaje",function(data){
+            if(data.accion=="nuevousuario"){
+                contactos.flag=false;
+            }
+        });
+
+        $("#home").hide();
         $("#header").show();
 
         grupos.cargarMiPerfil();
@@ -402,6 +416,12 @@ function getContent(obj,addEntry){
             window[seccion].mostrar();
 
        
+    }
+
+    if(seccion=="grupos"){
+        $("#header .back").hide();
+    }else{
+        $("#header .back").show();
     }
 
     //if(menu.abierto) menu.cerrar();

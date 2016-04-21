@@ -97,3 +97,13 @@ html{
 	margin-top: 10px;
 	display: none;
 }
+#header .back{
+	display: none;
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	background: url("../img/back.png");
+	background-size: 25px 25px;
+	background-repeat: no-repeat;
+	background-position: center center;
+}

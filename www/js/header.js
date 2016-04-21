@@ -26,5 +26,9 @@ var Header = function(){
 
 	new Boton($("#header .invitations"),function(){
 		getContent({page:"invitaciones"},true);
+	});
+	new Boton($("#header .back"),function(){
+		//alert(1);
+		history.back();
 	})
 }

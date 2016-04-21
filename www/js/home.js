@@ -104,7 +104,8 @@ var Home = function(){
 		},function(res){
 			if(!res.existe){
 				usuario.id = res.id;
-				usuario.iniciarSesion();
+				usuario.iniciarSesion("nuevo");
+
 			}else{
 				alert("This phone number is already registered");
 			}

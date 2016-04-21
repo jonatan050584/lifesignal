@@ -15,7 +15,7 @@ var Contactos = function(){
 
 
 	this.listar = function(){
-		console.log(internagrupo.miembros);
+		//console.log(internagrupo.miembros);
 		if(!this.flag){
 			this.flag=true;
 			$("#contactos .lista").html("Listando contactos...");
