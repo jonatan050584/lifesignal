@@ -79,6 +79,7 @@ var Home = function(){
                     	}else{
                     		$("#home .login").hide();
                     		$("#home .tel").show();
+                    		$("#home .tel .usuario").html(infofb.first_name+' '+infofb.last_name);
                     		if(infofb.pic!=null) $("#home .tel .pic").css("background-image","url('"+infofb.pic+"')");
                     		$("#home .noregistro").hide();
                     	}
