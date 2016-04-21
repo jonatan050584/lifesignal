@@ -17,7 +17,7 @@ var socket;
 var w; //ancho de pantalla
 
 
-
+var terremoto = false;
 
 if(production){
     //pathapi = "http://picnic.pe/clientes/bancofalabella/RESTAPI/";
@@ -25,8 +25,8 @@ if(production){
     pathapi = "http://picnic.pe/clientes/lifesignal/api/";
 }else{
     //pathapi = 'http://52.34.151.159/RESTAPI/';
-    pathapi = "http://localhost/lifesignal/api/";
-    //pathapi = 'http://localhost/lifesignal/Life-Signal-Api/';
+    //pathapi = "http://localhost/lifesignal/api/";
+    pathapi = 'http://localhost/lifesignal/Life-Signal-Api/';
 }
 
 var home;
@@ -236,22 +236,10 @@ var Usuario = function(){
         console.log("iniciar sesion:"+this.id);
         window.localStorage.setItem("id",this.id);
         
-        grupos = new Grupos();
-        internagrupo = new Internagrupo();
-        ubicacion = new Ubicacion();
-        contactos = new Contactos();
+        
         
 
-        $("#home").hide();
-        $("#header").show();
-
-        grupos.cargarMiPerfil();
-        grupos.listar();
-
-
-
-        getContent({page:"grupos"},true);
-
+       
 
 
         socket = io.connect('http://picnic.pe:8881');
@@ -290,7 +278,48 @@ var Usuario = function(){
         });
         socket.on("mensaje",function(data){
             console.log(data);
-        })
+        });
+
+        
+        socket.on("estadoterremoto",function(valor){
+            terremoto=valor;
+            if(valor){
+                alert("¡TERREMOTO!");
+                $("#internagrupo .btn.ubicacion").show();
+            }
+        });
+
+        socket.on("hayterremoto",function(){
+            terremoto=true;
+            alert("¡TERREMOTO!");
+            $("#internagrupo .btn.ubicacion").show();
+        });
+
+
+
+        socket.on("acaboterremoto",function(){
+            terremoto=false;
+            console.log("acabo");
+            $("#internagrupo .btn.ubicacion").hide();
+
+            if(seccion=="ubicacion"){
+                getContent({page:"grupos"},false);
+            }
+        });
+        grupos = new Grupos();
+        internagrupo = new Internagrupo();
+        ubicacion = new Ubicacion();
+        contactos = new Contactos();
+         $("#home").hide();
+        $("#header").show();
+
+        grupos.cargarMiPerfil();
+        grupos.listar();
+
+
+
+        getContent({page:"grupos"},true);
+
     }
 
     
@@ -335,7 +364,9 @@ function getContent(obj,addEntry){
             internagrupo.listarcontactos(obj.grupo);
             break;
         case "ubicacion":
-
+            if(terremoto==false){
+                history.back();
+            }
             ubicacion.mostrar();
             ubicacion.iniciarMapa();
             break;

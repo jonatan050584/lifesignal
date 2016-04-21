@@ -22,6 +22,7 @@ var Home = function(){
 		var cl = $("#home .login input[name=clave]").val();
 
 		if(em!="" && cl!=""){
+			
 			request("usuario/login",{
 				email:em,
 				clave:cl

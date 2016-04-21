@@ -9,6 +9,7 @@
 	line-height: 35px;
 	width: 100%;
 	z-index: 2;
+	display: none;
 }
 #internagrupo .btn.ubicacion .label{
 	line-height: 35px;

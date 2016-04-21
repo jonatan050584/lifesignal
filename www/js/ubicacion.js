@@ -33,49 +33,51 @@ var Ubicacion = function(){
 		    };
 		    mapa = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 		}
+		var idsMiembros;
+		$.each(internagrupo.miembros,function(key,val){
+			idsMiembros.push(val.id);
+		})
+		setTimeout(function(){
+			socket.emit("pedirultimasposiciones",idsMiembros);	
+		},2000);
+		
+
+
 		//navigator.geolocation.getCurrentPosition(this.onMyPosition, this.onError);
 		//-12.071854, -77.115097
 
 		
 	}
+
+	socket.on("mostrarposiciones",function(data){
+		$.each(internagrupo.miembros,function(key,val){
+			if(ubicacion.markers[parseInt(val.id)]==undefined){
+				//crear marker
+				var img = escape(val.pic);
+
+				var icono = {
+			    	url:'http://picnic.pe/clientes/lifesignal/api/imagen.php?path='+img,
+			    	scaledSize: new google.maps.Size(54, 54)
+			    }
+
+			    var marker = new google.maps.Marker({
+			      clickable:false,
+			     	
+			      icon: icono,
+			      shadow:null,
+			      zIndex:999,
+			      map:mapa,
+			      position:{lat:data[parseInt(val.id)].lat,lng:data[parseInt(val.id)].lon}
+			    });
+			    ubicacion.markers[parseInt(val.id)] = marker;
+			}
+		})
+	})
+
 	this.onError = function(error){
 		console.log('code: '    + error.code    + '\n' +  'message: ' + error.message + '\n');
 	}
-	this.onMyPosition = function(position){
-
-		this.currentpos = position.coords;
-
-		
-
-
-	    /*var icono = {
-
-	    	url:'http://192.168.0.10/lifesignal/lifesignal/www/img/mark.png',
-	    	scaledSize: new google.maps.Size(54, 68)
-
-	    }
-
-	    this.myloc = new google.maps.Marker({
-	      clickable:false,
-	     	
-	      icon: icono,
-	      shadow:null,
-	      zIndex:999,
-	      map:mapa,
-	      position:{lat:position.coords.latitude,lng:position.coords.longitude}
-	    });
-
-
-	    var opciones = {
-	    	enableHighAccuracy:true,
-
-	    };
-	    var watchId = navigator.geolocation.watchPosition(function(pos){
-	    	console.log(pos);
-	    },this.onError,opciones);
-		*/
-		console.log(this.contactos);
-	}
+	
 	this.moverPosicion = function(data){
 		if(existemapa){
 			//console.log(this.contactos);
