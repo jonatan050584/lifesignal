@@ -26,12 +26,12 @@
     <plugin name="nl.x-services.plugins.socialsharing" />
 
     <icon src="icon.png" />
-    <icon gap:platform="android" gap:qualifier="ldpi" src="res/icon/android/mipmap-ldpi/ic_launcher.png" />
-    <icon gap:platform="android" gap:qualifier="mdpi" src="res/icon/android/mipmap-mdpi/ic_launcher.png" />
-    <icon gap:platform="android" gap:qualifier="hdpi" src="res/icon/android/mipmap-hdpi/ic_launcher.png" />
-    <icon gap:platform="android" gap:qualifier="xhdpi" src="res/icon/android/mipmap-xhdpi/ic_launcher.png" />
-    <icon gap:platform="android" gap:qualifier="xxhdpi" src="res/icon/android/mipmap-xxhdpi/ic_launcher.png" />
-    <icon gap:platform="android" gap:qualifier="xxxhdpi" src="res/icon/android/mipmap-xxxhdpi/ic_launcher.png" />
+    <icon platform="android" density="ldpi" src="res/icon/android/mipmap-ldpi/ic_launcher.png" />
+    <icon platform="android" density="mdpi" src="res/icon/android/mipmap-mdpi/ic_launcher.png" />
+    <icon platform="android" density="hdpi" src="res/icon/android/mipmap-hdpi/ic_launcher.png" />
+    <icon platform="android" density="xhdpi" src="res/icon/android/mipmap-xhdpi/ic_launcher.png" />
+    <icon platform="android" density="xxhdpi" src="res/icon/android/mipmap-xxhdpi/ic_launcher.png" />
+    <icon platform="android" density="xxxhdpi" src="res/icon/android/mipmap-xxxhdpi/ic_launcher.png" />
 
     <!-- iPhone 6 / 6+ -->
     <icon src="res/icon/ios/Icon-60@3x.png" platform="ios" width="180" height="180" />
