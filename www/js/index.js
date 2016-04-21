@@ -1,4 +1,4 @@
-var production = true;
+var production = false;
 var pathapi;
 var login;
 var usuario;
@@ -25,8 +25,8 @@ if(production){
     pathapi = "http://picnic.pe/clientes/lifesignal/api/";
 }else{
     //pathapi = 'http://52.34.151.159/RESTAPI/';
-    //pathapi = "http://localhost/lifesignal/api/";
-    pathapi = 'http://localhost/lifesignal/Life-Signal-Api/';
+    pathapi = "http://localhost/lifesignal/api/";
+    //pathapi = 'http://localhost/lifesignal/Life-Signal-Api/';
 }
 
 var home;
@@ -65,10 +65,12 @@ var app = {
 
             socket.emit('enviarposicion',{
                 id:usuario.id,
-                lat:position.coords.latitude,
-                lon:position.coords.longitude
+                lat:location.latitude,
+                lon:location.longitude,
+                from:'background'
             });
             backgroundGeoLocation.finish();
+
 
         };
 
@@ -270,7 +272,8 @@ var Usuario = function(){
                 socket.emit('enviarposicion',{
                     id:usuario.id,
                     lat:position.coords.latitude,
-                    lon:position.coords.longitude
+                    lon:position.coords.longitude,
+                    from:'foreground'
                 });
 
             },function(e){
@@ -282,7 +285,7 @@ var Usuario = function(){
         });
 
         socket.on("posicion",function(data){
-            //console.log(data);
+            console.log(data);
             ubicacion.moverPosicion(data);
         });
         socket.on("mensaje",function(data){
