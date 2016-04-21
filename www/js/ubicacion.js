@@ -33,7 +33,7 @@ var Ubicacion = function(){
 		    };
 		    mapa = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 		}
-		var idsMiembros;
+		var idsMiembros = new Array();
 		$.each(internagrupo.miembros,function(key,val){
 			idsMiembros.push(val.id);
 		})
