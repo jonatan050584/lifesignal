@@ -18,45 +18,73 @@
 </head>
 <body>
 <div id="fb-root"></div>
+
+<div id="alerta">
+	<div class="table">
+		<div class="cell">
+			
+			<div class="ventana">
+				<div class="cerrar">+</div>
+				<div class="txt">
+					Las contraseñas deben coincidir
+				</div>
+				<div class="bt ok">OK</div>
+			</div>
+		</div>
+	
+	</div>
+</div>
+
 <div id="header">
 	<div class="back"></div>
 	<div class="invitations"><div class="num"></div></div>
 	<div class="logout"></div>
-	<div class="titulo"></div>
+	
 	
 </div>
 <div id="home">
 	<div class="table">
 		<div class="cell">
-			<img src="img/logo.png" height="260" width="460" alt="" class="logo">
-			<div class="inicio">
-				<div class="texto">Pellentesque non dignissim neque.
-		Ut porta viverra est, ut dignissim elit
-		elementum ut.</div>
+			<img src="img/logoes.png" alt="" class="logo">
+			<div class="login">
+				
+				<input class="input" type="email" name="email" placeholder="Email" required>
+				<input class="input" type="password" name="clave" placeholder="Contraseña" required>
+
+				<div class="bt signin">Ingresa</div>
+				<div class="perdisteclave"><a class="olvidaste">¿Olvidaste tu contraseña?</a></div>
+				
+				<div class="txto">- o -</div>
+				<div class="bt fb">Ingresa con Facebook</div>
+				<div class="sincuenta">¿No tienes una cuenta? <a class="signup">Regístrate</a></div>
 			</div>
+
 			<div class="tel">
 				<div class="pic"></div>
 				<div class="usuario"></div>
 				<input type="text" name="telefono" class="input" placeholder="Enter your mobile number">
 				<div class="bt fbsignin">Sign In</div>
 			</div>
-			<div class="login">
-				
-				<input class="input" type="email" name="email" placeholder="Email" required>
-				<input class="input" type="password" name="clave" placeholder="Password" required>
-				<div class="bt signin">Sign in</div>
-				
-				<div class="bt fb">Facebook</div>
-			</div>
+			
 			
 		</div>
 		
 	</div>
 	
-	<div class="bt comenzar">Get Started</div>
-	<div class="noregistro">
-		<div class="txt">Not registred yet?</div>
-		<div class="bt signup">Sign up</div>
+	
+</div>
+<div id="registro">
+	<div class="cab"></div>
+	<div class="form">
+		<div class="titulo">REGÍSTRATE</div>
+		<div class="line"></div>
+		<input class="input" type="text" name="nombres" maxlength="50" placeholder="Nombres" required>
+		<input class="input" type="text" name="apellidos" maxlength="50" placeholder="Apellidos" required>
+		<input class="input" type="tel" name="telefono" maxlength="9" placeholder="Teléfono" required>
+		<input class="input" type="email" name="email" maxlength="100" placeholder="Email" required>
+		<input class="input" type="password" name="clave" maxlength="20" placeholder="Contraseña" required>
+		<input class="input" type="password" name="reclave" maxlength="20" placeholder="Repetite contraseña" required>
+		<div class="bt guardar">Guardar</div>
 	</div>
 </div>
 <div id="grupos">
@@ -137,6 +165,7 @@
 <script src="js/header.js"></script>
 <script src="js/contactos.js"></script>
 <script src="js/invitaciones.js"></script>
+<script src="js/registro.js"></script>
 <script type="text/javascript">
     app.initialize();
 </script>

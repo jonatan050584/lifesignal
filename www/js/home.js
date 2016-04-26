@@ -4,18 +4,11 @@ var Home = function(){
 	this.titulo = "Home";
 
 
-	new Boton($("#home .bt.comenzar"),function(obj){
-		$("#home .logo").addClass("short");
-		$("#home .inicio").hide();
-		$("#home .login").css('display',"block");
-        $("#home .login").transition({opacity:0},0);
-        $("#home .login").transition({opacity:1});
-        $("#home .bt.comenzar").hide();
-        $("#home .noregistro").show();
-
-
-        
+	new Boton($("#home a.signup"),function(){
+		getContent({page:"registro"},true);
 	});
+
+
 
 	new Boton($("#home .login .bt.signin"),function(){
 		var em = $("#home .login input[name=email]").val();
@@ -114,7 +107,7 @@ var Home = function(){
 	})
 
 
-
+	$("#home .sincuenta").css("top",h-30);
 
 }
 

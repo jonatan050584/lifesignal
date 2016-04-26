@@ -2,10 +2,6 @@ var Header = function(){
 
 
 
-	this.setTitulo = function(str){
-		$("#header .titulo").html(str);
-	}
-
 	this.cargarInvitaciones = function(){
 		request("grupo/listarinvitaciones",{
 			id:usuario.id

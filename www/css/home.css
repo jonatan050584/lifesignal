@@ -16,8 +16,9 @@
 #home .logo{
 	display: block;
 	margin: auto;
-	width: 230px;
+	width: 120px;
 	height: auto;
+	
 	
 }
 #home .logo.short{
@@ -31,37 +32,37 @@
 	font-size: 13px;
 	margin-top: 55px;
 }
-#home .bt.comenzar{
-	bottom: 30px;
-	position: absolute;
-	left: calc(50% - 110px);
+#home .perdisteclave{
+	font-size: 13px;
+	line-height: 30px;
+	padding-top: 10px;
+	text-align: center;
 }
-#home .inicio{
-	
-}
+
 #home .login{
-	display: none;
-	margin-top: 34px;
-}
-#home .bt.signin{
-	margin-top: 30px;
-}
-#home .bt.fb{
-	border-color: #3a5893;
-	background: #3a5893;
-	color: #fff;
 	margin-top: 10px;
 }
-#home .noregistro{
-	display: none;
+#home .bt.signin{
+	margin-top: 20px;
 }
-#home .noregistro .txt{
+#home .bt.fb{
+	background: #2d5eb8;
+	color: #fff;
+}
+
+#home .sincuenta{
 	text-align: center;
+	position: fixed;
+	width: 100%;
+	
 	font-size: 13px;
-	color: #5b5b5b;
-	padding-bottom: 5px;
-	line-height: 20px;
-	margin-top: -25px;
+}
+
+#home .txto{
+	text-align: center;
+	font-size: 15px;
+	line-height: 50px;
+	
 }
 #home .tel{
 	display: none;

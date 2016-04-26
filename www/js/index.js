@@ -1,8 +1,8 @@
-var production = true;
+var production = false;
 var pathapi;
 var login;
 var usuario;
-var seccion = "";
+var seccion = "home";
 var facebook;
 var ubicacion;
 var grupos;
@@ -10,12 +10,13 @@ var header;
 var internagrupo;
 var contactos;
 var invitaciones;
+var registro;
 
 var socket;
 
 
 var w; //ancho de pantalla
-
+var h; //alto de pantalla
 
 var terremoto = false;
 
@@ -102,7 +103,7 @@ var app = {
             setTimeout(function(){
                 facebookConnectPlugin.browserInit('100412800363577');
             },2000);
-            initTime = 4000;
+            initTime = 1000;
         }
 
         setTimeout(function(){
@@ -166,10 +167,12 @@ var app = {
 
         },initTime);
         
-
+        w = $(window).innerWidth();
+        h = $(window).innerHeight();
         //login = new Login();
         home = new Home();
-        w = $(window).innerWidth();
+        registro = new Registro();
+        
 
         
     },
@@ -384,7 +387,10 @@ window.onpopstate = function(event) {
 
 function getContent(obj,addEntry){
     
-   
+    if(obj==null){
+        obj = new Object({page:"home"});
+    }
+
     var antseccion = seccion;
     seccion=obj.page;
 
@@ -392,7 +398,10 @@ function getContent(obj,addEntry){
     if(antseccion!="") window[antseccion].ocultar();
        
     switch(seccion){
-
+        case "home":
+            $("#header").hide();
+            home.mostrar();
+            break;
         case "internagrupo":
             internagrupo.mostrar();
             internagrupo.listarcontactos(obj.grupo);
@@ -457,7 +466,7 @@ var Seccion = function(){
         this.dom.transition({opacity:0},0);
         this.dom.transition({opacity:1});
 
-        header.setTitulo(this.titulo);
+        //header.setTitulo(this.titulo);
 
         //this.dom.show();
     }
@@ -563,3 +572,23 @@ function getContent(obj,addEntry){
 
 
 */
+
+var Alerta = function(msg,btn){
+
+    $("#alerta .txt").html(msg);
+
+    if(btn!=undefined){
+        $("#alerta .bt").html(btn);
+    }
+
+    $("#alerta").css('display',"block");
+    $("#alerta").transition({opacity:0},0);
+    $("#alerta").transition({opacity:1});
+
+    new Boton($("#alerta .cerrar"),function(){
+        $("#alerta").hide();
+    })
+    new Boton($("#alerta .bt.ok"),function(){
+        $("#alerta").hide();
+    })
+}
