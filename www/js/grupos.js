@@ -2,11 +2,7 @@ var Grupos = function(){
 	this.dom = $("#grupos");
 	this.titulo = "Grupos";
 
-	new Boton($("#grupos .barra .btn.crear"),function(){
-		$("#grupos .creacion").css('display',"block");
-        $("#grupos .creacion").transition({opacity:0},0);
-        $("#grupos .creacion").transition({opacity:1});
-	})
+	
 
 	new Boton($("#grupos .creacion .cerrar"),function(){
 		$("#grupos .creacion").hide();
@@ -29,10 +25,19 @@ var Grupos = function(){
 		}
 	})
 
+	this.crear = function(){
+		$("#grupos .creacion").css('display',"block");
+        $("#grupos .creacion").transition({opacity:0},0);
+        $("#grupos .creacion").transition({opacity:1});
+	}
 
-	this.cargarMiPerfil = function(){
-		$(".perfil .pic").css("background-image","url('"+usuario.pic+"')");
-		$(".perfil .nombre").html(usuario.nombres+"<br>"+usuario.apellidos);
+	this.mostrar = function(){
+		$("#header .menu").show();
+		$("#header .back").hide();
+		$("#header .add").show();
+		$("#header .addcontact").hide();
+		Grupos.prototype.mostrar.call(this);
+		this.listar();
 	}
 
 	this.listar = function(){
@@ -64,7 +69,7 @@ var ItemGrupo = function(d){
 	this.html.find('.cant').html(cant);
 
 	new Boton(this.html,function(){
-		getContent({page:"internagrupo",grupo:d.id},true);
+		getContent({page:"internagrupo",grupo:d.id,nombre:d.nombre},true);
 	});
 
 

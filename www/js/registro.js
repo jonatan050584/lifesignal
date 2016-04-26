@@ -12,7 +12,7 @@ var Registro = function(){
 		Registro.prototype.mostrar.call(this);
 	}
 
-	var validar = function(campo){
+	var validarLleno = function(campo){
 
 		var input = $("#registro input[name="+campo+"]");
 		input.removeClass("required");
@@ -30,46 +30,92 @@ var Registro = function(){
 	    return ret;
 	}
 
+	var validarSiNumero = function(numero){
+		var ret = true;
+	    if (!/^([0-9])*$/.test(numero)) ret = false;
+	    return ret;
+	      
+	  }
+
 	new Boton($("#registro .bt.guardar"),function(){
 		registro.error = false;
 
-		var nom = validar("nombres");
-		var ape = validar("apellidos");
-		var tel = validar("telefono");
-		var em = validar("email");
-		var cla = validar("clave");
-		var recla = validar("reclave");
+		var nom = validarLleno("nombres");
+		var ape = validarLleno("apellidos");
+		var tel = validarLleno("telefono");
+		var em = validarLleno("email");
+		var cla = validarLleno("clave");
+		var recla = validarLleno("reclave");
 
 		if(!registro.error){
-			if(validarEmail(em)){
-
-				if(cla.length<8){
-					new Alerta("La contraseña debe tener mínimo 8 caracteres");
-					$("#registro input[name=clave]").addClass("required");
-				}else{
-					if(cla!=recla){
-						new Alerta("Las contraseñas no coinciden");
-						$("#registro input[name=reclave]").addClass("required");
-						$("#registro input[name=clave]").addClass("required");
-					}
-				}
-
-			}else{
-				new Alerta("Debe ingresar una dirección de email válida");
-				$("#registro input[name=email]").addClass("required");
+			
+			if(cla!=recla){
+				msg = "Las contraseñas no coinciden";
+				campo ="reclave";
+				registro.error=true;
+			}
+			if(cla.length<8){
+				msg = "La contraseña debe tener mínimo 8 caracteres";
+				registro.error = true;
+				campo="clave";
 			}
 
-			
+			if(!validarEmail(em)){
+				msg = "Debe ingresar una dirección de email válida";
+				registro.error = true;
+				campo="email";
+			}
+
+			if(!validarSiNumero(tel) || tel.substr(0,1)!="9" || tel.length!=9){
+				msg = "Deben ingresar un número de celular válido";
+				registro.error = true;
+				campo="telefono";
+			}
+
+			if(registro.error){
+				new Alerta(msg);
+				$("#registro input[name="+campo+"]").addClass("required");
+			}else{
+
+				//registrar
+
+				var es = new Espera("Enviando...");
+
+				request("usuario/registrar",{
+					nombres:nom,
+					apellidos:ape,
+					email:em,
+					telefono:tel,
+					clave:cla
+				},function(res){
+
+					es.fin();
+
+					if(res.error){
+						new Alerta(res.msg);
+					}else{
+						usuario = new Usuario();
+						usuario.id = res.id;
+						usuario.nombres = nom;
+						usuario.apellidos = ape;
+						usuario.telefono = tel;
+						usuario.iniciarSesion("nuevo");
+					}
+
+				})
+
+			}
+		
 		}
 
 		
-
+		
 
 		
 
 
 	});
-
+	
 	
 }
 Registro.prototype = new Seccion();

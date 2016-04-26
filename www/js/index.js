@@ -1,4 +1,4 @@
-var production = false;
+var production = true;
 var pathapi;
 var login;
 var usuario;
@@ -11,6 +11,7 @@ var internagrupo;
 var contactos;
 var invitaciones;
 var registro;
+var menu;
 
 var socket;
 
@@ -103,7 +104,7 @@ var app = {
             setTimeout(function(){
                 facebookConnectPlugin.browserInit('100412800363577');
             },2000);
-            initTime = 1000;
+            initTime = 4000;
         }
 
         setTimeout(function(){
@@ -113,6 +114,7 @@ var app = {
                 console.log("no sesion");
                 $("#home").show();
             }else{
+                var es = new Espera("Restaurando sesión...");
                 console.log("sesion activa");
                 request("usuario/validar",{
                     id:window.localStorage.getItem("id")
@@ -128,29 +130,34 @@ var app = {
                         usuario.fbid = res.info.fbid;
                         usuario.pic = res.info.pic;
 
-
+                        usuario.telefono = res.info.telefono;
 
 
 
                         if(res.solofacebook == true){
+                            es.txt("Conectando a Facebook...");
                             facebook.getStatus(function(conectado){
                                 console.log("statusfacebook");
                                 console.log(conectado);
                                 if(conectado){
+                                    es.txt("Obteniendo datos de perfil de Facebook...");
                                     facebook.myInfo(function(info){
                                         console.log("infofacebook");
-                                        
+                                        es.fin();
                                         usuario.iniciarSesion();
 
                                         //console.log("GRUPOS");
-                                    })
+                                    });
                                 }else{
+                                    es.fin();
+                                    new Alerta("Error restaurando sesión de Facebook");
                                     window.localStorage.removeItem("id");
                                     $("#home").show();
                                 }
 
                             });
                         }else{
+                            es.fin();
                             console.log("tiene usuario y clave");
 
                             usuario.iniciarSesion();
@@ -219,148 +226,8 @@ var Boton = function(dom,callback){
 
 };
 
-var Espera = function(){
-    this.mensaje = function(str){
-        $("#espera .msg").html(str);
-    }
-    this.show = function(){
-        $("#espera").show();
-    }
-    this.hide = function(){
-        $("#espera").hide();
-        $("#espera .msg").html("");
-    }
-}
 
 
-var Usuario = function(){
-
-    this.iniciarSesion = function(tipo){
-        console.log("iniciar sesion:"+this.id);
-        window.localStorage.setItem("id",this.id);
-        
-        
-        
-
-       
-
-
-        socket = io.connect('http://picnic.pe:8881');
-
-        socket.on("connect", function() {
-            //alert("conectado");
-            console.log("usuario conectado al servidor");
-            
-            
-
-            var opciones = {
-                maximumAge: 15000,
-                enableHighAccuracy:true,
-
-            };
-            navigator.geolocation.watchPosition(function(position){
-                
-                socket.emit('enviarposicion',{
-                    id:usuario.id,
-                    lat:position.coords.latitude,
-                    lon:position.coords.longitude,
-                    from:'foreground'
-                });
-
-            },function(e){
-                console.log('error watchposition: '+e);
-            },opciones);
-
-
-            
-        });
-
-        socket.on("posicion",function(data){
-            console.log(data);
-            ubicacion.moverPosicion(data);
-        });
-        socket.on("mensaje",function(data){
-            console.log(data);
-        });
-
-        
-        socket.on("estadoterremoto",function(valor){
-            terremoto=valor;
-            if(valor){
-                alert("¡TERREMOTO!");
-                $("#internagrupo .btn.ubicacion").show();
-            }
-        });
-
-        socket.on("hayterremoto",function(){
-            terremoto=true;
-            alert("¡TERREMOTO!");
-            $("#internagrupo .btn.ubicacion").show();
-        });
-
-
-
-        socket.on("acaboterremoto",function(){
-            terremoto=false;
-            console.log("acabo");
-            $("#internagrupo .btn.ubicacion").hide();
-
-            if(seccion=="ubicacion"){
-                getContent({page:"grupos"},false);
-            }
-        });
-
-        socket.on("enviarinvitacion",function(invitado){
-            if(usuario.id == invitado){
-                header.cargarInvitaciones();
-            }
-        });
-
-        socket.on('aceptarinvitacion',function(data){
-            if(data.usuario==usuario.id){
-                grupos.listar();    
-            }
-            if(seccion=="internagrupo" && internagrupo.id == data.grupo){
-                internagrupo.listarcontactos(data.grupo);
-            }
-        });
-
-
-
-        if(tipo=="nuevo"){
-            socket.emit("mensaje",{
-                accion:"nuevousuario"
-            })
-        }
-        grupos = new Grupos();
-        internagrupo = new Internagrupo();
-        ubicacion = new Ubicacion();
-        contactos = new Contactos();
-        invitaciones = new Invitaciones();
-
-        socket.on("mensaje",function(data){
-            if(data.accion=="nuevousuario"){
-                contactos.flag=false;
-            }
-        });
-
-        $("#home").hide();
-        $("#header").show();
-
-        grupos.cargarMiPerfil();
-        grupos.listar();
-
-        header.cargarInvitaciones();
-
-        getContent({page:"grupos"},true);
-
-    }
-    this.cerrarSesion = function(){
-        window.localStorage.removeItem("id");
-        location.reload();
-    }
-    
-}
 
 
 function request(ac,params,callback){
@@ -403,8 +270,8 @@ function getContent(obj,addEntry){
             home.mostrar();
             break;
         case "internagrupo":
-            internagrupo.mostrar();
-            internagrupo.listarcontactos(obj.grupo);
+            internagrupo.mostrar(obj.grupo,obj.nombre);
+            
             break;
         case "ubicacion":
             if(terremoto==false){
@@ -412,10 +279,6 @@ function getContent(obj,addEntry){
             }
             ubicacion.mostrar();
             ubicacion.iniciarMapa();
-            break;
-        case "contactos":
-            contactos.listar();
-            contactos.mostrar();
             break;
         case "invitaciones":
             invitaciones.listar();
@@ -427,11 +290,7 @@ function getContent(obj,addEntry){
        
     }
 
-    if(seccion=="grupos"){
-        $("#header .back").hide();
-    }else{
-        $("#header .back").show();
-    }
+    
 
     //if(menu.abierto) menu.cerrar();
 
@@ -476,104 +335,23 @@ var Seccion = function(){
     }
 }
 
-/*var Alerta = function(msg,callback,title,button){
-    if(production){
-        navigator.notification.alert(msg, callback, title, button);
-    }else{
-        alert(msg);
-        callback();
+
+var Espera = function(msg,callback){
+
+    $("#espera .txt").html(msg);
+    $("#espera").show();
+    this.fin = function(){
+        $("#espera .txt").html("");
+        $("#espera").hide();
+    }
+
+    this.txt = function(val){
+        $("#espera .txt").html(val);
     }
 }
 
-var Data = function(){
 
-    this.categorias = new Array();
-    this.descuentos = new Array();
-    this.beneficios = new Array();
-    this.locales = new Array();
-    this.tipos = new Array();
-    this.canales =  new Array();
-
-}
-
-var data = new Data();
-
-
-window.onpopstate = function(event) {
-
-   
-    getContent(event.state,false);
-   
-
-    
-
-};
-
-
-function getContent(obj,addEntry){
-    
-   
-    var antseccion = seccion;
-    seccion=obj.page;
-
-   
-    if(antseccion!="") window[antseccion].ocultar();
-       
-    switch(seccion){
-        case "descuentos":
-
-            descuentos.mostrar(obj.cat,obj.neg);
-            break;
-        case "beneficios":
-            beneficios.mostrar();
-            break;
-        case "encuentranos":
-            encuentranos.mostrar();
-            break;
-        case "detalle":
-            detalle.mostrar(obj.id);
-            break;
-        case "gmaps":
-            gmaps.mostrar(obj.cat,obj.neg);
-            break;
-        case "ubicacion":
-            ubicacion.mostrar(obj.negocio);
-            break;
-        case "canales":
-            canales.mostrar();
-            break;
-    }
-
-    if(menu.abierto) menu.cerrar();
-
-    
-
-
-   
-   
-    
-
-    
-
-    //window[antseccion].ocultar();
-    //window[seccion].mostrar();
-
-    if(addEntry == true) {
-        history.pushState(obj,null); 
-    }
-
-    //window.scrollTo(0,0);
-
-    
-    
-
-
-}
-
-
-*/
-
-var Alerta = function(msg,btn){
+var Alerta = function(msg,btn,callback){
 
     $("#alerta .txt").html(msg);
 
@@ -587,8 +365,13 @@ var Alerta = function(msg,btn){
 
     new Boton($("#alerta .cerrar"),function(){
         $("#alerta").hide();
+
     })
     new Boton($("#alerta .bt.ok"),function(){
         $("#alerta").hide();
-    })
+        if(callback!=undefined){
+            
+            callback();
+        }
+    });
 }

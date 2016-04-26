@@ -19,6 +19,14 @@
 <body>
 <div id="fb-root"></div>
 
+<div id="espera">
+	<div class="table">
+		<div class="cell">
+			<div class="txt"></div>
+		</div>
+	</div>
+</div>
+
 <div id="alerta">
 	<div class="table">
 		<div class="cell">
@@ -36,18 +44,22 @@
 </div>
 
 <div id="header">
+	<div class="btn menu">
+		<div class="inv">88</div>
+	</div>
 	<div class="back"></div>
 	<div class="invitations"><div class="num"></div></div>
 	<div class="logout"></div>
-	
-	
+	<div class="btn add"></div>
+	<div class="btn addcontact"></div>
+	<div class="titulo"></div>
 </div>
 <div id="home">
 	<div class="table">
 		<div class="cell">
-			<img src="img/logoes.png" alt="" class="logo">
+			
 			<div class="login">
-				
+				<img src="img/logoes.png" alt="" class="logo">
 				<input class="input" type="email" name="email" placeholder="Email" required>
 				<input class="input" type="password" name="clave" placeholder="Contraseña" required>
 
@@ -62,8 +74,8 @@
 			<div class="tel">
 				<div class="pic"></div>
 				<div class="usuario"></div>
-				<input type="text" name="telefono" class="input" placeholder="Enter your mobile number">
-				<div class="bt fbsignin">Sign In</div>
+				<input type="tel" name="telefono" class="input" maxlength="9" placeholder="Ingresa tu número de teléfono">
+				<div class="bt fbsignin">Enviar</div>
 			</div>
 			
 			
@@ -74,57 +86,70 @@
 	
 </div>
 <div id="registro">
-	<div class="cab"></div>
-	<div class="form">
-		<div class="titulo">REGÍSTRATE</div>
+	
+	<form class="form">
+		<h1 class="titulo">REGÍSTRATE</h1>
 		<div class="line"></div>
 		<input class="input" type="text" name="nombres" maxlength="50" placeholder="Nombres" required>
 		<input class="input" type="text" name="apellidos" maxlength="50" placeholder="Apellidos" required>
 		<input class="input" type="tel" name="telefono" maxlength="9" placeholder="Teléfono" required>
 		<input class="input" type="email" name="email" maxlength="100" placeholder="Email" required>
 		<input class="input" type="password" name="clave" maxlength="20" placeholder="Contraseña" required>
-		<input class="input" type="password" name="reclave" maxlength="20" placeholder="Repetite contraseña" required>
+		<input class="input" type="password" name="reclave" maxlength="20" placeholder="Repite contraseña" required>
 		<div class="bt guardar">Guardar</div>
-	</div>
+	</form>
+</div>
+<div id="recuperar">
+	
 </div>
 <div id="grupos">
 	<div class="creacion">
 		<div class="ventana">
 			<div class="cerrar">+</div>
 			<div class="margen">
-				<div class="titulo">Create group</div>
-				<input type="text" name="nombre" class="input" placeholder="Group name">
-				<div class="bt creargrupo">Save</div>
+				<div class="titulo">Crear grupo</div>
+				<input type="text" name="nombre" class="input" placeholder="Nombre">
+				<div class="bt creargrupo">Guardar</div>
 			</div>
 		</div>
 	</div>
-	<div class="barra">
-		<div class="btn crear"><div class="circulo">+</div></div>
-		<div class="txt">Crete group</div>
-	</div>
-	<div class="perfil">
-		<div class="cell">
-			<div class="pic"></div>
-			<div class="nombre">Juan Pérez</div>
-		</div>
-	</div>
+	
+	
+	<h1 class="titulo">MIS GRUPOS</h1>
+
 	<div class="lista">
 		
 	</div>
-
+	
 </div>
 <div id="internagrupo">
-	<div class="barra">
-		<div class="btn crear"><div class="circulo">+</div></div>
-		<div class="txt">Add contact</div>
+	<div class="edicion">
+		<div class="ventana">
+			<div class="cerrar">+</div>
+			<div class="margen">
+				<div class="titulo">Cambiar nombre</div>
+				<input type="text" name="nombre" class="input" placeholder="Nombre">
+				<div class="bt guardar">Guardar</div>
+			</div>
+		</div>
 	</div>
+	<div class="info">
+		<div class="ventana">
+			<div class="cerrar"></div>
+		</div>
+	</div>
+
+	<div class="btn editar"></div>
+	<h1 class="titulo"></h1>
+	
 	<div class="btn ubicacion">
-		<div class="label">Ver ubicación</div>
+		<div class="label">Ver ubicaciones</div>
 	</div>
 	<div class="lista">
 		
 		
 	</div>
+	<!--<div class="bt salir">Salir del grupo</div>-->
 </div>
 <div id="contactos">
 	<div class="invitacion">
@@ -137,11 +162,13 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="lista">
 		
 	</div>
 </div>
 <div id="invitaciones">
+	<h1 class="titulo">INVITACIONES</h1>
 	<div class="lista">
 		
 	</div>
@@ -152,12 +179,26 @@
 	</div>
 </div>
 
+<div id="menu">
+	<div class="btn cerrar"></div>
+	<div class="pic"></div>
+	<div class="nombre"></div>
+	<div class="botones">
+		<div class="item misgrupos">Mis grupos</div>
+		<div class="item invitaciones">Invitaciones <div class="cant"></div></div>
+		<!--<div class="item sobre">Sobre Señal de Vida</div>
+		<div class="item config">Configuración</div>-->
+		<div class="item salir">Cerrar sesión</div>
+	</div>
+	<img src="img/unacem.png"  alt="" class="unacem">
+</div>
 
 <script type="text/javascript" src="cordova.js"></script>
 <script src="js/facebookConnectPlugin.js"></script>
 <script src="js/facebook.js"></script>
 <script src="js/library.js"></script>
 <script src="js/index.js"></script>
+<script src="js/usuario.js"></script>
 <script src="js/home.js"></script>
 <script src="js/grupos.js"></script>
 <script src="js/internagrupos.js"></script>
@@ -166,6 +207,7 @@
 <script src="js/contactos.js"></script>
 <script src="js/invitaciones.js"></script>
 <script src="js/registro.js"></script>
+<script src="js/menu.js"></script>
 <script type="text/javascript">
     app.initialize();
 </script>

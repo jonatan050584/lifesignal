@@ -6,6 +6,7 @@
 @import url('contactos.css');
 @import url("invitaciones.css");
 @import url("registro.css");
+@import url("menu.css");
 
 body{
 	margin: 0px;
@@ -59,11 +60,16 @@ a.over{
 	text-align: center;
 	font-size: 15px;
 }
+.input::-webkit-input-placeholder {
+   color: #d5d5d8;
+}
 
 .input.required::-webkit-input-placeholder {
    color: #e11b4c;
 }
-
+.input.required{
+	color: #e11b4c;
+}
 #header{
 	position: fixed;
 	width: 100%;
@@ -74,26 +80,41 @@ a.over{
 	background-size: auto 35px;
 	display: none;
 }
+#header.nologo{
+	background: #e11b4c;
+}
 #header .titulo{
 	display: table;
 	margin: auto;
-	line-height: 44px;
+	line-height: 50px;
 	color: #fff;
 	font-size: 17px;
-	font-family: 'open_sansregular';
+	font-family: 'montserratregular';
 }
 #header .logout{
 	width: 50px;
 	height: 50px;
 	position: absolute;
 	right: 0px;
+	display: none;
 	background: url("../img/logout.png");
 	background-size: 25px 25px;
 	background-repeat: no-repeat;
 	background-position: center center;
 
 }
+#header .btn{
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+#header .btn.over{
+	opacity: 0.7;
+}
 #header .invitations{
+	display: none;
 	width: 50px;
 	height: 50px;
 	position: absolute;
@@ -115,6 +136,45 @@ a.over{
 	position: absolute;
 	margin-top: 10px;
 	display: none;
+}
+#header .btn.menu{
+	background-image: url("../img/menu.png");
+	background-size: 25px auto;
+	left: 0px;
+}
+
+#header .btn.menu .inv{
+	display: none;
+	width: 22px;
+	height: 22px;
+	border-radius: 11px;
+	position: absolute;
+	background: #fff;
+	line-height: 22px;
+	text-align: center;
+	font-size: 11px;
+	color: #e11b4c;
+	margin-left: 39px;
+	margin-top: 14px;
+}
+
+#header .btn.add{
+	
+	background-image: url("../img/cross.png");
+	background-size: 25px auto;
+	right: 0px;
+}
+#header .btn.addcontact{
+	display: none;
+	background-image: url("../img/people.png");
+	background-size: 25px auto;
+	right: 0px;
+}
+#header .btn.editar{
+	display: none;
+	background-image: url("../img/edit.png");
+	background-size: 20px auto;
+	right: 50px;
 }
 #header .back{
 	display: block;
@@ -175,4 +235,46 @@ a.over{
 }
 #alerta .bt.ok{
 	margin-top: 20px;
+}
+#espera{
+	display: none;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	z-index: 100;
+	background: rgba(0,0,0,0.7);
+}
+#espera .table{
+	width: 100%;
+	height: 100%;
+	display: table;
+}
+#espera .table .cell{
+	display: table-cell;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+	text-align: center;
+}
+#espera .txt{
+	color: #fff;
+	font-size: 13px;
+}
+
+
+h1.titulo{
+	display: table;
+	margin: auto;
+	font-family: 'montserratregular';
+	font-size: 23px;
+	color: #000;
+	background-repeat: no-repeat;
+	line-height: 25px;
+	background-position: left center;
+	background-size: auto 20px;
+	padding: 0px;
+	padding-left: 25px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	font-weight: normal;
 }

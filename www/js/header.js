@@ -8,10 +8,13 @@ var Header = function(){
 		},function(lista){
 			invitaciones.lista = lista;
 			if(lista.length>0){
-				$("#header .invitations .num").html(lista.length);
-				$("#header .invitations .num").show();
+				$("#header .btn.menu .inv").html(lista.length);
+				$("#menu .invitaciones .cant").html(lista.length);
+				$("#header .btn.menu .inv").show();
+				$("#menu .invitaciones .cant").show();
 			}else{
-				$("#header .invitations .num").hide();
+				$("#header .btn.menu .inv").hide();
+				$("#menu .invitaciones .cant").hide();
 			}
 		})
 	}
@@ -26,5 +29,24 @@ var Header = function(){
 	new Boton($("#header .back"),function(){
 		//alert(1);
 		history.back();
+	});
+
+	new Boton($("#header .btn.add"),function(){
+
+		
+
+		grupos.crear();
+
+		
+
+	});
+
+	new Boton($("#header .btn.addcontact"),function(){
+		getContent({page:"contactos"},true);
+	});
+
+
+	new Boton($("#header .btn.menu"),function(){
+		getContent({page:"menu"},true);
 	})
 }

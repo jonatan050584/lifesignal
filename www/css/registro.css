@@ -5,24 +5,14 @@
 #registro .form{
 	padding-top: 50px;
 }
-#registro .titulo{
-	display: table;
-	margin: auto;
-	font-family: 'montserratregular';
-	font-size: 23px;
-	color: #000;
-	background: url("../img/logoreg.png") no-repeat;
-	line-height: 25px;
-	background-position: left center;
-	background-size: auto 20px;
-	padding-left: 25px;
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
+
 #registro .line{
 	border-bottom:solid 1px #d5d5d8;
 	height: 1px;
 }
 #registro .bt.guardar{
 	margin-top: 48px;
+}
+#registro h1.titulo{
+	background-image: url("../img/registro.png");
 }

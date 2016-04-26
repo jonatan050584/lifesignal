@@ -1,5 +1,32 @@
 #internagrupo{
 	display: none;
+	padding-top: 50px;
+}
+#internagrupo h1.titulo{
+	background: none;
+	padding-left: 0px;
+	margin: 0px;
+	line-height: 120px;
+	position: relative;
+	text-align: center;
+	width: 100%;
+
+}
+#internagrupo .btn.editar{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	background-image: url("../img/edit2.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 20px auto;
+	right: 0px;
+	top: 120px;
+	z-index: 10;
+
+}
+#internagrupo .btn.editar.over{
+	opacity: 0.7;
 }
 #internagrupo .btn.ubicacion{
 	height: 35px;
@@ -23,66 +50,101 @@
 	background-size: auto 20px;
 }
 #internagrupo .lista{
-	padding-top: 95px;
+	margin-bottom: 20px;
+}
+#internagrupo .nombre{
+	border-bottom: solid 1px #d5d5d8;
+	border-top: solid 1px #d5d5d8;
+	text-align: center;
+	line-height: 65px;
+	font-size: 14px;
+	color: #a2a1b8;
 }
 #internagrupo .lista .item{
-	width: 50%;
-	float: left;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	border-bottom: solid 1px #d5d5d8;
+	padding: 0px 20px;
+	line-height: 65px;
+	position: relative;
+}
+#internagrupo .lista .item:first-child{
+	border-top: solid 1px #d5d5d8;
+}
+#internagrupo .lista .item.over{
+	background-color: #ececed;
+}
+
+#internagrupo .lista .item .nom{
+	font-family: 'montserratlight';
+	font-size: 14px;
+	color: #2b2d3a;
+
 }
 #internagrupo .lista .item .pic{
-	width: 74px;
-	height: 74px;
-	margin: auto;
-	border-radius: 37px;
-	background: #ccc;
-	background-repeat: no-repeat;
+	width: 36px;
+	height: 36px;
+	margin-top: calc((65px - 35px)/2);
+	float: left;
+	margin-right: 10px;
 	background-size: cover;
-	background-position: center center;
+	border-radius: 18px;
+	background-image: url("../img/icocontacto.png"); 
 }
-#internagrupo .lista .item .nom{
-	text-align: center;	
-	color: #aeaeae;
-	font-size: 14px;
-	padding-top: 5px;
+#internagrupo .lista .item .admin{
+	position: absolute;
+	right: 10px;
+	display: none;
+	font-size: 10px;
+	line-height: 14px;
+	padding: 0px 2px;
+	top: 0px;
+	color: #e11b4c;
+	line-height: 65px;
+}
+#internagrupo .lista .item.ad .admin{
+	display: table;
 }
 
-#internagrupo .barra{
+
+#internagrupo .edicion{
+	background-color:rgba(0,0,0,0.6);
+	width: 100%;
+	height: 100%;
 	position: fixed;
-	bottom: 0px;
-	width: 100%;
-	height: 65px;
-	background:#ededed;
-	z-index: 2;
+	z-index: 3;
+	top: 0px;
+	display: none;
 }
-#internagrupo .barra .btn.crear{
-	width: 54px;
-	height: 46px;
-	border-radius: 27px;
-	background: #ededed;
-	position: absolute;
-	padding-top: 8px;
-	margin-top: -7px;
-	left: calc(50% - 27px);
-
+#internagrupo .edicion .ventana{
+	background: #fff;
+    width: 310px;
+    height: 244px;
+    border-radius: 20px;
+    position: absolute;
+    top: calc(50% - 122px);
+    left: calc(50% - 155px);
 }
-#internagrupo .barra .btn.crear .circulo{
-	width: 34px;
-	height: 34px;
-	border: solid 2px #c21f58;
-	border-radius: 21px;
-	line-height: 34px;
-	font-size: 30px;
-	color: #7e2773;
+#internagrupo .edicion .ventana .margen{
+	padding: 50px;
+}
+#internagrupo .edicion .ventana .titulo{
+	font-size: 20px;
+	margin-bottom: 14px;
 	text-align: center;
-	margin: auto;
 }
-#internagrupo .barra .txt{
+#internagrupo .edicion .ventana .input{
+	margin-bottom: 20px;
 	width: 100%;
+}
+#internagrupo .edicion .ventana .bt.creargrupo{
+	width: 100%;
+}
+#internagrupo .edicion .ventana .cerrar{
 	position: absolute;
-	bottom: 8px;
-	text-align: center;
-	font-size: 12px;
-	color: #2c2b2b;
+    right: 20px;
+    top: 10px;
+    font-size: 34px;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    color: #e11b4b;
 }
