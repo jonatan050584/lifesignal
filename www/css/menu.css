@@ -1,12 +1,8 @@
 #menu{
 	background: #2b2d3a;
-	position: absolute;
-	width: 100%;
-	min-height: 100%;
-	left: 0px;
-	top: 0px;
+
 	display: none;
-	z-index: 3000;
+
 }
 #menu .cerrar{
 	width: 16px;
@@ -68,7 +64,7 @@
 #menu .unacem{
 	display: block;
 	margin: auto;
-	margin-top: 75px;
+	margin-top: 65px;
 	width: 130px;
 	height: auto;
 	margin-bottom: 20px;
