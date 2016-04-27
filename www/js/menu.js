@@ -3,6 +3,7 @@ var Menu = function(){
 
 	this.mostrar = function(){
 		$("#header .back").hide();
+		$("#header").hide();
 		Menu.prototype.mostrar.call(this);
 	}
 

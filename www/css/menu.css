@@ -1,6 +1,6 @@
 #menu{
 	background: #2b2d3a;
-
+	height: 100%;
 	display: none;
 
 }
@@ -23,7 +23,6 @@
 	background-position: center center;
 	margin: auto;
 	border: solid 3px #fff;
-	margin-top: 35px;
 }
 #menu .nombre{
 	padding: 0px 20px;
