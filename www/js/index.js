@@ -28,7 +28,7 @@ if(production){
 }else{
     //pathapi = 'http://52.34.151.159/RESTAPI/';
     pathapi = "http://localhost/lifesignal/api/";
-   //pathapi = 'http://localhost/lifesignal/Life-Signal-Api/';
+    //pathapi = 'http://localhost/lifesignal/Life-Signal-Api/';
 }
 
 var home;
@@ -36,11 +36,9 @@ var usuario;
 var initTime=1000;
 
 
-
 var app = {
     
     initialize: function() {
-        
         this.bindEvents();
     },
 
