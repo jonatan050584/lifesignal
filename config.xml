@@ -14,6 +14,17 @@
     <preference name="fullscreen" value="false" />
     <preference name="ios-statusbarstyle" value="black-opaque" />
 
+
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="prerendered-icon" value="true" />
+    <preference name="stay-in-webview" value="false" />
+    
+    <preference name="exit-on-suspend" value="false" />
+    <preference name="show-splash-screen-spinner" value="true" />
+    <preference name="auto-hide-splash-screen" value="true" />
+    <preference name="disable-cursor" value="true" />
+
     <plugin name="cordova-plugin-whitelist" spec="1" />
 
     <plugin name="org.apache.cordova.contacts" spec="0.2.16" source="pgb" />
