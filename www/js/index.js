@@ -358,25 +358,30 @@ var Alerta = function(msg,btn,callback){
     }
 
 
+    $("#cubre").css('display','block');
+    $("#cubre").transition({opacity:0},0);
+    $("#cubre").transition({opacity:1});
 
     $("#alerta").css('display',"block");
     $("#alerta").transition({opacity:0},0);
     
-    var vh = $("#alerta .ventana").outerHeight();
+    var vh = $("#alerta").outerHeight();
 
-    $("#alerta .ventana").css("top",(h-vh)/2);
+    $("#alerta").css("top",(h-vh)/2);
 
     $("#alerta").transition({opacity:1});
 
     new Boton($("#alerta .cerrar"),function(){
         $("#alerta").hide();
+        $("#cubre").hide();
 
     })
     new Boton($("#alerta .bt.ok"),function(){
         $("#alerta").hide();
+        $("#cubre").hide();
         if(callback!=undefined){
             
-            callback();
+            //callback();
         }
     });
 }
