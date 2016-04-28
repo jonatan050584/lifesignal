@@ -193,6 +193,7 @@ a.over{
 	z-index: 10;
 	background: rgba(0,0,0,0.7);
 	display: none;
+	-webkit-transform: translateZ(0);
 }
 #alerta{
 	background: #fff;
@@ -205,6 +206,7 @@ a.over{
 	padding-bottom: 30px;
 	left: calc(50% - 150px);
 	display: none;
+	-webkit-transform: translateZ(0);
 }
 #alerta .cerrar{
 	position: absolute;
