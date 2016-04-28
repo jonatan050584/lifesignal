@@ -21,7 +21,7 @@
 	background-position: center center;
 	background-size: 20px auto;
 	right: 0px;
-	top: 120px;
+	margin-top: -50px;
 	z-index: 10;
 
 }

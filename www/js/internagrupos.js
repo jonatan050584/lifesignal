@@ -46,6 +46,8 @@ var Internagrupo = function(){
 		$("#header .btn.editar").show();
 
 		$("#internagrupo h1.titulo").html(nombre);
+		
+		contactos.flag=false;
 
 		this.listarcontactos(id);
 		$("#header .back").show();

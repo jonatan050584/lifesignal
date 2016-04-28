@@ -15,6 +15,7 @@ var menu;
 
 var socket;
 
+var flaglogin=false;
 
 var w; //ancho de pantalla
 var h; //alto de pantalla
@@ -260,12 +261,21 @@ function getContent(obj,addEntry){
     seccion=obj.page;
 
    
-    if(antseccion!="") window[antseccion].ocultar();
+    if(antseccion!=""){
+        if(seccion=="home"){
+            if(!flaglogin) window[antseccion].ocultar();    
+        }else{
+            window[antseccion].ocultar();    
+        }
+        
+    }
        
     switch(seccion){
         case "home":
-            $("#header").hide();
-            home.mostrar();
+            if(!flaglogin){
+                $("#header").hide();
+                home.mostrar();
+            }
             break;
         case "internagrupo":
             internagrupo.mostrar(obj.grupo,obj.nombre);

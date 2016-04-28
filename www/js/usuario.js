@@ -9,7 +9,7 @@ var Usuario = function(){
         console.log("iniciar sesion:"+this.id);
         window.localStorage.setItem("id",this.id);
         
-       
+       flaglogin=true;
 
         socket = io.connect('http://picnic.pe:8881');
 
@@ -72,7 +72,7 @@ var Usuario = function(){
             terremoto=false;
             console.log("acabo");
             $("#internagrupo .btn.ubicacion").hide();
-
+            $("#internagrupo").css("padding-top",50);
             if(seccion=="ubicacion"){
                 getContent({page:"grupos"},false);
             }
