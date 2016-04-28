@@ -390,11 +390,15 @@ var Alerta = function(msg,btn,callback){
        // $("#alerta").show();
     }});
 
+    $("#alerta .bt.ok").unbind();
+
     new Boton($("#alerta .cerrar"),function(){
         $("#alerta").hide();
         $("#cubre").hide();
 
-    })
+    });
+
+    $("#alerta .bt.ok").unbind();
     new Boton($("#alerta .bt.ok"),function(){
         $("#alerta").hide();
         $("#cubre").hide();

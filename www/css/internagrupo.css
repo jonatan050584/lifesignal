@@ -110,7 +110,7 @@
 	width: 100%;
 	height: 100%;
 	position: fixed;
-	z-index: 3;
+	z-index: 30;
 	top: 0px;
 	display: none;
 	-webkit-transform: translateZ(0);
