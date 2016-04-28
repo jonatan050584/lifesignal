@@ -36,7 +36,7 @@
 
     <plugin name="org.apache.cordova.geolocation" />
     <plugin name="org.apache.cordova.globalization" />
-   
+    <plugin name="com.phonegap.plugin.statusbar" spec="1.1.0" source="pgb" />
     <plugin name="cordova-plugin-mauron85-background-geolocation" source="npm"/>
 
     <plugin name="nl.x-services.plugins.socialsharing" />
