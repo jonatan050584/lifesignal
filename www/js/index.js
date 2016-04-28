@@ -365,6 +365,8 @@ var Alerta = function(msg,btn,callback){
 
     if(btn!=undefined){
         $("#alerta .bt").html(btn);
+    }else{
+        $("#alerta .bt").html("OK");
     }
 
 
