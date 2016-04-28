@@ -90,6 +90,7 @@
 	position: fixed;
 	z-index: 3;
 	display: none;
+	-webkit-transform: translateZ(0);
 }
 #contactos .invitacion .ventana{
 	background: #fff;

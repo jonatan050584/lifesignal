@@ -75,6 +75,7 @@
 	position: fixed;
 	z-index: 3;
 	display: none;
+	-webkit-transform: translateZ(0);
 }
 #grupos .creacion .ventana{
 	background: #fff;

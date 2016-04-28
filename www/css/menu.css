@@ -1,8 +1,10 @@
 #menu{
 	background: #2b2d3a;
-	height: 100%;
+	min-height: 100%;
 	display: none;
-
+}
+#menu .esp{
+	height: 60px;
 }
 #menu .cerrar{
 	width: 16px;

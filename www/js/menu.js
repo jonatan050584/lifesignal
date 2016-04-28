@@ -6,7 +6,10 @@ var Menu = function(){
 		$("#header").hide();
 		Menu.prototype.mostrar.call(this);
 	}
-
+	this.ocultar = function(){
+		$("#header").show();
+		Menu.prototype.ocultar.call(this);	
+	}
 	new Boton($("#menu .btn.cerrar"),function(){
 		history.back();
 	});

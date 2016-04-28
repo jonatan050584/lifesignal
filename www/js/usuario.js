@@ -9,11 +9,7 @@ var Usuario = function(){
         console.log("iniciar sesion:"+this.id);
         window.localStorage.setItem("id",this.id);
         
-        
-        
-
        
-
 
         socket = io.connect('http://picnic.pe:8881');
 

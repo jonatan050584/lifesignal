@@ -162,7 +162,7 @@ var app = {
                             //console.log("GRUPOS");
                         }
                     }else{
-
+                        es.fin();
                         window.localStorage.removeItem("id");
                         $("#home").show();
                     }
@@ -390,7 +390,7 @@ var Alerta = function(msg,btn,callback){
         $("#cubre").hide();
         if(callback!=undefined){
             
-            //callback();
+            callback();
         }
     });
 }

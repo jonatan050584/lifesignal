@@ -113,6 +113,7 @@
 	z-index: 3;
 	top: 0px;
 	display: none;
+	-webkit-transform: translateZ(0);
 }
 #internagrupo .edicion .ventana{
 	background: #fff;

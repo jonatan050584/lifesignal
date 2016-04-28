@@ -37,6 +37,8 @@ var Home = function(){
 
                     usuario.iniciarSesion();
 
+                    
+
 				}else if(res.res == "error"){
 					new Alerta("El email o clave son incorrectos");
 
@@ -73,6 +75,9 @@ var Home = function(){
                     },function(res){
                     	es.fin();
                     	if(res.existe){
+
+
+
                     		console.log("iniciar sesion");
                     		console.log(res.info);
                     		usuario.id = res.info.id;
