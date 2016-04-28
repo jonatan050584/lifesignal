@@ -12,6 +12,10 @@
     <preference name="orientation" value="portrait" />
     <preference name="target-device" value="handset" />
     <preference name="fullscreen" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="prerendered-icon" value="true" />
+    <preference name="stay-in-webview" value="false" />
     <preference name="ios-statusbarstyle" value="black-opaque" />
 
 
@@ -24,6 +28,7 @@
     <preference name="show-splash-screen-spinner" value="true" />
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="true" />
+    <preference name="StatusBarOverlaysWebView" value="false" /> 
 
     <plugin name="cordova-plugin-whitelist" spec="1" />
 

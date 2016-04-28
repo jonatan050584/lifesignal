@@ -11,7 +11,7 @@ var Usuario = function(){
         
        flaglogin=true;
 
-        socket = io.connect('http://picnic.pe:8881');
+        socket = io.connect('http://picnic.pe:8882');
 
         socket.on("connect", function() {
             //alert("conectado");
