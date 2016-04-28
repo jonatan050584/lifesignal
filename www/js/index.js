@@ -357,8 +357,15 @@ var Alerta = function(msg,btn,callback){
         $("#alerta .bt").html(btn);
     }
 
+
+
     $("#alerta").css('display',"block");
     $("#alerta").transition({opacity:0},0);
+    
+    var vh = $("#alerta .ventana").outerHeight();
+
+    $("#alerta .ventana").css("top",(h-vh)/2);
+
     $("#alerta").transition({opacity:1});
 
     new Boton($("#alerta .cerrar"),function(){
