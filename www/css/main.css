@@ -186,26 +186,35 @@ a.over{
 	background-repeat: no-repeat;
 	background-position: center center;
 }
-#cubre{
+#alerta{
+	display: none;
 	width: 100%;
 	height: 100%;
 	position: fixed;
-	z-index: 10;
-	background: rgba(0,0,0,0.7);
-	display: none;
+	z-index: 100;
 	-webkit-transform: translateZ(0);
+	background: rgba(0,0,0,0.7);
 }
-#alerta{
+#alerta .table{
+	width: 100%;
+	height: 100%;
+	display: table;
+}
+#alerta .table .cell{
+	display: table-cell;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+	text-align: center;
+}
+#alerta .ventana{
 	background: #fff;
 	width: 300px;
 	min-height: 130px;
 	margin: auto;
 	border-radius: 20px;
-	position: absolute;
-	z-index: 20;
+	position: relative;
 	padding-bottom: 30px;
-	left: calc(50% - 150px);
-	display: none;
 	-webkit-transform: translateZ(0);
 }
 #alerta .cerrar{
@@ -216,11 +225,8 @@ a.over{
     -ms-transform: rotate(45deg); /* IE 9 */
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
-    color: rgba(225,27,76,1);
+    color: #e11b4c;
     font-family: 'montserratbold';
-}
-#alerta .cerrar.over{
-	color: rgba(225,27,76,0.7);
 }
 #alerta .txt{
 	padding-left: 30px;
@@ -228,7 +234,6 @@ a.over{
 	padding-top: 50px;
 	font-size: 14px;
 	line-height: 18px;
-	text-align: center;
 }
 #alerta .bt.ok{
 	margin-top: 20px;
