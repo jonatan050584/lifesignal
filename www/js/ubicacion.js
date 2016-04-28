@@ -50,6 +50,18 @@ var Ubicacion = function(){
 	}
 
 	socket.on("mostrarposiciones",function(data){
+		
+		ubicacion.onPosiciones(data);
+
+		
+	})
+
+	this.onError = function(error){
+		console.log('code: '    + error.code    + '\n' +  'message: ' + error.message + '\n');
+	}
+	
+
+	this.onPosiciones = function(data){
 		console.log(data);
 		console.log(internagrupo.miembros);
 		$.each(internagrupo.miembros,function(key,val){
@@ -119,51 +131,8 @@ var Ubicacion = function(){
 				
 			}
 		})
-	})
-
-	this.onError = function(error){
-		console.log('code: '    + error.code    + '\n' +  'message: ' + error.message + '\n');
 	}
-	
-	this.moverPosicion = function(data){
-		if(existemapa){
-			//console.log(this.contactos);
-			if(this.contactos!=null){
-				$.each(this.contactos,function(key,val){
-					if(val.id==data.id){
-						//if(markers[parseInt(val.id)])
-						if(ubicacion.markers[parseInt(val.id)]==undefined){
-							//crear marker
-							console.log("crear marker");
 
-							var img = escape(val.pic);
-
-							var icono = {
-						    	url:'http://picnic.pe/clientes/lifesignal/api/imagen.php?path='+img,
-						    	scaledSize: new google.maps.Size(54, 54)
-						    }
-
-						    var marker = new google.maps.Marker({
-						      clickable:false,
-						     	
-						      icon: icono,
-						      shadow:null,
-						      zIndex:999,
-						      map:mapa,
-						      position:{lat:data.lat,lng:data.lon}
-						    });
-						    ubicacion.markers[parseInt(val.id)] = marker;
-						}else{
-							var m = ubicacion.markers[parseInt(val.id)];
-
-							var latlng = new google.maps.LatLng(data.lat,data.lon)
-							m.setPosition(latlng)
-						}
-					}
-				})
-			}
-		}
-	}
 	
 
 }

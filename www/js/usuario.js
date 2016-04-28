@@ -43,7 +43,7 @@ var Usuario = function(){
 
         socket.on("posicion",function(data){
             console.log(data);
-            ubicacion.moverPosicion(data);
+            ubicacion.onPosiciones(data);
         });
         socket.on("mensaje",function(data){
             console.log(data);
