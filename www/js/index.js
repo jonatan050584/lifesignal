@@ -358,23 +358,27 @@ var Alerta = function(msg,btn,callback){
     }
 
 
+    //$("#cubre").show();
+    //$("#alerta").show();
+
+    
     $("#cubre").show();
-    $("#alerta").show();
-
-    /*
-    $("#cubre").css('display','block');
     $("#cubre").transition({opacity:0},0);
-    $("#cubre").transition({opacity:1});
+    $("#cubre").transition({opacity:1,complete:function(){
+        //$("#cubre").show();
+    }});
 
-    $("#alerta").css('display',"block");
+    $("#alerta").show();
     $("#alerta").transition({opacity:0},0);
-    */
+    
 
     var vh = $("#alerta").outerHeight();
 
     $("#alerta").css("top",(h-vh)/2);
 
-    //$("#alerta").transition({opacity:1});
+    $("#alerta").transition({opacity:1,complete:function(){
+       // $("#alerta").show();
+    }});
 
     new Boton($("#alerta .cerrar"),function(){
         $("#alerta").hide();
