@@ -94,6 +94,10 @@ var app = {
     },
 
     onDeviceReady: function() {
+
+
+
+
         
         console.log("device ready");
 
@@ -410,3 +414,35 @@ var Alerta = function(msg,btn,callback){
         }
     });
 }
+
+
+var push = PushNotification.init({
+    android: {
+        senderID: "1029590604378"
+    },
+    ios: {
+        alert: "true",
+        badge: "true",
+        sound: "true"
+    }
+});
+
+push.on('registration', function(data) {
+    // data.registrationId
+    console.log(data);
+});
+
+push.on('notification', function(data) {
+    console.log(data);
+    // data.message,
+    // data.title,
+    // data.count,
+    // data.sound,
+    // data.image,
+    // data.additionalData
+});
+
+push.on('error', function(e) {
+    console.log(e);
+    // e.message
+});
