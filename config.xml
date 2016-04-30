@@ -47,7 +47,9 @@
         <param name="SENDER_ID" value="1029590604378" />
     </plugin>
 
-    <preference name="android-build-tool" value="gradle" />
+    <plugin name="com.brodysoft.sqliteplugin" spec="1.0.6" source="pgb" />
+
+
     
 
     <icon src="icon.png" />
