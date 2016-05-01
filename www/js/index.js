@@ -50,12 +50,12 @@ var app = {
             document.addEventListener("resume", this.onDeviceResume);
             document.addEventListener("pause",this.onDevicePause);
             document.addEventListener("offline", function(){
-                
-                online=false;
+                console.log("offline");
+                online=false;   
 
             }, false);
             document.addEventListener("online",function(){
-                //alert("online");
+                console.log("online");
                 online=true;
             })
         }else{
@@ -233,7 +233,7 @@ var Boton = function(dom,callback){
 
 
 
-function request(ac,params,callback){
+function request(ac,params,callback,error){
     $.ajax({
         url:pathapi+ac,
         dataType:"json",
@@ -243,10 +243,13 @@ function request(ac,params,callback){
         timeout:20*1000,
         success:callback,
         error: function(x, t, m) {
-            alert("error");
+            
             console.log(x);
             console.log(t);
             console.log(m);
+            if(error!=undefined){
+                error();
+            }
             //new Alert("Ocurrió algún error: "+t)
         }
     });

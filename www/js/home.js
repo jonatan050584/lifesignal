@@ -44,6 +44,9 @@ var Home = function(){
 
 					
 				}
+			},function(){
+				es.fin();
+				new Alerta("Ocurrió algún tipo de error.<br>Comprueba tu conexión de red o inténtalo de nuevo más tarde.");
 			})
 		}
 	})
