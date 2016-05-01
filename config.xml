@@ -31,6 +31,7 @@
     <preference name="StatusBarOverlaysWebView" value="false" /> 
 
     <plugin name="cordova-plugin-whitelist" spec="1" />
+    <plugin name="org.apache.cordova.network-information" spec="0.2.12" source="pgb" />
 
     <plugin name="org.apache.cordova.contacts" spec="0.2.16" source="pgb" />
 
