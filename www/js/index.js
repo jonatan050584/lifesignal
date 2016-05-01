@@ -1,4 +1,4 @@
-var production = true;
+var production = false;
 var pathapi;
 var login;
 var usuario;
@@ -48,6 +48,12 @@ var app = {
             document.addEventListener('deviceready', this.onDeviceReady, false);
             document.addEventListener("resume", this.onDeviceResume);
             document.addEventListener("pause",this.onDevicePause);
+            document.addEventListener("offline", function(){
+                alert("offline");
+            }, false);
+            document.addEventListener("online",function(){
+                alert("online");
+            })
         }else{
             $(document).ready(this.onDeviceReady);
         }
@@ -148,79 +154,24 @@ var app = {
 
         header = new Header();
 
-        if(!production){
+        /*if(!production){
             setTimeout(function(){
                 facebookConnectPlugin.browserInit('100412800363577');
             },2000);
             initTime = 4000;
+        }*/
+
+        if(window.localStorage.getItem("usuario")==null){
+            window.localStorage.clear();
+            console.log("no sesion");
+            $("#home").show();
+        }else{
+            console.log("sesion activa");
+            usuario = new Usuario();
+            usuario.iniciar(JSON.parse(window.localStorage.getItem("usuario")));
         }
 
-        setTimeout(function(){
-            facebook =  new Facebook();
-            console.log("local storage: "+window.localStorage.getItem("id"));
-            if(window.localStorage.getItem("id")==null){
-                console.log("no sesion");
-                $("#home").show();
-            }else{
-                var es = new Espera("Restaurando sesión...");
-                console.log("sesion activa");
-                request("usuario/validar",{
-                    id:window.localStorage.getItem("id")
-                },function(res){
-                    console.log("validar");
-                    console.log(res);
-                    if(res.existe == true){
-                        usuario = new Usuario();
-                        usuario.id = res.info.id;
-                        usuario.nombres = res.info.nombres;
-                        usuario.apellidos = res.info.apellidos;
-                        usuario.email = res.info.email;
-                        usuario.fbid = res.info.fbid;
-                        usuario.pic = res.info.pic;
-
-                        usuario.telefono = res.info.telefono;
-
-
-
-                        if(res.solofacebook == true){
-                            es.txt("Conectando a Facebook...");
-                            facebook.getStatus(function(conectado){
-                                console.log("statusfacebook");
-                                console.log(conectado);
-                                if(conectado){
-                                    es.txt("Obteniendo datos de perfil de Facebook...");
-                                    facebook.myInfo(function(info){
-                                        console.log("infofacebook");
-                                        es.fin();
-                                        usuario.iniciarSesion();
-
-                                        //console.log("GRUPOS");
-                                    });
-                                }else{
-                                    es.fin();
-                                    new Alerta("Error restaurando sesión de Facebook");
-                                    window.localStorage.removeItem("id");
-                                    $("#home").show();
-                                }
-
-                            });
-                        }else{
-                            es.fin();
-                            console.log("tiene usuario y clave");
-
-                            usuario.iniciarSesion();
-                            //console.log("GRUPOS");
-                        }
-                    }else{
-                        es.fin();
-                        window.localStorage.removeItem("id");
-                        $("#home").show();
-                    }
-                },"get");
-                
-            }
-
-        },initTime);
+        
         
         w = $(window).innerWidth();
         h = $(window).innerHeight();
@@ -461,3 +412,22 @@ var Alerta = function(msg,btn,callback){
 }
 
 
+
+
+function checkConnection() {
+    var networkState = navigator.connection.type;
+
+    var states = {};
+    states[Connection.UNKNOWN]  = 'Unknown connection';
+    states[Connection.ETHERNET] = 'Ethernet connection';
+    states[Connection.WIFI]     = 'WiFi connection';
+    states[Connection.CELL_2G]  = 'Cell 2G connection';
+    states[Connection.CELL_3G]  = 'Cell 3G connection';
+    states[Connection.CELL_4G]  = 'Cell 4G connection';
+    states[Connection.CELL]     = 'Cell generic connection';
+    states[Connection.NONE]     = 'No network connection';
+
+    alert('Connection type: ' + states[networkState]);
+}
+
+checkConnection();
