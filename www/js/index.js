@@ -13,6 +13,8 @@ var invitaciones;
 var registro;
 var menu;
 
+var appkey = "1054picnic1054";
+
 var socket;
 
 var flaglogin=false;
@@ -65,12 +67,13 @@ var app = {
     
     onDeviceResume: function(){
         //alert(1);
-        backgroundGeoLocation.stop()
+        //backgroundGeoLocation.stop()
 
     },
     onDevicePause:function(){
 
 
+        /*
         var callbackFn = function(location) {
             console.log('[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
 
@@ -100,7 +103,7 @@ var app = {
 
         // Turn ON the background-geolocation system.  The user will be tracked whenever they suspend the app.
         backgroundGeoLocation.start();
-
+        */
     },
 
     onDeviceReady: function() {
@@ -137,33 +140,22 @@ var app = {
             // e.message
         });
     
-    
-
-
         */
         console.log("device ready");
 
-        ////sqlite
-
         
-
-
-
-
-
-
-
-
-        ///////
-
         header = new Header();
 
-        /*if(!production){
+        facebook = new Facebook();
+
+        home = new Home();
+
+        if(!production){
             setTimeout(function(){
-                facebookConnectPlugin.browserInit('100412800363577');
+                facebook.init();
             },2000);
             initTime = 4000;
-        }*/
+        }
 
         if(window.localStorage.getItem("usuario")==null){
             window.localStorage.clear();
@@ -180,12 +172,12 @@ var app = {
         w = $(window).innerWidth();
         h = $(window).innerHeight();
         //login = new Login();
-        home = new Home();
+        
         registro = new Registro();
         
 
         
-    },
+    }
 };
 
 
@@ -233,7 +225,17 @@ var Boton = function(dom,callback){
 
 
 
-function request(ac,params,callback,error){
+
+var Request = function(ac,params,callback,options){
+    var msg = "Procesando...";
+
+    if(options!=undefined && options.espera!=undefined){
+
+        msg = options.espera;
+    }
+
+    var es = new Espera(msg);
+
     $.ajax({
         url:pathapi+ac,
         dataType:"json",
@@ -241,16 +243,24 @@ function request(ac,params,callback,error){
         type:'get',
         cache:false,
         timeout:20*1000,
-        success:callback,
+        success:function(res){
+            console.log(res);
+            es.fin();
+            callback(res);
+        },
         error: function(x, t, m) {
             
             console.log(x);
             console.log(t);
             console.log(m);
-            if(error!=undefined){
-                error();
+
+            es.fin();
+
+            new Alerta("Ocurrió algún tipo de error.<br>Comprueba tu conexión de red o inténtalo de nuevo más tarde.");
+
+            if(options.error!=undefined){
+                options.error();
             }
-            //new Alert("Ocurrió algún error: "+t)
         }
     });
 }
@@ -276,15 +286,17 @@ function getContent(obj,addEntry){
     var antseccion = seccion;
     seccion=obj.page;
 
+    console.log(window[antseccion]);
+
    
-    if(antseccion!=""){
-        if(seccion=="home"){
-            if(!flaglogin) window[antseccion].ocultar();    
-        }else{
+    //if(antseccion!=""){
+        //if(seccion=="home"){
+            //if(!flaglogin) window[antseccion].ocultar();    
+        //}else{
             window[antseccion].ocultar();    
-        }
+        //}
         
-    }
+    //}
        
     switch(seccion){
         case "home":

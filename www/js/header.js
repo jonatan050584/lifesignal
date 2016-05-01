@@ -1,6 +1,32 @@
 var Header = function(){
 
 
+	this.mostrar = function(botones,titulo){
+		$("#header").show();
+		$("#header .btn").hide();
+		if(botones!=undefined){
+			var btns = botones.split(",");
+			$.each(btns,function(k,v){
+				$("#header .btn."+v).show();
+			})
+		}
+		if(titulo!=undefined){
+			$("#header .titulo").html(titulo);
+			$("#header").addClass("nologo");
+		}else{
+			$("#header .titulo").html("");
+			$("#header").removeClass("nologo");
+		}
+		
+
+	}
+
+	this.setButton = function(nom,callback){
+		$("#header .btn."+nom).unbind();
+		new Boton($("#header .btn."+nom),callback);
+	}
+
+
 
 	this.cargarInvitaciones = function(){
 		request("grupo/listarinvitaciones",{

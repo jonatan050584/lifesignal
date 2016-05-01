@@ -113,6 +113,11 @@ a.over{
 #header .btn.over{
 	opacity: 0.7;
 }
+#header .btn.done{
+	background-image: url("../img/done.png");
+	background-size: 25px auto;
+	right: 0px;
+}
 #header .invitations{
 	display: none;
 	width: 50px;

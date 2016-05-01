@@ -79,29 +79,26 @@ var Registro = function(){
 
 				//registrar
 
-				var es = new Espera("Enviando...");
+				
 
-				request("usuario/registrar",{
+				new Request("usuario/registrar",{
 					nombres:nom,
 					apellidos:ape,
 					email:em,
 					telefono:tel,
 					clave:cla
 				},function(res){
-
-					es.fin();
-
+					
 					if(res.error){
 						new Alerta(res.msg);
 					}else{
+						
 						usuario = new Usuario();
-						usuario.id = res.id;
-						usuario.nombres = nom;
-						usuario.apellidos = ape;
-						usuario.telefono = tel;
-						usuario.iniciarSesion("nuevo");
+						usuario.iniciar(res.info);
 					}
 
+				},{
+					espera:"Registrando..."
 				})
 
 			}

@@ -46,13 +46,12 @@
 
 <div id="header">
 	<div class="btn menu">
-		<div class="inv">88</div>
+		<div class="inv"></div>
 	</div>
-	<div class="back"></div>
-	<div class="invitations"><div class="num"></div></div>
-	<div class="logout"></div>
-	<div class="btn add"></div>
+	<div class="btn back"></div>
+	<div class="btn done"></div>
 	<div class="btn addcontact"></div>
+
 	<div class="titulo"></div>
 </div>
 <div id="home">
@@ -104,28 +103,9 @@
 <div id="recuperar">
 	
 </div>
-<div id="grupos">
-	<div class="creacion">
-		<div class="ventana">
-			<div class="cerrar">+</div>
-			<div class="margen">
-				<div class="titulo">Crear grupo</div>
-				<input type="text" name="nombre" class="input" placeholder="Nombre">
-				<div class="bt creargrupo">Guardar</div>
-			</div>
-		</div>
-	</div>
-	
-	
-	<h1 class="titulo">MIS GRUPOS</h1>
 
-	<div class="lista">
-		
-	</div>
-	
-</div>
 <div id="internagrupo">
-	<div class="edicion">
+	<!--<div class="edicion">
 		<div class="ventana">
 			<div class="cerrar">+</div>
 			<div class="margen">
@@ -134,19 +114,18 @@
 				<div class="bt guardar">Guardar</div>
 			</div>
 		</div>
-	</div>
-	<div class="info">
-		<div class="ventana">
-			<div class="cerrar"></div>
+	</div>-->
+	<div class="singrupo">
+		<div class="contenido">
+			<img src="img/logogrande.png" width="90" alt="" class="logo">
+			<div class="t1">Aún no perteneces a<br>ningún grupo</div>
+			<div class="t2">Puedes crear uno o esperar una invitación para formar parte de otro</div>
+			<div class="bt crear">Crear grupo</div>
 		</div>
+		
 	</div>
-
 	
-	<h1 class="titulo"></h1>
-	<div class="btn editar"></div>
-	<div class="btn ubicacion">
-		<div class="label">Ver ubicaciones</div>
-	</div>
+	
 	<div class="lista">
 		
 		
@@ -154,17 +133,9 @@
 	<!--<div class="bt salir">Salir del grupo</div>-->
 </div>
 <div id="contactos">
-	<div class="invitacion">
-		<div class="ventana">
-			<div class="cerrar">+</div>
-			<div class="margen">
-				<div class="nombres"></div>
-				<div class="telefono"></div>
-				<div class="bt enviar">Invite</div>
-			</div>
-		</div>
+	<div class="busqueda">
+		<input type="text" name="buscar" placeholder="Buscar...">
 	</div>
-
 	<div class="lista">
 		
 	</div>
@@ -204,7 +175,6 @@
 <script src="js/index.js"></script>
 <script src="js/usuario.js"></script>
 <script src="js/home.js"></script>
-<script src="js/grupos.js"></script>
 <script src="js/internagrupos.js"></script>
 <script src="js/ubicacion.js"></script>
 <script src="js/header.js"></script>

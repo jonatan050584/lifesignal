@@ -1,34 +1,94 @@
 var Contactos = function(){
 	this.dom = $("#contactos");
-	this.titulo = "Add Contact";
+
 	this.flag=false;
 
 	this.lista = new Array();
 
 	var validos = new Array();
 
-
+	this.invitados = new Array();
 
 	new Boton($("#contactos .invitacion .cerrar"),function(){
 		$("#contactos .invitacion").hide();
 	});
 
+	
+
+
+	$("#contactos .busqueda input[name=buscar]").keyup(function(e){
+		var bus = $(this).val().toLowerCase();
+		$("#contactos .lista .item").each(function(index){
+			var res=false;
+			
+			var num= $(this).find(".tel").html();
+
+			if(num.substr(0,bus.length)==bus){
+				res=true;
+			}
+
+			if(!res){
+				var nom = $(this).find(".nom").html().toLowerCase();
+				var palabra = nom.split(" ");
+				
+				$.each(palabra,function(k,v){
+					if(v.substr(0,bus.length)==bus){
+						res=true;
+					}
+				});
+			}
+
+
+			
+
+
+			if(res){
+				$(this).show();
+			}else{
+				$(this).hide();
+			}
+
+		})
+	})
+
 	this.mostrar = function(){
 
-		$("#header .titulo").html("Elegir contacto");
-		$("#header").addClass("nologo");
-		$("#header .btn.addcontact").hide();
+		this.invitados = new Array();
+
+		header.mostrar("back,done","Elegir contactos");
+
+		header.setButton("done",this.done);
 
 		this.listar();
+
 		Contactos.prototype.mostrar.call(this);
+	}
+	this.done = function(){
+		var inv = new Array();
+		$("#contactos .lista .item").each(function(index){
+			if($(this).hasClass("check")){
+				inv.push($(this).data("id"));
+			}
+		});
+
+		new Request("grupo/crear",{
+			usuario:usuario.id,
+			invitados:inv.join(",")
+		},function(res){
+			
+		},{
+			espera:"Creando grupo..."
+		})
+
+		console.log(inv);
 	}
 
 	this.listar = function(){
 		//console.log(internagrupo.miembros);
 		if(!this.flag){
 			this.flag=true;
-			$("#contactos .lista").html("Listando contactos...");
-
+			//$("#contactos .lista").html("Listando contactos...");
+			var es = new Espera("Listando contactos...");
 
 			if(production){
 
@@ -86,7 +146,7 @@ var Contactos = function(){
 		//console.log("validos");
 		//console.log(validos);
 
-		request("usuario/validarexisten",{
+		new Request("usuario/validarexisten",{
 			lista : validos.join(",")
 		},function(existen){
 			console.log("existen");
@@ -147,6 +207,8 @@ Contactos.prototype = new Seccion();
 
 var ItemContacto = function(d){
 	this.html = $(lib.ItemContacto);
+
+	this.html.attr("data-id",d.id);
 	
 	if(d.id!=null){
 		this.html.addClass("app");
@@ -176,6 +238,15 @@ var ItemContacto = function(d){
 			
 
 			if(d.id!=null){
+
+				if(e.hasClass("check")){
+					e.removeClass("check");
+				}else{
+					e.addClass("check");	
+				}
+				
+
+				/*
 				new Alerta('¿Deseas agregar a '+d.nombre+' al grupo "'+internagrupo.nombre+'"?',"Agregar",function(){
 					var es = new Espera("Enviando notificación...");
 
@@ -204,7 +275,8 @@ var ItemContacto = function(d){
 
 
 		        	$("#contactos .invitacion").hide();
-				});
+				});*/
+
 				/*$("#contactos .invitacion .nombres").html(d.nombre);
 				$("#contactos .invitacion .telefono").html(d.telefono);
 
@@ -214,10 +286,7 @@ var ItemContacto = function(d){
 
 		        $("#contactos .invitacion .ventana .bt.enviar").unbind();*/
 		        
-		        new Boton($("#contactos .invitacion .ventana .bt.enviar"),function(){
-		        	
-
-		        });
+		        
 			}else{
 				window.plugins.socialsharing.shareViaSMS('Prueba LifeSignal para tu smartphone. Visita http://picnic.pe/lifesignal/ para descargarlo',d.original,function(msg){console.log('ok: ' + msg);},function(msg) {alert('error: ' + msg);});
 			}

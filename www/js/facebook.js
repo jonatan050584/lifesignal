@@ -1,5 +1,10 @@
 var Facebook = function(){
 
+	this.info = null;
+
+	this.init = function(){
+		facebookConnectPlugin.browserInit('100412800363577');
+	}
 
 	this.getStatus = function(callback){
 		facebookConnectPlugin.getLoginStatus(function(obj){
@@ -18,11 +23,12 @@ var Facebook = function(){
 			
 			info.pic = null;
 
-			facebookConnectPlugin.api('/me/picture?width=100&height=100&redirect=0',null,function(res){  	
+			facebookConnectPlugin.api('/me/picture?width=200&height=200&redirect=0',null,function(res){  	
 				console.log(res);
 				if(!res.data.is_silhouette){
 					info.pic = res.data.url;
 				}
+				facebook.info = info;
 				callback(info);
 			},function(error){
 				console.log(error);

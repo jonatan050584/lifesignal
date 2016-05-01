@@ -1,16 +1,21 @@
 var Usuario = function(){
 
-    this.id = null;
-    this.pic = null;
-    this.nombres = null;
-    this.fbid = null;
+    this.iniciar = function(info){
 
-    this.iniciarSesion = function(tipo){
-        console.log("iniciar sesion:"+this.id);
-        window.localStorage.setItem("id",this.id);
-        
-       flaglogin=true;
+        this.id = info.id;
+        this.nombres = info.nombres;
+        this.apellidos = info.apellidos;
+        this.email = info.email;
+        this.telefono = info.telefono;
+        this.llave = info.llave;
+        this.fbid = info.fbid;
+        this.pic = info.pic;
 
+        window.localStorage.setItem("usuario",JSON.stringify(info));
+
+        flaglogin=true;
+
+        /*
         socket = io.connect('http://picnic.pe:8882');
 
         socket.on("connect", function() {
@@ -92,27 +97,25 @@ var Usuario = function(){
                 internagrupo.listarcontactos(data.grupo);
             }
         });
-
-
-
-        if(tipo=="nuevo"){
-            socket.emit("mensaje",{
-                accion:"nuevousuario"
-            })
-        }
-        grupos = new Grupos();
-        internagrupo = new Internagrupo();
-        ubicacion = new Ubicacion();
-        contactos = new Contactos();
-        invitaciones = new Invitaciones();
-        menu =  new Menu();
-
         socket.on("mensaje",function(data){
-            if(data.accion=="nuevousuario"){
-                contactos.flag=false;
-            }
+            
         });
+        */
 
+
+        
+        
+        internagrupo = new Internagrupo();
+        //ubicacion = new Ubicacion();
+        contactos = new Contactos();
+        //invitaciones = new Invitaciones();
+        //menu =  new Menu();
+
+        console.log("sesion iniciada");
+        console.log(usuario);
+        console.log(window.localStorage.getItem("usuario"));
+       
+        /*
         $("#home").hide();
         $("#header").show();
 
@@ -123,8 +126,8 @@ var Usuario = function(){
         if(usuario.pic!=null){
             $("#menu .pic").css("background-image","url("+usuario.pic+")");
         }
-
-        getContent({page:"grupos"},true);
+        */
+        getContent({page:"internagrupo"},true);
 
     }
     this.cerrarSesion = function(){

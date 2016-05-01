@@ -1,8 +1,23 @@
 #contactos{
 	display: none;
+	padding-top: 50px;
+}
+#contactos .busqueda{
+	height: 50px;
+}
+#contactos .busqueda input{
+	height: 50px;
+	line-height: 50px;
+	width: calc(100% - 40px);
+	padding: 0px;
+	border: none;
+	border-bottom: solid 1px #d5d5d8;
+	padding-left: 20px;
+	padding-right: 20px;
+	font-family: 'montserratlight';
 }
 #contactos .lista{
-	padding-top: 50px;
+	
 }
 #contactos .lista .item{
 	border-bottom: solid 1px #d5d5d8;

@@ -2,40 +2,20 @@ var Internagrupo = function(){
 	this.dom = $("#internagrupo");
 	this.titulo = "Contactos";
 	this.id = null;
-	this.miembros = null;
+	this.miembros = new Array();
 	this.nombre = null;
 	
+	/*
 	new Boton($("#internagrupo .btn.ubicacion"),function(){
 		getContent({page:"ubicacion"},true);
-	});
-	new Boton($("#internagrupo .btn.editar"),function(){
-		$("#internagrupo .edicion input[name=nombre]").val(internagrupo.nombre);
-		$("#internagrupo .edicion").css('display',"block");
-        $("#internagrupo .edicion").transition({opacity:0},0);
-        $("#internagrupo .edicion").transition({opacity:1});
-	});
-
-	new Boton($("#internagrupo .edicion .cerrar"),function(){
-		$("#internagrupo .edicion").hide();
-	});
-
-	new Boton($("#internagrupo .edicion .bt.guardar"),function(){
-		var nom = $("#internagrupo .edicion input[name=nombre]").val();
-		if(nom!=""){
-			$("#internagrupo .edicion").hide();
-			var es = new Espera("Guardando...");
-
-			request("grupo/editar",{
-				id:internagrupo.id,
-				nombre:nom
-			},function(res){
-				es.fin();
-				internagrupo.nombre = nom;
-				$("#internagrupo h1.titulo").html(nom);
-
-			})
-		}
+	});*/
+	
+	new Boton($("#internagrupo .bt.crear"),function(){
+		getContent({page:"contactos"},true);
 	})
+	
+	
+	
 
 	this.mostrar = function(id,nombre){
 		this.id = id;
@@ -47,11 +27,10 @@ var Internagrupo = function(){
 
 		$("#internagrupo h1.titulo").html(nombre);
 		
-		contactos.flag=false;
+		//contactos.flag=false;
 
-		this.listarcontactos(id);
-		$("#header .back").show();
-		$("#header .menu").hide();
+		//this.listarcontactos(id);
+		header.mostrar("menu");
 
 
 
