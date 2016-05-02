@@ -77,20 +77,9 @@ var app = {
     onDeviceResume: function(){
         //alert(1);
         //backgroundGeoLocation.stop()
-        if(online){
-            new Request("sistema/version",{
-                version:version
-            },function(res){
-                if(res["res"]=="menor"){
-                    new Alerta(res["msg"],res["btn"],function(){
-                        window.open(res["link"], '_system');
-                        $("#alerta").show();
-                    },true);
-                }
-            },{
-                espera:"Validando versión..."
-            })
-        }
+        
+        comprobarVersion();
+        
     },
     onDevicePause:function(){
 
@@ -133,7 +122,7 @@ var app = {
         h = $(window).innerHeight();
 
         
-
+        comprobarVersion();
         /*
         var push = PushNotification.init({
             android: {
@@ -234,7 +223,22 @@ var app = {
 };
 
 
-
+function comprobarVersion(){
+    if(online){
+        new Request("sistema/version",{
+            version:version
+        },function(res){
+            if(res["res"]=="menor"){
+                new Alerta(res["msg"],res["btn"],function(){
+                    window.open(res["link"], '_system');
+                    $("#alerta").show();
+                },true);
+            }
+        },{
+            espera:"Validando versión..."
+        })
+    }
+}
 
 var Boton = function(dom,callback){
     var flagtouch=false;
