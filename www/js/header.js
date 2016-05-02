@@ -1,5 +1,8 @@
 var Header = function(){
 
+	new Boton($("#header .btn.menu"),function(){
+		getContent({page:"menu"},true);
+	});
 
 	this.mostrar = function(botones,titulo){
 		$("#header").show();
@@ -28,21 +31,16 @@ var Header = function(){
 
 
 
-	this.cargarInvitaciones = function(){
-		request("grupo/listarinvitaciones",{
-			id:usuario.id
-		},function(lista){
-			invitaciones.lista = lista;
-			if(lista.length>0){
-				$("#header .btn.menu .inv").html(lista.length);
-				$("#menu .invitaciones .cant").html(lista.length);
-				$("#header .btn.menu .inv").show();
-				$("#menu .invitaciones .cant").show();
-			}else{
-				$("#header .btn.menu .inv").hide();
-				$("#menu .invitaciones .cant").hide();
-			}
-		})
+	this.mostrarNotificaciones = function(){
+		var cant = 0;
+		if(usuario.notificaciones!=null) cant = usuario.notificaciones.length;
+		if(cant>0){
+			$("#header .btn.menu .inv").html(cant);
+			
+			$("#header .btn.menu .inv").show();
+		}else{
+			$("#header .btn.menu .inv").hide();
+		}
 	}
 
 	new Boton($("#header .logout"),function(){
@@ -72,7 +70,5 @@ var Header = function(){
 	});
 
 
-	new Boton($("#header .btn.menu"),function(){
-		getContent({page:"menu"},true);
-	})
+	
 }

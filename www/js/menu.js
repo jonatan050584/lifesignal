@@ -1,9 +1,27 @@
 var Menu = function(){
 	this.dom = $("#menu");
+	if(usuario.pic!=null) $("#menu .pic").css("background-image",'url("'+usuario.pic+'")')
+	$("#menu .nombre").html(usuario.nombres+" "+usuario.apellidos);
+
+
 
 	this.mostrar = function(){
 		$("#header .back").hide();
 		$("#header").hide();
+
+		if(usuario.notificaciones!=null){
+			var cant = usuario.notificaciones.length;
+			
+			if(cant>0){
+				$("#menu .invitaciones .cant").html(cant);
+				$("#menu .invitaciones .cant").show();
+			}else{
+				$("#menu .invitaciones .cant").hide();
+			}
+		}else{
+			$("#menu .invitaciones .cant").hide();
+		}
+
 		Menu.prototype.mostrar.call(this);
 	}
 	this.ocultar = function(){
@@ -20,8 +38,8 @@ var Menu = function(){
 			usuario.cerrarSesion();
 		})
 	});
-	new Boton($("#menu .misgrupos"),function(){
-		history.back();
+	new Boton($("#menu .migrupo"),function(){
+		getContent({page:"internagrupo"},true);
 	});
 
 	new Boton($("#menu .invitaciones"),function(){

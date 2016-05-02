@@ -1,6 +1,10 @@
 var Usuario = function(){
+    this.grupo = null
+    this.invitaciones = null;
 
-    this.iniciar = function(info){
+    this.iniciar = function(data){
+
+        var info = data.info;
 
         this.id = info.id;
         this.nombres = info.nombres;
@@ -11,20 +15,28 @@ var Usuario = function(){
         this.fbid = info.fbid;
         this.pic = info.pic;
 
+
         window.localStorage.setItem("usuario",JSON.stringify(info));
+        window.localStorage.setItem("notificaciones",JSON.stringify(data.notificaciones));
+        window.localStorage.setItem("grupo",JSON.stringify(data.grupo));
+        window.localStorage.setItem("invitaciones",JSON.stringify(data.invitaciones));
+        window.localStorage.setItem("miembros",JSON.stringify(data.miembros));
+        
+
 
         flaglogin=true;
 
-        /*
-        socket = io.connect('http://picnic.pe:8882');
+
+        
+        socket = io.connect('http://192.168.0.16:8882');
 
         socket.on("connect", function() {
             //alert("conectado");
             console.log("usuario conectado al servidor");
             
-            
+            socket.emit('check in',{id:usuario.id});
 
-            var opciones = {
+            /*var opciones = {
                 maximumAge: 15000,
                 enableHighAccuracy:true,
 
@@ -40,13 +52,20 @@ var Usuario = function(){
 
             },function(e){
                 console.log('error watchposition: '+e);
-            },opciones);
+            },opciones);*/
 
 
             
         });
 
-        socket.on("posicion",function(data){
+        socket.on("notificar",function(msg){
+            if(msg=="invitacion"){
+                header.mostrarNotificaciones();
+
+            }
+        })
+
+        /*socket.on("posicion",function(data){
             console.log(data);
             ubicacion.onPosiciones(data);
         });
@@ -108,12 +127,8 @@ var Usuario = function(){
         internagrupo = new Internagrupo();
         //ubicacion = new Ubicacion();
         contactos = new Contactos();
-        //invitaciones = new Invitaciones();
-        //menu =  new Menu();
-
-        console.log("sesion iniciada");
-        console.log(usuario);
-        console.log(window.localStorage.getItem("usuario"));
+        invitaciones = new Invitaciones();
+        
        
         /*
         $("#home").hide();
@@ -127,12 +142,60 @@ var Usuario = function(){
             $("#menu .pic").css("background-image","url("+usuario.pic+")");
         }
         */
+
+        if(window.localStorage.getItem("grupo")!=null){
+            this.grupo = JSON.parse(window.localStorage.getItem("grupo"));
+        }
+        if(window.localStorage.getItem("invitaciones")!=null){
+            this.invitaciones = JSON.parse(window.localStorage.getItem("invitaciones"));
+        }
+        if(window.localStorage.getItem("miembros")!=null){
+            this.miembros = JSON.parse(window.localStorage.getItem("miembros"));
+        }
+        if(window.localStorage.getItem("notificaciones")!=null){
+            this.notificaciones = JSON.parse(window.localStorage.getItem("notificaciones"));
+        }
+
+        menu =  new Menu();
+
+        header.mostrarNotificaciones();
+        
         getContent({page:"internagrupo"},true);
 
     }
+
+    this.setGrupo = function(info){
+        this.grupo = info;
+        window.localStorage.setItem("grupo",JSON.stringify(info));
+
+    }
+    this.setMiembros = function(lista){
+        this.miembros = lista;
+        window.localStorage.setItem("miembros",JSON.stringify(lista));
+        internagrupo.llenarListaMiembros();
+    }
+    this.setInvitaciones = function(lista){
+        this.invitaciones = lista;
+        window.localStorage.setItem("invitaciones",JSON.stringify(lista));
+
+        internagrupo.llenarListaPendientes();
+
+    }
+    this.setNotificaciones = function(lista){
+        this.notificaciones = lista;
+        console.log("notificacionrs");
+        console.log(lista);
+
+        if(lista!=null)  window.localStorage.setItem("notificaciones",JSON.stringify(lista));
+        else window.localStorage.setItem("notificaciones",null);
+        header.mostrarNotificaciones();
+    }
+
     this.cerrarSesion = function(){
        
-        window.localStorage.removeItem("id");
+        window.localStorage.removeItem("usuario");
+        window.localStorage.removeItem("grupo");
+        window.localStorage.removeItem("invitaciones");
         location.reload();
     }
     

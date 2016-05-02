@@ -1,45 +1,50 @@
 #internagrupo{
 	display: none;
 	padding-top: 50px;
-	min-height: calc(100% - 50px);
-
-	background: #f7f7f7;
-	position: relative;
+	
 }
 
-#internagrupo .singrupo{
+#internagrupo .mensajecrear{
+	display: none;
 	overflow: hidden;
 	height: 274px;
 	position: absolute;
 	width: 100%;
 	top: calc(50% - 137px);
 }
-#internagrupo .singrupo .contenido{
+#internagrupo .mensajecrear .contenido{
 	padding: 0 30px;
 	text-align: center;
 	color: #c9c9c9;
 }
-#internagrupo .singrupo .t1{
+#internagrupo .mensajecrear .t1{
 	font-family: 'montserratlight';
 	font-size: 18px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
-#internagrupo .singrupo .t2{
+#internagrupo .mensajecrear .t2{
 	font-family: 'montserratlight';
 	font-size: 13px;
 	margin-bottom: 30px;
 }
-#internagrupo h1.titulo{
-	background: none;
-	padding-left: 0px;
-	margin: 0px;
-	line-height: 120px;
+#internagrupo.singrupo{
+	min-height: calc(100% - 50px);
+	background: #f7f7f7;
 	position: relative;
-	text-align: center;
-	width: 100%;
-
 }
+#internagrupo.singrupo .mensajecrear{
+	display: block;
+}
+#internagrupo.singrupo .migrupo{
+	display: none;
+}
+#internagrupo h1.titulo{
+	
+	
+	background-image: url("../img/grupos.png");
+}
+
 #internagrupo .btn.editar{
 	width: 50px;
 	height: 50px;
@@ -79,6 +84,7 @@
 }
 #internagrupo .lista{
 	margin-bottom: 20px;
+	border-top: solid 1px #d5d5d8;
 }
 #internagrupo .nombre{
 	border-bottom: solid 1px #d5d5d8;
@@ -94,9 +100,17 @@
 	line-height: 65px;
 	position: relative;
 }
-#internagrupo .lista .item:first-child{
-	border-top: solid 1px #d5d5d8;
+#internagrupo .lista .item.pendiente{
+	background: url("../img/time.png");
+	background-size: 30px auto;
+	background-repeat: no-repeat;
+	background-position: calc(100% - 20px) center;
+	
 }
+#internagrupo .lista .item.pendiente .nom{
+	color: #a0a0a0;
+}
+
 #internagrupo .lista .item.over{
 	background-color: #ececed;
 }

@@ -94,7 +94,7 @@ var Registro = function(){
 					}else{
 						
 						usuario = new Usuario();
-						usuario.iniciar(res.info);
+						usuario.iniciar(res);
 					}
 
 				},{

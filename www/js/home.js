@@ -23,7 +23,7 @@ var Home = function(){
 				if(res.res=="ok"){
 					
 					usuario = new Usuario();
-                    usuario.iniciar(res.info);
+                    usuario.iniciar(res);
 
 				}else if(res.res == "error"){
 					new Alerta("El email o clave son incorrectos");					
@@ -44,21 +44,25 @@ var Home = function(){
 				facebook.myInfo(function(infofb){
                     console.log(infofb);
                     
-                    new Request("usuario/validarfb",{
-                    	fbid:infofb.id,
-                    	email:infofb.email
-                    },function(res){
-                    	if(res.existe){
-                    		usuario = new Usuario();
-                    		usuario.iniciar(res.info);
-                    	}else{
-                    		$("#home .login").hide();
-                    		$("#home .tel").show();
-                    		$("#home .tel .usuario").html(infofb.first_name+' '+infofb.last_name);
-                    		if(infofb.pic!=null) $("#home .tel .pic").css("background-image","url('"+infofb.pic+"')");
-                    		$("#home .noregistro").hide();
-                    	}
-                    })
+					  
+                    
+                    
+	                    new Request("usuario/validarfb",{
+	                    	fbid:infofb.id,
+	                    	email:infofb.email
+	                    },function(res){
+	                    	if(res.existe){
+	                    		usuario = new Usuario();
+	                    		usuario.iniciar(res);
+	                    	}else{
+	                    		$("#home .login").hide();
+	                    		$("#home .tel").show();
+	                    		$("#home .tel .usuario").html(infofb.first_name+' '+infofb.last_name);
+	                    		if(infofb.pic!=null) $("#home .tel .pic").css("background-image","url('"+infofb.pic+"')");
+	                    		$("#home .noregistro").hide();
+	                    	}
+	                    })
+                	
                 })
 			}
 		})
@@ -91,7 +95,7 @@ var Home = function(){
 				},function(res){
 					if(!res.existe){
 						usuario = new Usuario();
-						usuario.iniciar(res.info);
+						usuario.iniciar(res);
 					}else{
 						new Alerta("Este número de teléfono ya ha sido registrado anteriormente");
 					}

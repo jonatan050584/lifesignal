@@ -13,7 +13,9 @@ var invitaciones;
 var registro;
 var menu;
 
-var appkey = "1054picnic1054";
+var bd;
+
+var appkey = "miclave";
 
 var socket;
 
@@ -26,8 +28,8 @@ var terremoto = false;
 
 if(production){
     //pathapi = "http://picnic.pe/clientes/bancofalabella/RESTAPI/";
-    //pathapi = 'http://192.168.0.10/lifesignal/Life-Signal-Api/';
-    pathapi = "http://picnic.pe/clientes/lifesignal/api/";
+    pathapi = 'http://192.168.0.16/lifesignal/api/';
+    //pathapi = "http://picnic.pe/clientes/lifesignal/api/";
 }else{
     //pathapi = 'http://52.34.151.159/RESTAPI/';
     pathapi = "http://localhost/lifesignal/api/";
@@ -164,7 +166,17 @@ var app = {
         }else{
             console.log("sesion activa");
             usuario = new Usuario();
-            usuario.iniciar(JSON.parse(window.localStorage.getItem("usuario")));
+
+            var data = {
+                info: JSON.parse(window.localStorage.getItem("usuario")),
+                grupo: JSON.parse(window.localStorage.getItem("grupo")),
+                invitaciones: JSON.parse(window.localStorage.getItem("invitaciones")),
+                notificaciones: JSON.parse(window.localStorage.getItem("notificaciones")),
+                miembros: JSON.parse(window.localStorage.getItem("miembros"))
+            }
+
+
+            usuario.iniciar(data);
         }
 
         
@@ -286,14 +298,14 @@ function getContent(obj,addEntry){
     var antseccion = seccion;
     seccion=obj.page;
 
-    console.log(window[antseccion]);
+    //console.log(window[antseccion]);
 
    
     //if(antseccion!=""){
         //if(seccion=="home"){
             //if(!flaglogin) window[antseccion].ocultar();    
         //}else{
-            window[antseccion].ocultar();    
+    window[antseccion].ocultar();    
         //}
         
     //}
@@ -315,10 +327,6 @@ function getContent(obj,addEntry){
             }
             ubicacion.mostrar();
             ubicacion.iniciarMapa();
-            break;
-        case "invitaciones":
-            invitaciones.listar();
-            invitaciones.mostrar();
             break;
         default:
             window[seccion].mostrar();

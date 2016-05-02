@@ -12,59 +12,89 @@ var Internagrupo = function(){
 	
 	new Boton($("#internagrupo .bt.crear"),function(){
 		getContent({page:"contactos"},true);
-	})
+	});
+
+
 	
 	
 	
 
-	this.mostrar = function(id,nombre){
-		this.id = id;
-		this.nombre = nombre;
-
-		$("#header .btn.add").hide();
-		$("#header .btn.addcontact").show();
-		$("#header .btn.editar").show();
-
-		$("#internagrupo h1.titulo").html(nombre);
+	this.mostrar = function(){
+		
+		
 		
 		//contactos.flag=false;
 
 		//this.listarcontactos(id);
 		header.mostrar("menu");
 
-
+		if(usuario.grupo==null){
+			$("#internagrupo").addClass("singrupo");
+		}else{
+			$("#internagrupo").removeClass("singrupo");
+			this.listarpendientes();
+			this.listarmiembros();
+		}
 
 		Internagrupo.prototype.mostrar.call(this);
 
 	}
 
-	this.listarcontactos = function(id){
-		this.id = id;
-		this.miembros = new Array();
+	this.listarpendientes = function(){
 
-		$("#internagrupo .lista").empty();
-
-		request("grupo/listarmiembros",{
-			grupo:id
-		},function(res){
-			ubicacion.contactos = res;
-			$.each(res,function(key,val){
-
-				var it = new ItemMiembro(val);
-				$("#internagrupo .lista").append(it.html);
-			});
-		})
+		if(online){
+			new Request("grupo/listarinvitaciones",{
+				grupo:usuario.grupo.id
+			},function(res){
+				console.log(res);
+				usuario.setInvitaciones(res);
+			})
+		}else{
+			this.llenarListaPendientes();
+		}
 	}
+
+	this.listarmiembros = function(){
+		if(online){
+			new Request("grupo/listarmiembros",{
+				grupo:usuario.grupo.id
+			},function(res){
+				console.log(res);
+				usuario.setMiembros(res);
+			})
+		}else{
+			this.llenarListaMiembros();
+		}
+	}
+
+	this.llenarListaMiembros = function(){
+		$("#internagrupo .lista .miembros").empty();
+		$.each(usuario.miembros,function(key,val){
+			var it = new ItemMiembro(val);
+			$("#internagrupo .lista .miembros").append(it.html);
+		})	
+	}
+	this.llenarListaPendientes = function(){
+		$("#internagrupo .lista .pendientes").empty();
+		$.each(usuario.invitaciones,function(key,val){
+			var it = new ItemMiembro(val,"pendiente");
+			$("#internagrupo .lista .pendientes").append(it.html);
+		})	
+	}
+
+	
 
 }
 Internagrupo.prototype = new Seccion();
 
-var ItemMiembro = function(d){
-	internagrupo.miembros.push(d);
+var ItemMiembro = function(d,estado){
+	//internagrupo.miembros.push(d);
 	
 	this.html = $(lib.ItemMiembro);
+	if(estado!=undefined) this.html.addClass(estado);
 	this.html.find('.nom').html(d.nombres+' '+d.apellidos);
 	
+
 	if(d.pic!=null){
 		this.html.find('.pic').css("background-image","url('"+d.pic+"')");
 	}
@@ -74,8 +104,9 @@ var ItemMiembro = function(d){
 
 	//
 
-	/*new Boton(this.html,function(){
-		getContent({page:"internagrupo"},true);
-	});*/
+	new Boton(this.html,function(){
+		console.log(d.id);
+		socket.emit("privado",{id:d.id,msg:"Holaaaaaaaa"});
+	});
 
 }

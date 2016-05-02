@@ -70,51 +70,61 @@ var Contactos = function(){
 				inv.push($(this).data("id"));
 			}
 		});
+		if(inv.length>0){
+			new Request("grupo/crear",{
+				llave:usuario.llave,
+				invitados:inv.join(",")
+			},function(res){
+				
+				$.each(inv,function(k,v){
+					socket.emit("notificar",{id:v,msg:"invitacion"});
+				});
 
-		new Request("grupo/crear",{
-			usuario:usuario.id,
-			invitados:inv.join(",")
-		},function(res){
-			
-		},{
-			espera:"Creando grupo..."
-		})
+				usuario.setGrupo(res.grupo);
+				usuario.setInvitaciones(res.invitados);
+				
+				getContent({page:"internagrupo"},true);
 
-		console.log(inv);
+			},{
+				espera:"Creando grupo..."
+			})
+		}
+
+	
 	}
 
 	this.listar = function(){
 		//console.log(internagrupo.miembros);
-		if(!this.flag){
-			this.flag=true;
+		
 			//$("#contactos .lista").html("Listando contactos...");
-			var es = new Espera("Listando contactos...");
+		var es = new Espera("Listando contactos...");
 
-			if(production){
+		if(production){
 
-				var options      = new ContactFindOptions();
-				options.filter   = "";
-				options.multiple = true;
-				
-				navigator.contacts.find(['displayName', 'name','phoneNumbers'], this.onContacts, function(e){
-					console.log(error);
-				}, options);
-			}else{
+			var options      = new ContactFindOptions();
+			options.filter   = "";
+			options.multiple = true;
+			
+			navigator.contacts.find(['displayName', 'name','phoneNumbers'], this.onContacts, function(e){
+				console.log(error);
+			}, options);
+		}else{
 
-				$.ajax({
-					url:'contactos.json',
-					dataType:'json'
-				}).done(this.onContacts);
+			$.ajax({
+				url:'contactos.json',
+				dataType:'json'
+			}).done(this.onContacts);
 
-			}
+		}
 
 			
-		}
+		
 
 	}	
 
 	this.onContacts = function(res){
-
+		console.log("--CONTACTOS--");
+		console.log(res);
 		$.each(res,function(key,val){
 			if(val.phoneNumbers!=null && (val.displayName!=null || val.name.formatted!="")){
 
