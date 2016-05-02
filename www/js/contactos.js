@@ -123,9 +123,15 @@ var Contactos = function(){
 	}	
 
 	this.onContacts = function(res){
-		console.log("--CONTACTOS--");
-		console.log(res);
+		
 		$.each(res,function(key,val){
+			var foto=null;
+			if(val.photos!=undefined && val.photos!=null){
+				if(val.photos.length>0){
+					foto = val.photos[0].value;
+				}
+			}
+
 			if(val.phoneNumbers!=null && (val.displayName!=null || val.name.formatted!="")){
 
 				$.each(val.phoneNumbers,function(k,v){
@@ -144,7 +150,8 @@ var Contactos = function(){
 							nombre: nom,
 							telefono:tel,
 							original:v.value,
-							tipo:v.type
+							tipo:v.type,
+							foto:foto
 						});
 						validos.push(tel);
 					}
@@ -219,6 +226,9 @@ var ItemContacto = function(d){
 	this.html = $(lib.ItemContacto);
 
 	this.html.attr("data-id",d.id);
+	if(d.foto!=null){
+		this.html.find(".pic").css("background-url",'url("'+d.foto+'")');
+	}
 	
 	if(d.id!=null){
 		this.html.addClass("app");
