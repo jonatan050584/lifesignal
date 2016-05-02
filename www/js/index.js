@@ -74,7 +74,20 @@ var app = {
     onDeviceResume: function(){
         //alert(1);
         //backgroundGeoLocation.stop()
-
+        if(online){
+            new Request("sistema/version",{
+                version:version
+            },function(res){
+                if(res["res"]=="menor"){
+                    new Alerta(res["msg"],res["btn"],function(){
+                        window.open(res["link"], '_system');
+                        $("#alerta").show();
+                    },true);
+                }
+            },{
+                espera:"Validando versión..."
+            })
+        }
     },
     onDevicePause:function(){
 
@@ -116,18 +129,7 @@ var app = {
         w = $(window).innerWidth();
         h = $(window).innerHeight();
 
-        new Request("sistema/version",{
-            version:version
-        },function(res){
-            if(res["res"]=="menor"){
-                new Alerta(res["msg"],res["btn"],function(){
-                    window.open(res["link"], '_system');
-                    $("#alerta").show();
-                },true);
-            }
-        },{
-            espera:"Validando versión..."
-        })
+        
 
         /*
         var push = PushNotification.init({
