@@ -126,10 +126,13 @@ var Contactos = function(){
 		
 		$.each(res,function(key,val){
 			var foto=null;
-			if(val.photos!=undefined && val.photos!=null){
-				if(val.photos.length>0){
-					foto = val.photos[0].value;
-				}
+			console.log(val.photos);
+
+			if(val.photos!=null){
+				console.log(val.photos[0])
+
+				foto = val.photos[0].value;
+				
 			}
 
 			if(val.phoneNumbers!=null && (val.displayName!=null || val.name.formatted!="")){
@@ -170,7 +173,7 @@ var Contactos = function(){
 			console.log(existen);
 
 			$("#contactos .lista").empty();
-			console.log(res);
+			console.log(contactos.lista);
 			
 			$.each(contactos.lista,function(key,val){
 				
@@ -223,6 +226,7 @@ Contactos.prototype = new Seccion();
 
 
 var ItemContacto = function(d){
+	console.log(d);
 	this.html = $(lib.ItemContacto);
 
 	this.html.attr("data-id",d.id);
