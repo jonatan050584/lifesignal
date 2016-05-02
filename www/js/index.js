@@ -43,7 +43,9 @@ var home;
 var usuario;
 var initTime=1000;
 
-var online =true;
+var online =false;
+
+var flaginit=false;
 
 var app = {
     
@@ -59,12 +61,13 @@ var app = {
             document.addEventListener("offline", function(){
                 console.log("offline");
                 online=false;   
-
+               
+                
             }, false);
             document.addEventListener("online",function(){
                 console.log("online");
                 online=true;
-
+                
             })
         }else{
             $(document).ready(this.onDeviceReady);
@@ -195,7 +198,7 @@ var app = {
                 notificaciones: JSON.parse(window.localStorage.getItem("notificaciones")),
                 miembros: JSON.parse(window.localStorage.getItem("miembros"))
             }
-            console.log(data.info);
+            
             if((production && online) || !production){
 
                 new Request("usuario/info",{
@@ -203,6 +206,10 @@ var app = {
                 },function(res){
                     data = res;
                     usuario.iniciar(data);    
+                },{
+                    error:function(){
+                        usuario.iniciar(data);
+                    }
                 })
 
             }else{
