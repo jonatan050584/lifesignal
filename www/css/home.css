@@ -18,7 +18,7 @@
 	margin: auto;
 	width: 120px;
 	height: auto;
-	
+	margin-bottom: 20px;
 	
 }
 #home .logo.short{
@@ -61,7 +61,7 @@
 #home .txto{
 	text-align: center;
 	font-size: 15px;
-	line-height: 50px;
+	line-height: 35px;
 	
 }
 #home .tel{

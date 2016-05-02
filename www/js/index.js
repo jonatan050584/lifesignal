@@ -12,6 +12,7 @@ var contactos;
 var invitaciones;
 var registro;
 var menu;
+var sobre;
 
 var bd;
 
@@ -26,10 +27,12 @@ var h; //alto de pantalla
 
 var terremoto = false;
 
+var version = "1.0.1";
+
 if(production){
     //pathapi = "http://picnic.pe/clientes/bancofalabella/RESTAPI/";
-    pathapi = 'http://192.168.0.16/lifesignal/api/';
-    //pathapi = "http://picnic.pe/clientes/lifesignal/api/";
+   //pathapi = 'http://192.168.0.16/lifesignal/api/';
+    pathapi = "http://picnic.pe/clientes/lifesignal/api/";
 }else{
     //pathapi = 'http://52.34.151.159/RESTAPI/';
     pathapi = "http://localhost/lifesignal/api/";
@@ -61,6 +64,7 @@ var app = {
             document.addEventListener("online",function(){
                 console.log("online");
                 online=true;
+
             })
         }else{
             $(document).ready(this.onDeviceReady);
@@ -109,6 +113,21 @@ var app = {
     },
 
     onDeviceReady: function() {
+        w = $(window).innerWidth();
+        h = $(window).innerHeight();
+
+        new Request("sistema/version",{
+            version:version
+        },function(res){
+            if(res["res"]=="menor"){
+                new Alerta(res["msg"],res["btn"],function(){
+                    window.open(res["link"], '_system');
+                    $("#alerta").show();
+                },true);
+            }
+        },{
+            espera:"Validando versión..."
+        })
 
         /*
         var push = PushNotification.init({
@@ -174,9 +193,22 @@ var app = {
                 notificaciones: JSON.parse(window.localStorage.getItem("notificaciones")),
                 miembros: JSON.parse(window.localStorage.getItem("miembros"))
             }
+            console.log(data.info);
+            if((production && online) || !production){
+
+                new Request("usuario/info",{
+                    key:data.info.llave
+                },function(res){
+                    data = res;
+                    usuario.iniciar(data);    
+                })
+
+            }else{
+                usuario.iniciar(data);    
+            }
 
 
-            usuario.iniciar(data);
+            
         }
 
         
@@ -197,6 +229,7 @@ var app = {
 
 var Boton = function(dom,callback){
     var flagtouch=false;
+    dom.unbind();
     if(production){
         dom.on({
             "touchstart":function(){
@@ -209,11 +242,11 @@ var Boton = function(dom,callback){
             },
             "touchend":function(){
                 if(flagtouch){
-                    $(this).removeClass("over");
+                   
 
                     callback($(this));
                 }
-                
+                 $(this).removeClass("over");
 
             }
         });
@@ -269,9 +302,10 @@ var Request = function(ac,params,callback,options){
             es.fin();
 
             new Alerta("Ocurrió algún tipo de error.<br>Comprueba tu conexión de red o inténtalo de nuevo más tarde.");
-
-            if(options.error!=undefined){
-                options.error();
+            if(options!=undefined){
+                if(options.error!=undefined){
+                    options.error();
+                }
             }
         }
     });
@@ -395,7 +429,13 @@ var Espera = function(msg,callback){
 }
 
 
-var Alerta = function(msg,btn,callback){
+var Alerta = function(msg,btn,callback,noclose){
+
+    if(noclose!=undefined && noclose==true){
+        $("#alerta .cerrar").hide();
+    }else{
+        $("#alerta .cerrar").show();
+    }
 
     $("#alerta .txt").html(msg);
 

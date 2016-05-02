@@ -29,8 +29,11 @@ var Invitaciones = function(){
 		new Request("usuario/buscarinvitaciones",{
 			id:usuario.id
 		},function(res){
+			console.log(res);
 			if(res.length>0){
 				usuario.setNotificaciones(res);
+			}else{
+				usuario.setNotificaciones(null);
 			}
 			
 		},{
@@ -42,6 +45,7 @@ var Invitaciones = function(){
 Invitaciones.prototype = new Seccion();
 
 var ItemInvitacion = function(d){
+	console.log(d);
 	this.html = $(lib.ItemInvitacion);
 	
 	this.html.find(".usuario").html(d.nombres+" "+d.apellidos);
@@ -58,6 +62,9 @@ var ItemInvitacion = function(d){
 				id:usuario.id,
 				grupo:d.grupo_id
 			},function(res){
+
+				socket.emit("directo",{ac:"invitacionrespondida",id:d.id});
+
 				usuario.setNotificaciones(null);
 
 
@@ -85,9 +92,22 @@ var ItemInvitacion = function(d){
 			id:usuario.id,
 			grupo:d.grupo_id
 		},function(res){
-			es.fin();
-			console.log(res);
-			header.cargarInvitaciones();
+
+			new Request("usuario/buscarinvitaciones",{
+				id:usuario.id
+			},function(res){
+				
+				if(res.length>0){
+					usuario.setNotificaciones(res);
+				}else{
+					usuario.setNotificaciones(null);
+				}
+				invitaciones.mostrar();	
+			},{
+				espera:null
+			})
+			
+			socket.emit("directo",{ac:"invitacionrespondida",id:d.id});
 		});
 
 	});

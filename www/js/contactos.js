@@ -9,6 +9,8 @@ var Contactos = function(){
 
 	this.invitados = new Array();
 
+	this.total = 0;
+
 	new Boton($("#contactos .invitacion .cerrar"),function(){
 		$("#contactos .invitacion").hide();
 	});
@@ -55,7 +57,7 @@ var Contactos = function(){
 
 		this.invitados = new Array();
 
-		header.mostrar("back,done","Elegir contactos");
+		header.mostrar("back,done",'Elegir contactos<br><span class="sub">'+this.total+' de 10</span>');
 
 		header.setButton("done",this.done);
 
@@ -71,23 +73,37 @@ var Contactos = function(){
 			}
 		});
 		if(inv.length>0){
-			new Request("grupo/crear",{
-				llave:usuario.llave,
-				invitados:inv.join(",")
-			},function(res){
-				
-				$.each(inv,function(k,v){
-					socket.emit("notificar",{id:v,msg:"invitacion"});
-				});
+			if(usuario.grupo==null){
+				new Request("grupo/crear",{
+					llave:usuario.llave,
+					invitados:inv.join(",")
+				},function(res){
+					
+					$.each(inv,function(k,v){
+						socket.emit("directo",{ac:"invitacion",id:v});
+					});
 
-				usuario.setGrupo(res.grupo);
-				usuario.setInvitaciones(res.invitados);
-				
-				getContent({page:"internagrupo"},true);
+					usuario.setGrupo(res.grupo);
+					usuario.setInvitaciones(res.invitados);
+					
+					getContent({page:"internagrupo"},true);
 
-			},{
-				espera:"Creando grupo..."
-			})
+				},{
+					espera:"Creando grupo..."
+				})
+			}else{
+				new Request("grupo/agregarmiembros",{
+					usuario:usuario.id,
+					grupo:usuario.grupo.id,
+					invitados:inv.join(",")
+				},function(res){
+					$.each(inv,function(k,v){
+						socket.emit("directo",{ac:"invitacion",id:v});
+					});
+					usuario.setInvitaciones(res.invitados);
+					getContent({page:"internagrupo"},true);
+				})
+			}
 		}
 
 	
@@ -174,16 +190,35 @@ var Contactos = function(){
 
 			$("#contactos .lista").empty();
 			//console.log(contactos.lista);
+
+			var mi = new Array();
+			var inv = new Array();
+			if(usuario.miembros!=null){
+				$.each(usuario.miembros,function(k,v){
+					mi.push(v.id);
+				});
+			}
 			
+			var inv = new Array();
+			if(usuario.invitaciones!=null){
+				$.each(usuario.invitaciones,function(k,v){
+					inv.push(v.id);
+				});
+			}
+
 			$.each(contactos.lista,function(key,val){
 				
 				var i = contactos.buscar(val.telefono,existen);
 				if(i!=-1){
 					if(val.telefono!=usuario.telefono){
-						val.id = existen[i].id;
-						val.pic = existen[i].id;
-						var it = new ItemContacto(val);
-						$("#contactos .lista").append(it.html);
+
+						if(mi.indexOf(existen[i].id)==-1 && inv.indexOf(existen[i].id)==-1){
+
+							val.id = existen[i].id;
+							val.pic = existen[i].id;
+							var it = new ItemContacto(val);
+							$("#contactos .lista").append(it.html);
+						}
 					}
 				};
 
@@ -194,8 +229,10 @@ var Contactos = function(){
 				var i = contactos.buscar(val.telefono,existen);
 				if(i==-1){
 					if(val.telefono!=usuario.telefono){
-						var it = new ItemContacto(val);
-						$("#contactos .lista").append(it.html);
+						
+							var it = new ItemContacto(val);
+							$("#contactos .lista").append(it.html);
+						
 					}
 					
 				};
@@ -263,52 +300,22 @@ var ItemContacto = function(d){
 
 			if(d.id!=null){
 
-				if(e.hasClass("check")){
-					e.removeClass("check");
-				}else{
-					e.addClass("check");	
-				}
 				
+					if(e.hasClass("check")){
+						contactos.total--;
 
-				/*
-				new Alerta('¿Deseas agregar a '+d.nombre+' al grupo "'+internagrupo.nombre+'"?',"Agregar",function(){
-					var es = new Espera("Enviando notificación...");
-
-
-					var yaesta = false;
-		        	$.each(internagrupo.miembros,function(k,v){
-		        		if(v.id == d.id){
-		        			yaesta=true;
-		        		}
-		        	})
-
-		        	if(!yaesta){
-			        	request("grupo/invitar",{
-			        		usuario:usuario.id,
-			        		invitado:d.id,
-			        		grupo:internagrupo.id
-			        	},function(res){
-			        		es.fin();
-			        		console.log(res);
-			        		socket.emit("invitar",d.id);
-			        	});
-		        	}else{
-		        		es.fin();
-		        		new Alerta("¡El contacto ya pertenece a este grupo! Selecciona otro");
-		        	}
-
-
-		        	$("#contactos .invitacion").hide();
-				});*/
-
-				/*$("#contactos .invitacion .nombres").html(d.nombre);
-				$("#contactos .invitacion .telefono").html(d.telefono);
-
-				$("#contactos .invitacion").css('display',"block");
-		        $("#contactos .invitacion").transition({opacity:0},0);
-		        $("#contactos .invitacion").transition({opacity:1});
-
-		        $("#contactos .invitacion .ventana .bt.enviar").unbind();*/
+						e.removeClass("check");
+					}else{
+						if(contactos.total<10){
+							contactos.total++;
+							e.addClass("check");
+						}else{
+							new Alerta("Solo puedes seleccionar hasta 10 contactos");
+						}	
+					}
+					$("#header .sub").html(contactos.total+" de 10");
+					
+				
 		        
 		        
 			}else{

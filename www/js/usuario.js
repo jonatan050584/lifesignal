@@ -28,7 +28,7 @@ var Usuario = function(){
 
 
         
-        socket = io.connect('http://192.168.0.16:8882');
+        socket = io.connect('http://picnic.pe:8882');
 
         socket.on("connect", function() {
             //alert("conectado");
@@ -58,11 +58,17 @@ var Usuario = function(){
             
         });
 
-        socket.on("notificar",function(msg){
-            if(msg=="invitacion"){
-                header.mostrarNotificaciones();
-
+        socket.on("directo",function(data){
+            switch(data.ac){
+                case "invitacion":
+                    invitaciones.revisarNuevas();
+                    break;
+                case "invitacionrespondida":
+                    internagrupo.listarpendientes();
+                    internagrupo.listarmiembros();
+                    break;
             }
+            
         })
 
         /*socket.on("posicion",function(data){
@@ -128,7 +134,7 @@ var Usuario = function(){
         //ubicacion = new Ubicacion();
         contactos = new Contactos();
         invitaciones = new Invitaciones();
-        
+        sobre = new Sobre();
        
         /*
         $("#home").hide();
@@ -183,8 +189,7 @@ var Usuario = function(){
     }
     this.setNotificaciones = function(lista){
         this.notificaciones = lista;
-        console.log("notificacionrs");
-        console.log(lista);
+       
 
         if(lista!=null)  window.localStorage.setItem("notificaciones",JSON.stringify(lista));
         else window.localStorage.setItem("notificaciones",null);

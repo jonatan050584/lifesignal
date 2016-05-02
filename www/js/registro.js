@@ -7,7 +7,7 @@ var Registro = function(){
 
 	this.mostrar = function(){
 		
-		$("#header").show();
+		header.mostrar("back");
 
 		Registro.prototype.mostrar.call(this);
 	}

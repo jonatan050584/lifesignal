@@ -45,5 +45,8 @@ var Menu = function(){
 	new Boton($("#menu .invitaciones"),function(){
 		getContent({page:"invitaciones"},true)
 	})
+	new Boton($("#menu .sobre"),function(){
+		getContent({page:"sobre"},true)
+	})
 }
 Menu.prototype = new Seccion();
