@@ -156,7 +156,7 @@ var Internagrupo = function(){
 	}
 
 	this.seleccionarContacto = function(info){
-		console.log(info);
+		
 		if(info.phoneNumbers!=null && (info.displayName!=null || info.name.formatted!="")){
 			
 			var numeros = new Array();
@@ -181,7 +181,7 @@ var Internagrupo = function(){
 
 				var nombre = info.displayName;
 				if(nombre==null) nombre = info.name.formatted;
-				console.log(nombre);
+				
 				$("#contacto").show();
 				if(foto!=null){
 					$("#contacto .pic").attr("src",foto);
@@ -189,6 +189,7 @@ var Internagrupo = function(){
 					$("#contacto .pic").attr("src","img/user.png");
 				}
 				$("#contacto .nombre").html(nombre);
+				$("#contacto .numero .telefono").html("");
 
 				if(numeros.length>1){
 					$("#contacto .seleccione").show();
@@ -197,7 +198,8 @@ var Internagrupo = function(){
 						var html = $('<div class="item">'+v+'</div>');
 						$("#contacto .lista").append(html);
 					})
-
+					$("#contacto .noapp").hide();
+					$("#contacto .siapp").hide();
 				}else{
 					$("#contacto .seleccione").hide();
 
