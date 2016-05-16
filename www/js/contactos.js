@@ -253,6 +253,7 @@ var ItemContacto = function(d){
 					$("#alerta .bt.ok").unbind();
 					new Boton($("#alerta .bt.ok"),function(){
 						window.plugins.socialsharing.shareViaSMS(ret.sms,d.original,function(msg){
+							console.log("mensaje enviado: "+msg);
 							new Request("grupo/invitarmiembro",{
 								tel:d.telefono,
 								admin:usuario.llave
@@ -265,8 +266,9 @@ var ItemContacto = function(d){
 							
 						
 						},function(msg) {
+
 							new Alerta("Ocurrió un error al enviar el SMS. Por favor inténtalo de nuevo más tarde");
-							//alert('error: ' + msg);
+							console.log('mensaje error: ' + msg);
 						});
 					});
 				}else if(ret.res=="ok"){
