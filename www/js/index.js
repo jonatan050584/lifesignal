@@ -31,8 +31,8 @@ var version = "1.0.1";
 
 if(production){
     //pathapi = "http://picnic.pe/clientes/bancofalabella/RESTAPI/";
-   //pathapi = 'http://192.168.0.16/lifesignal/api/';
-    pathapi = "http://picnic.pe/clientes/lifesignal/api/";
+   pathapi = 'http://192.168.0.16/lifesignal/api/';
+    //pathapi = "http://picnic.pe/clientes/lifesignal/api/";
 }else{
     //pathapi = 'http://52.34.151.159/RESTAPI/';
     pathapi = "http://localhost/lifesignal/api/";
@@ -70,6 +70,7 @@ var app = {
                 
             })
         }else{
+            online=true;
             $(document).ready(this.onDeviceReady);
         }
     },
@@ -78,7 +79,7 @@ var app = {
         //alert(1);
         //backgroundGeoLocation.stop()
         
-        comprobarVersion();
+        //comprobarVersion();
         
     },
     onDevicePause:function(){
@@ -224,20 +225,25 @@ var app = {
 
 
 function comprobarVersion(){
-    if(online){
-        new Request("sistema/version",{
+    
+    $.ajax({
+        url:pathapi+"sistema/version",
+        dataType:"json",
+        data:{
             version:version
-        },function(res){
+        },
+        type:'get',
+        success:function(res){
             if(res["res"]=="menor"){
                 new Alerta(res["msg"],res["btn"],function(){
-                    window.open(res["link"], '_system');
+                    window.open(res["link"],"_system");
                     $("#alerta").show();
-                },true);
+                })
             }
-        },{
-            espera:"Validando versión..."
-        })
-    }
+        }
+        
+    });
+    
 }
 
 var Boton = function(dom,callback){

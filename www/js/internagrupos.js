@@ -12,7 +12,14 @@ var Internagrupo = function(){
 	
 	
 	new Boton($("#internagrupo .bt.crear"),function(){
-		getContent({page:"contactos"},true);
+		//getContent({page:"contactos"},true);
+		new Request("grupo/crear",{
+			admin:usuario.llave
+		},function(infogrupo){
+			usuario.setGrupo(infogrupo);
+			//getContent({page:"contactos"},true);
+			internagrupo.mostrar();
+		})
 	})
 
 	new Boton($("#internagrupo .bt.salir"),function(){

@@ -10,6 +10,8 @@ var Contactos = function(){
 	this.invitados = new Array();
 
 	this.total = 0;
+	
+	var timebus;
 
 	new Boton($("#contactos .invitacion .cerrar"),function(){
 		$("#contactos .invitacion").hide();
@@ -19,49 +21,58 @@ var Contactos = function(){
 
 
 	$("#contactos .busqueda input[name=buscar]").keyup(function(e){
+		clearTimeout(timebus);
 		var bus = $(this).val().toLowerCase();
-		$("#contactos .lista .item").each(function(index){
-			var res=false;
+		timebus = setTimeout(function(){
 			
-			var num= $(this).find(".tel").html();
-
-			if(num.substr(0,bus.length)==bus){
-				res=true;
-			}
-
-			if(!res){
-				var nom = $(this).find(".nom").html().toLowerCase();
-				var palabra = nom.split(" ");
+			$("#contactos .lista .item").each(function(index){
+				var res=false;
 				
-				$.each(palabra,function(k,v){
-					if(v.substr(0,bus.length)==bus){
-						res=true;
-					}
-				});
-			}
+				var num= $(this).find(".tel").html();
+
+				if(num.substr(0,bus.length)==bus){
+					res=true;
+				}
+
+				if(!res){
+					var nom = $(this).find(".nom").html().toLowerCase();
+					var palabra = nom.split(" ");
+					
+					$.each(palabra,function(k,v){
+						if(v.substr(0,bus.length)==bus){
+							res=true;
+						}
+					});
+				}
 
 
-			
+				
 
 
-			if(res){
-				$(this).show();
-			}else{
-				$(this).hide();
-			}
+				if(res){
+					$(this).show();
+				}else{
+					$(this).hide();
+				}
 
-		})
+			})
+		},1000);
+
+		
 	})
 
 	this.mostrar = function(){
 
 		this.invitados = new Array();
 
-		header.mostrar("back,done",'Elegir contactos<br><span class="sub">'+this.total+' de 10</span>');
+		header.mostrar("back",'Elegir contactos<br><span class="sub">'+this.total+' de 10</span>');
 
-		header.setButton("done",this.done);
-
-		this.listar();
+		//header.setButton("done",this.done);
+		if(!this.flag){
+			this.flag=true;
+			this.listar();	
+		}
+		
 
 		Contactos.prototype.mostrar.call(this);
 	}
@@ -110,9 +121,9 @@ var Contactos = function(){
 	}
 
 	this.listar = function(){
-		//console.log(internagrupo.miembros);
-		
-			//$("#contactos .lista").html("Listando contactos...");
+
+		$("#contactos .lista").empty();
+
 		var es = new Espera("Listando contactos...");
 
 		if(production){
@@ -140,6 +151,12 @@ var Contactos = function(){
 
 	this.onContacts = function(res){
 		
+		var arrInvitaciones = new Array();
+
+		$.each(usuario.invitaciones,function(k,v){
+			arrInvitaciones.push(v.telefono);
+		});
+
 		$.each(res,function(key,val){
 			var foto=null;
 			
@@ -159,102 +176,40 @@ var Contactos = function(){
 					tel = tel.replace(/ /g,"");
 					
 
-					if(tel.length==9 && tel.substr(0,1)!="0" && validos.indexOf(tel)==-1){
+					if(tel.length==9 && tel.substr(0,1)!="0"){
 
-						var nom = val.displayName;
-						if(nom==null) nom = val.name.formatted;
+						if(arrInvitaciones.indexOf(tel)==-1){
+							var nom = val.displayName;
+							if(nom==null) nom = val.name.formatted;
 
-						contactos.lista.push({
-							id:null,
-							nombre: nom,
-							telefono:tel,
-							original:v.value,
-							tipo:v.type,
-							foto:foto
-						});
-						validos.push(tel);
+
+							var it = new ItemContacto({
+								nombre: nom,
+								telefono: tel,
+								foto:foto,
+								original:v.value
+							});
+							$("#contactos .lista").append(it.html);
+
+						}
+
+						
+
+						
+
+						
+						
 					}
 
 				})
 
 			}
 		});
-		//console.log("validos");
-		//console.log(validos);
-
-		new Request("usuario/validarexisten",{
-			lista : validos.join(",")
-		},function(existen){
-			console.log("existen");
-			//console.log(existen);
-
-			$("#contactos .lista").empty();
-			//console.log(contactos.lista);
-
-			var mi = new Array();
-			var inv = new Array();
-			if(usuario.miembros!=null){
-				$.each(usuario.miembros,function(k,v){
-					mi.push(v.id);
-				});
-			}
-			
-			var inv = new Array();
-			if(usuario.invitaciones!=null){
-				$.each(usuario.invitaciones,function(k,v){
-					inv.push(v.id);
-				});
-			}
-
-			$.each(contactos.lista,function(key,val){
-				
-				var i = contactos.buscar(val.telefono,existen);
-				if(i!=-1){
-					if(val.telefono!=usuario.telefono){
-
-						if(mi.indexOf(existen[i].id)==-1 && inv.indexOf(existen[i].id)==-1){
-
-							val.id = existen[i].id;
-							val.pic = existen[i].id;
-							var it = new ItemContacto(val);
-							$("#contactos .lista").append(it.html);
-						}
-					}
-				};
-
-			});
-
-			$.each(contactos.lista,function(key,val){
-				
-				var i = contactos.buscar(val.telefono,existen);
-				if(i==-1){
-					if(val.telefono!=usuario.telefono){
-						
-							var it = new ItemContacto(val);
-							$("#contactos .lista").append(it.html);
-						
-					}
-					
-				};
-
-				
-				
-
-			});
-
-		})
+		$("#espera").hide();
 	
 	}
 
-	this.buscar = function(num,arr){
-		var res = -1;
-		$.each(arr,function(key,val){
-			if(val.telefono==num){
-				res=key;
-			}
-		})
-		return res;
-	}
+	
 
 
 
@@ -266,62 +221,71 @@ var ItemContacto = function(d){
 	
 	this.html = $(lib.ItemContacto);
 
-	this.html.attr("data-id",d.id);
 	if(d.foto!=null){
 		this.html.find(".pic").css("background-image",'url("'+d.foto+'")');
 	}
+	this.html.addClass("plus");
 	
-	if(d.id!=null){
-		this.html.addClass("app");
-		this.html.addClass("plus");
-	}
-	var ye=false;
-	$.each(internagrupo.miembros,function(k,v){
-
-		if(v.id == d.id){
-			ye=true;
-		}
-
-	})
-	if(ye){
-		this.html.removeClass('plus');
-		this.html.addClass("check");
-	}
 	
 	this.html.find('.nom').html(d.nombre);
 	this.html.find('.tel').html(d.telefono);
 
-	if(!ye){
+	
 
-		new Boton(this.html,function(e){
+	new Boton(this.html,function(e){
 
-			
-			
+		
+		if(d.foto==null) d.foto = "img/user.png";
 
-			if(d.id!=null){
+		var html = '<img src="'+d.foto+'" width="100" height="100" style="margin:auto;border-radius:50px;display:block;margin-bottom:10px">'+
+								d.nombre+"<br><strong>"+d.telefono+'</strong><div class="mensaje"></div>';
 
-				
-					if(e.hasClass("check")){
-						contactos.total--;
-
-						e.removeClass("check");
-					}else{
-						if(contactos.total<10){
-							contactos.total++;
-							e.addClass("check");
-						}else{
-							new Alerta("Solo puedes seleccionar hasta 10 contactos");
-						}	
-					}
-					$("#header .sub").html(contactos.total+" de 10");
-					
-				
-		        
-		        
-			}else{
-				window.plugins.socialsharing.shareViaSMS('Prueba LifeSignal para tu smartphone. Visita http://picnic.pe/lifesignal/ para descargarlo',d.original,function(msg){console.log('ok: ' + msg);},function(msg) {alert('error: ' + msg);});
-			}
-			
+		new Alerta(html,"Agregar a mi grupo",function(){
+			$("#alerta").show();
+			new Request("grupo/agregarmiembro",{
+				tel:d.telefono,
+				admin:usuario.llave
+			},function(ret){
+				if(ret.res=="no"){
+					$("#alerta .mensaje").html('<br><span style="color:rgba(225,27,76,1)">'+ret.msg+'</span>');
+					$("#alerta .bt.ok").html("Invitar por SMS");
+					$("#alerta").show();
+					$("#alerta .bt.ok").unbind();
+					new Boton($("#alerta .bt.ok"),function(){
+						window.plugins.socialsharing.shareViaSMS(ret.sms,d.original,function(msg){
+							new Request("grupo/invitarmiembro",{
+								tel:d.telefono,
+								admin:usuario.llave
+							},function(res){
+								new Alerta("Se envió la invitación a "+d.nombre+"<br>Cuando instale el app se le notificará que deseas agregarlo a tu grupo");
+								e.remove();
+							},{
+								espera:"Guardando..."
+							})
+							
+						
+						},function(msg) {
+							new Alerta("Ocurrió un error al enviar el SMS. Por favor inténtalo de nuevo más tarde");
+							//alert('error: ' + msg);
+						});
+					});
+				}else if(ret.res=="ok"){
+					new Alerta("Invitación pendiente de aceptación");
+					e.remove();
+				}
+			})
 		})
-	}
+		
+			
+				
+				
+			
+	        
+	        
+		
+			//window.plugins.socialsharing.shareViaSMS('Prueba LifeSignal para tu smartphone. Visita http://picnic.pe/lifesignal/ para descargarlo',d.original,function(msg){console.log('ok: ' + msg);},function(msg) {alert('error: ' + msg);});
+		
+		
+	})
+
 }
