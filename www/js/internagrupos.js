@@ -155,6 +155,60 @@ var Internagrupo = function(){
 		})	
 	}
 
+	this.seleccionarContacto = function(info){
+		
+		if(info.phoneNumbers!=null && (info.displayName!=null || info.name.formatted!="")){
+			
+			var numeros = new Array();
+
+			$.each(info.phoneNumbers,function(k,v){
+				var tel = v.value;
+				tel = tel.replace("+51","");
+				tel = tel.replace(/ /g,"");
+
+				if(tel.length==9 && tel.substr(0,1)!="0"){
+					numeros.push(tel);
+				}
+
+			});
+
+			if(numeros.length>0){
+
+				var foto = null;
+				if(info.photos!=null){
+					foto = info.photos[0].value;
+				}
+
+				var nombre = info.displayName;
+				if(nombre==null) nombre = info.name.formatted;
+
+				new Request("usuario/validarexisten",{
+					lista:numeros.join(",")
+				},function(res){
+					console.log(res);
+					//var html = '<img src="'+foto+'" width="100" height="100" style="margin:auto;border-radius:50px;display:block;margin-bottom:10px">'+
+					//			nombre;
+
+
+
+				},{
+					espera:"Validando..."
+				})
+
+			}else{
+				new Alerta("El contacto seleccionado no çuenta con número de celular");
+			}
+		}else{
+
+			new Alerta("El contacto seleccionado no tiene información completa");
+
+		}
+
+
+		
+
+
+	}
 	
 
 }

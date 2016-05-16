@@ -68,7 +68,8 @@ var Header = function(){
 	new Boton($("#header .btn.addcontact"),function(){
 		//getContent({page:"contactos"},true);
 		navigator.contacts.pickContact(function(contact){
-	        console.log('The following contact has been selected:' + JSON.stringify(contact));
+	        //console.log('The following contact has been selected:' + JSON.stringify(contact));
+	        internagrupo.seleccionarContacto(contact);
 	    },function(err){
 	        console.log('Error: ' + err);
 	    });
