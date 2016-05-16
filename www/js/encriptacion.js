@@ -15,7 +15,7 @@ var Enc = function(){
 			cont++; 
 			palval += llaval + 64;
 			if(palval > 255) palval-=255;
-			console.log(palval);
+			//console.log(palval);
 			resultado+=String.fromCharCode(palval);
 		}
 		

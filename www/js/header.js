@@ -67,12 +67,22 @@ var Header = function(){
 
 	new Boton($("#header .btn.addcontact"),function(){
 		//getContent({page:"contactos"},true);
-		navigator.contacts.pickContact(function(contact){
-	        //console.log('The following contact has been selected:' + JSON.stringify(contact));
-	        internagrupo.seleccionarContacto(contact);
-	    },function(err){
-	        console.log('Error: ' + err);
-	    });
+		if(production){
+			navigator.contacts.pickContact(function(contact){
+		        //console.log('The following contact has been selected:' + JSON.stringify(contact));
+		        internagrupo.seleccionarContacto(contact);
+		    },function(err){
+		        //console.log('Error: ' + err);
+		    });
+		}else{
+			$.ajax({
+				url:'contacto.json',
+				dataType:'json'
+			}).done(function(json){
+				internagrupo.seleccionarContacto(json);	
+			})
+			
+		}
 	});
 
 

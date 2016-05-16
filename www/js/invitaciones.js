@@ -27,9 +27,9 @@ var Invitaciones = function(){
 	}
 	this.revisarNuevas = function(){
 		new Request("usuario/buscarinvitaciones",{
-			id:usuario.id
+			llave:usuario.llave
 		},function(res){
-			console.log(res);
+//			console.log(res);
 			if(res.length>0){
 				usuario.setNotificaciones(res);
 			}else{
@@ -55,15 +55,22 @@ var ItemInvitacion = function(d){
 	}
 
 	new Boton(this.html.find(".bt.aceptar"),function(e){
-		
+		console.log(usuario);
 		new Alerta("Si ya perteneces a un grupo, dejarás de formar parte de él y pasarás a formar parte del nuevo grupo.<br><br>¿Deseas aceptar la invitación de "+d.nombres+"?","Aceptar",function(){
-
+			var antgrupo = null;
+			if(usuario.grupo!=null) antgrupo = usuario.grupo.id;
 			new Request("grupo/aceptarinvitacion",{
-				id:usuario.id,
-				grupo:d.grupo_id
+				tel:usuario.telefono,
+				grupo:d.grupo_id,
+				antgrupo:antgrupo,
+				admin:internagrupo.admin
 			},function(res){
-
-				socket.emit("directo",{ac:"invitacionrespondida",id:d.id});
+				if(usuario.miembros!=null){
+					$.each(usuario.miembros,function(k,v){
+						socket.emit("directo",{ac:"abandonagrupo",id:v.id});	
+					})
+				}
+				
 
 				usuario.setNotificaciones(null);
 
@@ -71,6 +78,11 @@ var ItemInvitacion = function(d){
 				usuario.setGrupo(res.grupo);
 				usuario.setMiembros(res.miembros);
 				
+				$.each(usuario.miembros,function(k,v){
+					socket.emit("directo",{ac:"invitacionrespondida",id:v.id});	
+				})
+				
+
 				getContent({page:"internagrupo"},true);
 				/*socket.emit("aceptarinvitacion",{
 					usuario:d.usuario_id,
@@ -94,7 +106,7 @@ var ItemInvitacion = function(d){
 		},function(res){
 
 			new Request("usuario/buscarinvitaciones",{
-				id:usuario.id
+				llave:usuario.llave
 			},function(res){
 				
 				if(res.length>0){
@@ -106,8 +118,11 @@ var ItemInvitacion = function(d){
 			},{
 				espera:null
 			})
+
+			$.each(res.miembros,function(k,v){
+				socket.emit("directo",{ac:"invitacionrespondida",id:v.id});
+			})
 			
-			socket.emit("directo",{ac:"invitacionrespondida",id:d.id});
 		});
 
 	});

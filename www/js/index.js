@@ -31,8 +31,8 @@ var version = "1.0.1";
 
 if(production){
     //pathapi = "http://picnic.pe/clientes/bancofalabella/RESTAPI/";
-   pathapi = 'http://192.168.0.16/lifesignal/api/';
-    //pathapi = "http://picnic.pe/clientes/lifesignal/api/";
+   //pathapi = 'http://192.168.0.16/lifesignal/api/';
+    pathapi = "http://picnic.pe/clientes/lifesignal/api2/";
 }else{
     //pathapi = 'http://52.34.151.159/RESTAPI/';
     pathapi = "http://localhost/lifesignal/api/";
@@ -59,13 +59,13 @@ var app = {
             document.addEventListener("resume", this.onDeviceResume);
             document.addEventListener("pause",this.onDevicePause);
             document.addEventListener("offline", function(){
-                console.log("offline");
+               // console.log("offline");
                 online=false;   
                
                 
             }, false);
             document.addEventListener("online",function(){
-                console.log("online");
+                //console.log("online");
                 online=true;
                 
             })
@@ -121,7 +121,7 @@ var app = {
     onDeviceReady: function() {
         w = $(window).innerWidth();
         h = $(window).innerHeight();
-        
+
         new Boton($("#contacto .cerrar"),function(){
             $("#contacto").hide();
         });
@@ -301,7 +301,7 @@ var Request = function(ac,params,callback,options){
         msg = options.espera;
     }
 
-    var es = new Espera(msg);
+   //var es = new Espera(msg);
 
     $.ajax({
         url:pathapi+ac,
@@ -311,17 +311,17 @@ var Request = function(ac,params,callback,options){
         cache:false,
         timeout:20*1000,
         success:function(res){
-            console.log(res);
-            es.fin();
+            //console.log(res);
+           // es.fin();
             callback(res);
         },
         error: function(x, t, m) {
             
-            console.log(x);
-            console.log(t);
-            console.log(m);
+           // console.log(x);
+            //console.log(t);
+            //console.log(m);
 
-            es.fin();
+            //es.fin();
 
             new Alerta("Ocurrió algún tipo de error.<br>Comprueba tu conexión de red o inténtalo de nuevo más tarde.");
             if(options!=undefined){

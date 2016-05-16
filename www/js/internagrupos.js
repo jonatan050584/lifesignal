@@ -46,7 +46,7 @@ var Internagrupo = function(){
 				if(usuario.miembros!=null){
 					$.each(usuario.miembros,function(k,v){
 						var id = v.id;
-						socket.emit("directo",{ac:"invitacionrespondida",id:id});
+						socket.emit("directo",{ac:"abandonagrupo",id:id});
 					})
 				}
 
@@ -108,7 +108,7 @@ var Internagrupo = function(){
 			new Request("grupo/listarinvitaciones",{
 				grupo:usuario.grupo.id
 			},function(res){
-				console.log(res);
+				//console.log(res);
 				usuario.setInvitaciones(res);
 			})
 		}else{
@@ -121,7 +121,7 @@ var Internagrupo = function(){
 			new Request("grupo/listarmiembros",{
 				grupo:usuario.grupo.id
 			},function(res){
-				console.log(res);
+				//console.log(res);
 				usuario.setMiembros(res);
 
 
@@ -182,7 +182,8 @@ var Internagrupo = function(){
 				var nombre = info.displayName;
 				if(nombre==null) nombre = info.name.formatted;
 				
-				$("#contacto").show();
+				
+
 				if(foto!=null){
 					$("#contacto .pic").attr("src",foto);
 				}else{
@@ -190,52 +191,38 @@ var Internagrupo = function(){
 				}
 				$("#contacto .nombre").html(nombre);
 				$("#contacto .numero .telefono").html("");
-
+				
 				if(numeros.length>1){
+
 					$("#contacto .seleccione").show();
 					$("#contacto .lista").empty();
 					$.each(numeros,function(k,v){
 						var html = $('<div class="item">'+v+'</div>');
 						$("#contacto .lista").append(html);
+						new Boton(html,function(){
+							$("#contacto").hide();
+							$("#contacto .seleccione").hide();
+							internagrupo.validarexiste(v,nombre);
+							new Espera("Validando...");
+						});
+
 					})
 					$("#contacto .noapp").hide();
 					$("#contacto .siapp").hide();
+
+					$("#contacto").show();
+
+
+				    $("#contacto").transition({opacity:0},0);
+				    
+				    $("#contacto").transition({opacity:1,complete:function(){
+				       // $("#alerta").show();
+
+				    }});
 				}else{
-					$("#contacto .seleccione").hide();
+					
 
-					new Request("usuario/validarexiste",{
-						tel:numeros[0]
-					},function(res){
-						if(res.info==null){
-							$("#contacto .siapp").hide();
-							$("#contacto .noapp").show();
-							$("#contacto .noapp .nom").html(nombre);
-							new Boton($("#contacto .noapp .bt.invitar"),function(){
-								$("#contacto").hide();
-								window.plugins.socialsharing.shareViaSMS('Instala Señal de Vida en tu smartphone y mantengámonos conectados en caso de Sismo. Visita http://picnic.pe/lifesignal/ para descargarlo',numeros[0],function(msg){
-									new Request("grupo/invitarmiembro",{
-										tel:numeros[0],
-										admin:usuario.llave
-									},function(){
-										internagrupo.mostrar();
-									})
-								},function(msg) {
-									alert('error: ' + msg);
-								});
-		
-							});
-						}else{
-							$("#contacto .siapp").show();
-							$("#contacto .noapp").hide();
-							if(res.info.pic!=null){
-								$("#contacto .pic").attr("src",res.info.pic);
-							}
-							$("#contacto .nombre").html(res.info.nombres+" "+res.info.apellidos);
-
-						}
-					},{
-						espera:"Validando..."
-					})
+					internagrupo.validarexiste(numeros[0],nombre);
 
 				}
 
@@ -255,6 +242,124 @@ var Internagrupo = function(){
 
 
 	}
+
+	this.validarexiste = function(tel,nombre){
+
+		console.log(usuario.invitaciones);
+		
+		var yaesta = false;
+		$.each(usuario.invitaciones,function(k,v){
+
+			if(v.telefono == tel || v.itelefono == tel){
+				yaesta=true;
+			}
+		});
+
+		$.each(usuario.miembros,function(k,v){
+			if(v.telefono == tel || v.itelefono == tel){
+				yaesta=true;
+			}
+		});
+
+		
+
+		if(!yaesta){
+			new Request("usuario/validarexiste",{
+				tel:tel
+			},function(res){
+				//$("#espera").show();
+				if(res.info==null){
+					$("#contacto .numero .telefono").html(tel);
+					$("#contacto .siapp").hide();
+					$("#contacto .noapp").show();
+					$("#contacto .noapp .nom").html(nombre);
+					new Boton($("#contacto .noapp .bt.invitar"),function(){
+						$("#contacto").hide();
+						
+						new Request("grupo/invitarmiembro",{
+							tel:tel,
+							nom:nombre,
+							admin:usuario.llave
+						},function(){
+							internagrupo.mostrar();
+							$.each(usuario.miembros,function(k,v){
+								socket.emit("directo",{ac:"nuevoinvitado",id:v.id});
+							});
+							
+						})
+
+						window.plugins.socialsharing.shareViaSMS('Instala Señal de Vida en tu smartphone y mantengámonos conectados en caso de Sismo. Visita http://picnic.pe/lifesignal/ para descargarlo',numeros[0],function(msg){
+							
+						},function(msg) {
+							alert('error: ' + msg);
+						});
+						
+					});
+				}else{
+					$("#contacto .siapp").show();
+					$("#contacto .noapp").hide();
+					if(res.info.pic!=null){
+						$("#contacto .pic").attr("src",res.info.pic);
+					}
+					$("#contacto .nombre").html(res.info.nombres+" "+res.info.apellidos);
+					$("#contacto .numero .telefono").html(res.info.telefono);
+
+					new Boton($("#contacto .siapp .bt.agregar"),function(){
+						$("#contacto").hide();
+
+						new Request("grupo/agregarmiembro",{
+							admin:usuario.llave,
+							tel:res.info.telefono
+						},function(){
+							internagrupo.mostrar();
+							$.each(usuario.miembros,function(k,v){
+								socket.emit("directo",{ac:"nuevoinvitado",id:v.id});
+							});
+							socket.emit("directo",{ac:"invitacion",id:res.info.id});
+						})
+					});
+
+				}
+
+				
+				setTimeout(function(){
+					$("#contacto").show();
+
+
+				    $("#contacto").transition({opacity:0},0);
+				    
+				    $("#contacto").transition({opacity:1,complete:function(){
+				       // $("#alerta").show();
+
+				    }});
+				   $("#espera").transition({opacity:0,complete:function(){
+			      
+				       $("#espera").hide();
+				       $("#espera").css("opacity",1);
+				       
+				    }});
+				},1000);
+			    
+				
+				
+
+
+			},{
+				espera:"Validando..."
+			})
+		}else{
+
+			setTimeout(function(){
+				$("#espera").transition({opacity:0,complete:function(){
+				      
+			       $("#espera").hide();
+			       $("#espera").css("opacity",1);
+			       
+			    }});
+				new Alerta("Ese número ya pertenece a tu grupo o está pendiente de aceptación");
+			},1000);
+		}
+	}
 	
 
 }
@@ -262,10 +367,18 @@ Internagrupo.prototype = new Seccion();
 
 var ItemMiembro = function(d,estado){
 	//internagrupo.miembros.push(d);
+	console.log(d);
+
+	var nombres = d.nombres+' '+d.apellidos;
+	var telefono = d.telefono;
+	if(d.invitado==null && estado=="pendiente"){
+		nombres = d.inombres;
+		telefono = d.itelefono;
+	}
 	
 	this.html = $(lib.ItemMiembro);
 	if(estado!=undefined) this.html.addClass(estado);
-	this.html.find('.nom').html(d.nombres+' '+d.apellidos);
+	this.html.find('.nom').html(nombres);
 	
 
 	if(d.pic!=null){
@@ -278,11 +391,11 @@ var ItemMiembro = function(d,estado){
 	//
 
 	new Boton(this.html,function(){
-		if(d.pic == null) d.pic = "img/grey.jpg";
+		if(d.pic == null) d.pic = "img/user.png";
 		var html = '<img src="'+d.pic+'" width="100" height="100" style="margin:auto;border-radius:50px;display:block;margin-bottom:20px">'+
-								d.nombres+" "+d.apellidos;
+								nombres+'<br>'+telefono;
 		new Alerta(html,"LLamar",function(){
-			window.open("tel:"+d.telefono, '_system');
+			window.open("tel:"+telefono, '_system');
 			$("#alerta").show();
 		});
 	});

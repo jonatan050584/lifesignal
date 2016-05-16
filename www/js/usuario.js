@@ -28,7 +28,7 @@ var Usuario = function(){
 
 
         
-        socket = io.connect('http://picnic.pe:8882');
+        socket = io.connect('http://picnic.pe:8883');
 
         socket.on("connect", function() {
             //alert("conectado");
@@ -63,10 +63,18 @@ var Usuario = function(){
                 case "invitacion":
                     invitaciones.revisarNuevas();
                     break;
+                case "nuevoinvitado":
+                    internagrupo.listarpendientes();
+                    break;
                 case "invitacionrespondida":
                     internagrupo.listarpendientes();
                     internagrupo.listarmiembros();
                     break;
+                case "abandonagrupo":
+                    internagrupo.listarmiembros();
+                    internagrupo.listarpendientes();
+                    break;
+
             }
             
         })

@@ -133,7 +133,7 @@ var Contactos = function(){
 			options.multiple = true;
 			
 			navigator.contacts.find(['displayName', 'name','phoneNumbers'], this.onContacts, function(e){
-				console.log(error);
+				//console.log(error);
 			}, options);
 		}else{
 
