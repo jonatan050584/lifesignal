@@ -121,8 +121,11 @@ var app = {
     onDeviceReady: function() {
         w = $(window).innerWidth();
         h = $(window).innerHeight();
-
         
+        new Boton($("#contacto .cerrar"),function(){
+            $("#contacto").hide();
+        });
+
         comprobarVersion();
         /*
         var push = PushNotification.init({

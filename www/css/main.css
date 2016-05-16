@@ -277,7 +277,7 @@ a.over{
 }
 
 #contacto{
-	display: block;
+	display: none;
 }
 #contacto .seleccione{
 	display: none;
