@@ -27,8 +27,8 @@ var Usuario = function(){
         flaglogin=true;
 
 
-        
-        socket = io.connect('http://picnic.pe:8883');
+        if(production) socket = io.connect('http://picnic.pe:8883');
+        else socket = io.connect('http://localhost:8883');
 
         socket.on("connect", function() {
             //alert("conectado");
