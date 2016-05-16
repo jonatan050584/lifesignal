@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Life Signal</title>
 	<meta http-equiv="Content-Security-Policy" content="img-src  * 'self' data:; default-src *; style-src 'self' * 'unsafe-inline'; script-src 'self' 'unsafe-inline'  * 'unsafe-eval'">
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1, height=device-height, target-densitydpi=device-dpi">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1, height=device-height">
     <meta name="format-detection" content="telephone=no">
     <!--<script src="http://picnic.pe:8882/socket.io/socket.io.js"></script>-->
     <script src="js/socket.io.js"></script>
@@ -30,7 +30,38 @@
 	</div>
 </div>
 
-<div id="alerta">
+<div class="alerta" id="contacto">
+	<div class="table">
+		<div class="cell">
+			
+			<div class="ventana">
+				<div class="cerrar">+</div>
+				<div class="txt">
+					<img src="img/user.png" width="70" height="70" class="pic">
+					<div class="nombre">John Doe</div>
+					<div class="seleccione">
+						<div class="ins">El contacto tiene más de un número de celular. Seleccione uno:</div>
+						<div class="lista"></div>
+					</div>
+					<div class="numero">
+						<div class="telefono">980080654</div>
+						<div class="siapp">
+							<div class="bt agregar">Agregar a mi grupo</div>
+						</div>
+						<div class="noapp">
+							<div class="msg">Este número no está registrado.<br>Invita a <span class="nom"></span> a instalar Señal de Vida para que pueda ser parte de tu grupo</div>
+							<div class="bt invitar">Invitar por SMS</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	
+	</div>
+</div>
+
+<div class="alerta" id="alerta">
 	<div class="table">
 		<div class="cell">
 			

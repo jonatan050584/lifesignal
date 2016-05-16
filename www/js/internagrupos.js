@@ -182,18 +182,45 @@ var Internagrupo = function(){
 				var nombre = info.displayName;
 				if(nombre==null) nombre = info.name.formatted;
 
-				new Request("usuario/validarexisten",{
-					lista:numeros.join(",")
-				},function(res){
-					console.log(res);
-					//var html = '<img src="'+foto+'" width="100" height="100" style="margin:auto;border-radius:50px;display:block;margin-bottom:10px">'+
-					//			nombre;
+				$("#contacto").show();
+				if(foto!=null){
+					$("#contacto .pic").attr("src",foto);
+				}else{
+					$("#contacto .pic").attr("src","img/user.png");
+				}
+				$("#contacto .nombre").html(nombre);
 
+				if(numeros.length>1){
+					$("#contacto .seleccione").show();
+					$("#contacto .lista").empty();
+					$.each(numeros,function(k,v){
+						var html = $('<div class="item">'+v+'</div>');
+						$("#contacto .lista").append(html);
+					})
 
+				}else{
+					$("#contacto .seleccione").hide();
 
-				},{
-					espera:"Validando..."
-				})
+					new Request("usuario/validarexiste",{
+						tel:numero[0]
+					},function(res){
+						if(res.info==null){
+							$("#contacto .siapp").hide();
+							$("#contacto .noapp").show();
+							$("#contacto .noapp .nom").html(nombre);
+						}else{
+							if(res.info.pic!=null){
+								$("#contacto .pic").attr("src",res.info.pic);
+							}
+							$("#contacto .nombre").html(res.info.nombre);
+						}
+					},{
+						espera:"Validando..."
+					})
+
+				}
+
+				
 
 			}else{
 				new Alerta("El contacto seleccionado no çuenta con número de celular");

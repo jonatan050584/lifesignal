@@ -198,7 +198,7 @@ a.over{
 	background-repeat: no-repeat;
 	background-position: center center;
 }
-#alerta{
+.alerta{
 	display: none;
 	width: 100%;
 	height: 100%;
@@ -208,19 +208,19 @@ a.over{
 	-webkit-transform: translateZ(0);
 	background: rgba(0,0,0,0.7);
 }
-#alerta .table{
+.alerta .table{
 	width: 100%;
 	height: 100%;
 	display: table;
 }
-#alerta .table .cell{
+.alerta .table .cell{
 	display: table-cell;
 	width: 100%;
 	height: 100%;
 	vertical-align: middle;
 	text-align: center;
 }
-#alerta .ventana{
+.alerta .ventana{
 	background: #fff;
 	width: 300px;
 	min-height: 130px;
@@ -230,7 +230,7 @@ a.over{
 	padding-bottom: 30px;
 	-webkit-transform: translateZ(0);
 }
-#alerta .cerrar{
+.alerta .cerrar{
 	position: absolute;
     right: 20px;
     top: 10px;
@@ -241,14 +241,14 @@ a.over{
     color: #e11b4c;
     font-family: 'montserratbold';
 }
-#alerta .txt{
+.alerta .txt{
 	padding-left: 30px;
 	padding-right: 30px;
 	padding-top: 50px;
 	font-size: 14px;
 	line-height: 18px;
 }
-#alerta .bt.ok{
+.alerta .bt.ok{
 	margin-top: 20px;
 }
 #espera{
@@ -276,7 +276,70 @@ a.over{
 	font-size: 13px;
 }
 
+#contacto{
+	display: block;
+}
+#contacto .seleccione{
+	display: none;
+}
+#contacto .pic{
+	margin:auto;
+	border-radius:50px;
+	display:block;
+	margin-bottom:10px;
+}
+#contacto .nombre{
+	margin-bottom: 10px;
+	color: #000;
+	font-family: 'montserratregular';
+}
+#contacto .item{
+	text-align: content: '';
+	line-height: 50px;
+	border-bottom: solid 1px #d5d5d8;
+}
+#contacto .item:first-child{
+	border-top: solid 1px #d5d5d8;
+}
+#contacto .siapp{
+	display: none;
+}
+#contacto .numero .telefono{
+	margin-bottom: 20px;
+}
+#contacto .msg{
+	font-size: 11px;
+	text-align: center;
+	color:#e11b4c;
+	line-height: 1.3em;
+	margin-bottom: 10px;
+}
+#contacto .lista{
+	height: 205px;
+	overflow: auto;
+	margin-top: 10px;
+}
+#contacto .ins{
+	font-size: 10px;
+	text-align: justify;
+	color:#e11b4c;
+}
+#contacto .inv{
+	background: #e11b4c;
+	color: #fff;
+	font-size: 10px;
+	line-height: 12px;
+	float: right;
+	border-radius: 3px;
+	margin-top: 11px;
+	width: 50px;
+	text-align: center;
+	padding: 3px;
+	display: none;
+}
+#contacto .numero{
 
+}
 h1.titulo{
 	display: table;
 	margin: auto;
