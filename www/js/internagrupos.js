@@ -245,7 +245,7 @@ var Internagrupo = function(){
 
 	this.validarexiste = function(tel,nombre){
 
-		console.log(usuario.invitaciones);
+		//console.log(usuario.invitaciones);
 		
 		var yaesta = false;
 		$.each(usuario.invitaciones,function(k,v){
@@ -288,7 +288,7 @@ var Internagrupo = function(){
 							
 						})
 
-						window.plugins.socialsharing.shareViaSMS('Instala Señal de Vida en tu smartphone y mantengámonos conectados en caso de Sismo. Visita http://picnic.pe/lifesignal/ para descargarlo',numeros[0],function(msg){
+						window.plugins.socialsharing.shareViaSMS('Instala Señal de Vida en tu smartphone y mantengámonos conectados en caso de Sismo. Visita http://picnic.pe/lifesignal/ para descargarlo',tel,function(msg){
 							
 						},function(msg) {
 							alert('error: ' + msg);
