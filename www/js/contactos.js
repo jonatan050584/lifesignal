@@ -252,7 +252,7 @@ var ItemContacto = function(d){
 					$("#alerta").show();
 					$("#alerta .bt.ok").unbind();
 					new Boton($("#alerta .bt.ok"),function(){
-						window.plugins.socialsharing.shareViaSMS(ret.sms,d.original,function(msg){
+						/*window.plugins.socialsharing.shareViaSMS(ret.sms,d.original,function(msg){
 							console.log("mensaje enviado: "+msg);
 							new Request("grupo/invitarmiembro",{
 								tel:d.telefono,
@@ -269,7 +269,23 @@ var ItemContacto = function(d){
 
 							new Alerta("Ocurrió un error al enviar el SMS. Por favor inténtalo de nuevo más tarde");
 							console.log('mensaje error: ' + msg);
-						});
+						});*/
+
+						
+
+				        //CONFIGURATION
+				        var options = {
+				            replaceLineBreaks: false, // true to replace \n by a new line, false by default
+				            android: {
+				                intent: 'INTENT'  // send SMS with the native android SMS messaging
+				                //intent: '' // send SMS without open any other app
+				            }
+				        };
+
+				        var success = function () { alert('Message sent successfully'); };
+				        var error = function (e) { alert('Message Failed:' + e); };
+				        sms.send(d.telefono, ret.sms, options, success, error);
+				    
 					});
 				}else if(ret.res=="ok"){
 					new Alerta("Invitación pendiente de aceptación");

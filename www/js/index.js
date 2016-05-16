@@ -481,7 +481,7 @@ var Alerta = function(msg,btn,callback,noclose){
 
     var vh = $("#alerta").outerHeight();
 
-    $("#alerta").css("top",(h-vh)/2);
+    //$("#alerta").css("top",(h-vh)/2);
 
     $("#alerta").transition({opacity:1,complete:function(){
        // $("#alerta").show();
