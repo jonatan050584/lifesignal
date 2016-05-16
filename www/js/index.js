@@ -27,7 +27,7 @@ var h; //alto de pantalla
 
 var terremoto = false;
 
-var version = "1.0.1";
+var version = "1.0.2";
 
 if(production){
     //pathapi = "http://picnic.pe/clientes/bancofalabella/RESTAPI/";
