@@ -51,6 +51,7 @@ var Home = function(){
 	                    	fbid:infofb.id,
 	                    	email:infofb.email
 	                    },function(res){
+	                    	$("#espera").hide();
 	                    	if(res.existe){
 	                    		usuario = new Usuario();
 	                    		usuario.iniciar(res);
