@@ -156,7 +156,7 @@ var Internagrupo = function(){
 	}
 
 	this.seleccionarContacto = function(info){
-		
+		console.log(info);
 		if(info.phoneNumbers!=null && (info.displayName!=null || info.name.formatted!="")){
 			
 			var numeros = new Array();
@@ -181,7 +181,7 @@ var Internagrupo = function(){
 
 				var nombre = info.displayName;
 				if(nombre==null) nombre = info.name.formatted;
-
+				console.log(nombre);
 				$("#contacto").show();
 				if(foto!=null){
 					$("#contacto .pic").attr("src",foto);
@@ -202,17 +202,34 @@ var Internagrupo = function(){
 					$("#contacto .seleccione").hide();
 
 					new Request("usuario/validarexiste",{
-						tel:numero[0]
+						tel:numeros[0]
 					},function(res){
 						if(res.info==null){
 							$("#contacto .siapp").hide();
 							$("#contacto .noapp").show();
 							$("#contacto .noapp .nom").html(nombre);
+							new Boton($("#contacto .noapp .bt.invitar"),function(){
+								$("#contacto").hide();
+								window.plugins.socialsharing.shareViaSMS('Instala Señal de Vida en tu smartphone y mantengámonos conectados en caso de Sismo. Visita http://picnic.pe/lifesignal/ para descargarlo',numeros[0],function(msg){
+									new Request("grupo/invitarmiembro",{
+										tel:numeros[0],
+										admin:usuario.llave
+									},function(){
+										internagrupo.mostrar();
+									})
+								},function(msg) {
+									alert('error: ' + msg);
+								});
+		
+							});
 						}else{
+							$("#contacto .siapp").show();
+							$("#contacto .noapp").hide();
 							if(res.info.pic!=null){
 								$("#contacto .pic").attr("src",res.info.pic);
 							}
-							$("#contacto .nombre").html(res.info.nombre);
+							$("#contacto .nombre").html(res.info.nombres+" "+res.info.apellidos);
+
 						}
 					},{
 						espera:"Validando..."
@@ -223,7 +240,7 @@ var Internagrupo = function(){
 				
 
 			}else{
-				new Alerta("El contacto seleccionado no çuenta con número de celular");
+				new Alerta("El contacto seleccionado no cuenta con número de celular");
 			}
 		}else{
 

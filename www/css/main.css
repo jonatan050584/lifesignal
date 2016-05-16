@@ -304,6 +304,9 @@ a.over{
 #contacto .siapp{
 	display: none;
 }
+#contacto .noapp{
+	display: none;
+}
 #contacto .numero .telefono{
 	margin-bottom: 20px;
 }
@@ -315,7 +318,7 @@ a.over{
 	margin-bottom: 10px;
 }
 #contacto .lista{
-	height: 205px;
+	max-height: 205px;
 	overflow: auto;
 	margin-top: 10px;
 }
