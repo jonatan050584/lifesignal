@@ -156,12 +156,14 @@ var Internagrupo = function(){
 	}
 
 	this.seleccionarContacto = function(info){
-		
+		console.log("picnic 0");
+		console.log(info);
 		if(info.phoneNumbers!=null && (info.displayName!=null || info.name.formatted!="")){
-			
+			console.log("picnic 1");
 			var numeros = new Array();
 
 			$.each(info.phoneNumbers,function(k,v){
+
 				var tel = v.value;
 				tel = tel.replace("+51","");
 				tel = tel.replace(/ /g,"");
@@ -172,28 +174,32 @@ var Internagrupo = function(){
 
 			});
 
+			console.log("picnic 2");
+
+
 			if(numeros.length>0){
 
-				var foto = null;
+				/*var foto = null;
 				if(info.photos!=null){
 					foto = info.photos[0].value;
-				}
+				}*/
 
 				var nombre = info.displayName;
 				if(nombre==null) nombre = info.name.formatted;
 				
 				
 
-				if(foto!=null){
+				/*if(foto!=null){
 					$("#contacto .pic").attr("src",foto);
 				}else{
 					$("#contacto .pic").attr("src","img/user.png");
-				}
+				}*/
+				$("#contacto .pic").attr("src","img/user.png");
 				$("#contacto .nombre").html(nombre);
 				$("#contacto .numero .telefono").html("");
 				
 				if(numeros.length>1){
-
+					console.log("picnic 3");
 					$("#contacto .seleccione").show();
 					$("#contacto .lista").empty();
 					$.each(numeros,function(k,v){
@@ -206,7 +212,9 @@ var Internagrupo = function(){
 							new Espera("Validando...");
 						});
 
-					})
+					});
+
+					console.log("picnic 4");
 					$("#contacto .noapp").hide();
 					$("#contacto .siapp").hide();
 
@@ -221,9 +229,9 @@ var Internagrupo = function(){
 				    }});
 				}else{
 					
-
+					console.log("picnic 5");
 					internagrupo.validarexiste(numeros[0],nombre);
-
+					console.log("picnic 6");
 				}
 
 				
