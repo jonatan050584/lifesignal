@@ -74,9 +74,12 @@ var Header = function(){
 
 			//getContent({page:"contactos"},true);
 			if(production){
+				console.log("aca");
+				console.log(navigator);
+				console.log(navigator.contacts);
 				navigator.contacts.pickContact(function(contact){
-			        //console.log('The following contact has been selected:' + JSON.stringify(contact));
-			        internagrupo.seleccionarContacto(contact);
+			        console.log('The following contact has been selected:' + JSON.stringify(contact));
+			        //internagrupo.seleccionarContacto(contact);
 			    },function(err){
 			        console.log('Error: ' + err);
 			    });
