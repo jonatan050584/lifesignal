@@ -75,10 +75,10 @@ var Header = function(){
 			//getContent({page:"contactos"},true);
 			if(production){
 				navigator.contacts.pickContact(function(contact){
-			        //console.log('The following contact has been selected:' + JSON.stringify(contact));
-			        internagrupo.seleccionarContacto(contact);
+			        console.log('The following contact has been selected:' + JSON.stringify(contact));
+			        //internagrupo.seleccionarContacto(contact);
 			    },function(err){
-			        //console.log('Error: ' + err);
+			        console.log('Error: ' + err);
 			    });
 			}else{
 				$.ajax({
