@@ -32,9 +32,9 @@
 
    
 
-    <plugin name="cordova-plugin-contacts" />
+    <plugin name="org.apache.cordova.contacts" spec="0.2.16" source="pgb" />
   
-    <plugin name="cordova-plugin-android-permissions" />
+    
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="org.apache.cordova.network-information" spec="0.2.15" source="pgb" />
 
