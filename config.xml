@@ -35,7 +35,7 @@
 
     <feature name="http://api.phonegap.com/1.0/contacts"/>
   
-
+    <plugin name="cordova-plugin-android-permissions" spec="0.6.0"></plugin>
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="org.apache.cordova.network-information" spec="0.2.12" source="pgb" />
 
